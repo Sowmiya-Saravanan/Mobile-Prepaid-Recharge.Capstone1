@@ -1,0 +1,23 @@
+[
+    {
+        "id": "1",
+        "name": "Basic Plan",
+        "data": 2,
+        "validity": 30,
+        "price": 299
+    },
+    {
+        "id": "2",
+        "name": "Premium Plan",
+        "data": 5,
+        "validity": 30,
+        "price": 499
+    },
+    {
+        "id": "3",
+        "name": "Unlimited Plan",
+        "data": "Unlimited",
+        "validity": 30,
+        "price": 799
+    }
+]

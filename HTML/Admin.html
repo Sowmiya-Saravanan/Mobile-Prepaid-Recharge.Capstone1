@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard</title>
+  <!-- Font Awesome & Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      display: flex;
+      background-color: #f8f9fa;
+      font-family: Arial, sans-serif;
+    }
+    /* Sidebar Styling */
+    .sidebar {
+      width: 260px;
+      background: #477abd;
+      color: white;
+      height: 100vh;
+      padding-top: 20px;
+      position: fixed;
+      transition: all 0.3s ease-in-out;
+    }
+    .sidebar h4 {
+      text-align: center;
+      font-weight: bold;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .sidebar a {
+      padding: 15px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      color: white;
+      font-size: 16px;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .sidebar a:hover {
+      background: #5a8dd0;
+      color: black;
+      font-weight: bold;
+    }
+    .sidebar a i {
+      margin-right: 10px;
+    }
+    /* Content Styling */
+    .content {
+      margin-left: 260px;
+      padding: 20px;
+      width: 100%;
+      transition: all 0.3s ease-in-out;
+    }
+    /* Table Styling */
+    .table-container {
+      margin: 20px auto;
+      width: 90%;
+    }
+    .table {
+      background-color: white;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .table thead {
+      background-color: #477abd;
+      color: white;
+      text-align: center;
+    }
+    .table tbody td {
+      text-align: center;
+    }
+    .table-hover tbody tr:hover {
+      background-color: #f1f1f1;
+    }
+    /* Custom Button */
+    .btn-custom {
+      background-color: #477abd;
+      border: none;
+      transition: 0.3s;
+    }
+    .btn-custom:hover {
+      background-color: #5a8dd0;
+      color: black;
+    }
+    /* Modal Customization */
+    .modal-header {
+      background-color: #4d85ce;
+      color: white;
+    }
+    .modal-content {
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    /* Page Sections */
+    .page {
+      display: none;
+    }
+    /* Expiring Plans Section */
+    .expiring-plans {
+      margin-bottom: 20px;
+    }
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+      }
+      .content {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h4>Admin Panel</h4>
+    <a onclick="showPage('dashboard')"><i class="fas fa-tachometer-alt"></i> Dashboard Overview</a>
+    <a onclick="showPage('subscribers')"><i class="fas fa-users"></i> Subscribers List</a>
+    <a onclick="showPage('plans')"><i class="fas fa-file-invoice-dollar"></i> Plans Management</a>
+    <a onclick="showPage('users')"><i class="fas fa-user-cog"></i> User Management</a>
+    <a onclick="showPage('logout')"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content">
+    <!-- Dashboard Overview Page -->
+    <div id="dashboard" class="page" style="display: block;">
+      <nav class="navbar navbar-light">
+        <span class="navbar-brand h1">Mobi-Comm Dashboard</span>
+      </nav>
+      <div class="container-fluid mt-3">
+        <!-- Expiring Plans Section -->
+        <div class="card expiring-plans">
+          <div class="card-header bg-warning text-white">
+            <h5 class="mb-0">Plans Expiring in 3 Days</h5>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered mb-0">
+                <thead class="table-light">
+                  <tr>
+                    <th>Name</th>
+                    <th>Phone Number</th>
+                    <th>Plan</th>
+                    <th>Expiry Date</th>
+                    <th>Days Remaining</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>David Lee</td>
+                    <td>9123456790</td>
+                    <td>Premium</td>
+                    <td>2025-03-10</td>
+                    <td class="text-danger fw-bold">3</td>
+                  </tr>
+                  <tr>
+                    <td>Emma Stone</td>
+                    <td>9876543201</td>
+                    <td>Standard</td>
+                    <td>2025-03-10</td>
+                    <td class="text-danger fw-bold">3</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- End Expiring Plans Section -->
+
+        <!-- Metric Cards -->
+        <div class="row g-3">
+          <div class="col-md-3 col-sm-6">
+            <div class="card text-white bg-primary">
+              <div class="card-body">
+                <h5 class="card-title">Total Subscribers</h5>
+                <p class="card-text fs-4">1,200</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="card text-white bg-success">
+              <div class="card-body">
+                <h5 class="card-title">Total Revenue</h5>
+                <p class="card-text fs-4">₹1,500,000</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="card text-white bg-warning">
+              <div class="card-body">
+                <h5 class="card-title">Active Plans</h5>
+                <p class="card-text fs-4">3</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="card text-white bg-danger">
+              <div class="card-body">
+                <h5 class="card-title">Renewals</h5>
+                <p class="card-text fs-4">850</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Metric Cards -->
+
+        <!-- Charts Grid -->
+        <div class="row mt-4">
+          <div class="col-lg-6 col-md-12 mb-4">
+            <div class="card">
+              <div class="card-header">Subscriber Growth</div>
+              <div class="card-body">
+                <canvas id="chartBar"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-12 mb-4">
+            <div class="card">
+              <div class="card-header">Revenue Trend</div>
+              <div class="card-body">
+                <canvas id="chartLine"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-12 mb-4">
+            <div class="card">
+              <div class="card-header">Plan Distribution</div>
+              <div class="card-body">
+                <canvas id="chartPie"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-12 mb-4">
+            <div class="card">
+              <div class="card-header">Plan Revenue</div>
+              <div class="card-body">
+                <canvas id="chartDoughnut"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-12 mb-4">
+            <div class="card">
+              <div class="card-header">Plan Popularity</div>
+              <div class="card-body">
+                <canvas id="chartRadar"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Charts Grid -->
+      </div>
+    </div>
+
+    <!-- Subscribers List Page -->
+    <div id="subscribers" class="page">
+      <nav class="navbar navbar-light">
+        <span class="navbar-brand h1">Subscribers List</span>
+      </nav>
+      <div class="table-container">
+        <h2 class="text-center my-4">Subscriber List</h2>
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Mobile Number</th>
+              <th>Current Plan</th>
+              <th>Expiry Date</th>
+              <th>Days Remaining</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Alice Johnson</td>
+              <td>9123456781</td>
+              <td>₹299 / Basic</td>
+              <td>2025-03-15</td>
+              <td class="text-danger fw-bold">5</td>
+            </tr>
+            <tr>
+              <td>Bob Smith</td>
+              <td>9876543212</td>
+              <td>₹499 / Standard</td>
+              <td>2025-03-18</td>
+              <td class="text-danger fw-bold">8</td>
+            </tr>
+            <tr>
+              <td>Charlie Davis</td>
+              <td>9988776655</td>
+              <td>₹799 / Premium</td>
+              <td>2025-03-12</td>
+              <td class="text-danger fw-bold">2</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- Active Subscribers with Varied Plans -->
+      <div class="table-container">
+        <h3 class="text-center my-4">Active Subscribers</h3>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Phone Number</th>
+                <th>Plan Details</th>
+                <th>Validity</th>
+                <th>View Details</th>
+              </tr>
+            </thead>
+            <tbody id="subscribedMembers">
+              <!-- Active subscribers will be populated here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Plans Management Page -->
+    <div id="plans" class="page">
+      <nav class="navbar navbar-light">
+        <span class="navbar-brand h1">Plans Management</span>
+      </nav>
+      <div class="table-container">
+        <h3 class="text-center my-4">Available Plans</h3>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Plan Name</th>
+              <th>Price</th>
+              <th>Validity</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="plansTable">
+            <tr>
+              <td>Basic Plan</td>
+              <td>₹299</td>
+              <td>30 days</td>
+              <td>
+                <button class="btn btn-custom text-white" onclick="openEditModal(this)">Edit</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Standard Plan</td>
+              <td>₹499</td>
+              <td>60 days</td>
+              <td>
+                <button class="btn btn-custom text-white" onclick="openEditModal(this)">Edit</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Premium Plan</td>
+              <td>₹799</td>
+              <td>90 days</td>
+              <td>
+                <button class="btn btn-custom text-white" onclick="openEditModal(this)">Edit</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- User Management Page -->
+    <div id="users" class="page">
+      <nav class="navbar navbar-light">
+        <span class="navbar-brand h1">User Management</span>
+      </nav>
+      <div class="table-container">
+        <h3 class="text-center my-4">Registered Users</h3>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Admin One</td>
+              <td>admin1@example.com</td>
+              <td>Administrator</td>
+              <td>Active</td>
+              <td>
+                <button class="btn btn-custom text-white">Edit</button>
+                <button class="btn btn-danger text-white">Delete</button>
+              </td>
+            </tr>
+            <tr>
+              <td>User One</td>
+              <td>user1@example.com</td>
+              <td>Subscriber</td>
+              <td>Active</td>
+              <td>
+                <button class="btn btn-custom text-white">Edit</button>
+                <button class="btn btn-danger text-white">Delete</button>
+              </td>
+            </tr>
+            <tr>
+              <td>User Two</td>
+              <td>user2@example.com</td>
+              <td>Subscriber</td>
+              <td>Inactive</td>
+              <td>
+                <button class="btn btn-custom text-white">Edit</button>
+                <button class="btn btn-danger text-white">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Logout Page -->
+    <div id="logout" class="page">
+      <nav class="navbar navbar-light">
+        <span class="navbar-brand h1">Logout</span>
+      </nav>
+      <div class="container mt-5">
+        <div class="alert alert-info text-center" role="alert">
+          You have been logged out.
+        </div>
+        <div class="text-center">
+          <button class="btn btn-custom text-white" onclick="location.reload()">Login Again</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Recharge Modal -->
+    <div class="modal fade" id="rechargeModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="subscriberName"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Phone Number</th>
+                  <th>Plan Name</th>
+                  <th>Date</th>
+                  <th>Mode of Payment</th>
+                </tr>
+              </thead>
+              <tbody id="rechargeDetails"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Edit Plan Modal -->
+    <div class="modal fade" id="editPlanModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Edit Plan</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <form id="editPlanForm">
+              <div class="mb-3">
+                <label for="planName" class="form-label">Plan Name</label>
+                <input type="text" class="form-control" id="planName" required />
+              </div>
+              <div class="mb-3">
+                <label for="planPrice" class="form-label">Price</label>
+                <input type="text" class="form-control" id="planPrice" required />
+              </div>
+              <div class="mb-3">
+                <label for="planValidity" class="form-label">Validity</label>
+                <input type="text" class="form-control" id="planValidity" required />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-custom" onclick="savePlan()">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> <!-- End Content -->
+
+  <!-- Scripts: Chart.js & Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Function to switch between pages
+    function showPage(pageId) {
+      document.querySelectorAll('.page').forEach(function(page) {
+        page.style.display = 'none';
+      });
+      document.getElementById(pageId).style.display = 'block';
+    }
+
+    // Populate Active Subscribers table with dummy data and varied plan details
+    const dummyNames = [
+      "Emily Clark", "Michael Brown", "Sophia Turner", "James Wilson", "Olivia Harris",
+      "Liam Martin", "Ava Lewis", "Noah Walker", "Isabella Young", "Mason King",
+      "Mia Wright", "Ethan Scott", "Amelia Green", "Logan Adams", "Charlotte Baker",
+      "Lucas Nelson", "Harper Carter", "Benjamin Mitchell", "Evelyn Perez", "Elijah Roberts"
+    ];
+    
+    // Array of plan options
+    const planOptions = [
+      { plan: 'Basic', details: '₹299 / Basic' },
+      { plan: 'Standard', details: '₹499 / Standard' },
+      { plan: 'Premium', details: '₹799 / Premium' },
+      { plan: 'Unlimited', details: '₹999 / Unlimited' },
+      { plan: 'Flexible', details: '₹399 / Flexible' }
+    ];
+    
+    // Array of validity options for variety
+    const validityOptions = [
+      "2025-04-01 to 2025-04-30",
+      "2025-05-01 to 2025-05-30",
+      "2025-06-01 to 2025-06-30",
+      "2025-07-01 to 2025-07-31"
+    ];
+    
+    const membersTable = document.getElementById("subscribedMembers");
+    dummyNames.forEach((name) => {
+      const phone = '9' + Math.floor(100000000 + Math.random() * 900000000);
+      const randomPlan = planOptions[Math.floor(Math.random() * planOptions.length)];
+      const randomValidity = validityOptions[Math.floor(Math.random() * validityOptions.length)];
+      membersTable.innerHTML += `<tr>
+          <td>${name}</td>
+          <td>${phone}</td>
+          <td>${randomPlan.details}</td>
+          <td>${randomValidity}</td>
+          <td><button class="btn btn-custom text-white" onclick="showRechargeHistory('${name}', '${phone}')">Recharge History</button></td>
+        </tr>`;
+    });
+
+    // Chart.js initialization for Dashboard Overview
+    window.addEventListener('load', function() {
+      // Bar Chart: Subscriber Growth
+      const ctxBar = document.getElementById('chartBar').getContext('2d');
+      new Chart(ctxBar, {
+        type: 'bar',
+        data: {
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+          datasets: [{
+            label: 'Subscriber Growth',
+            data: [20, 35, 40, 55, 50, 65],
+            backgroundColor: 'rgba(75, 192, 192, 0.6)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: { scales: { y: { beginAtZero: true } } }
+      });
+
+      // Line Chart: Revenue Trend
+      const ctxLine = document.getElementById('chartLine').getContext('2d');
+      new Chart(ctxLine, {
+        type: 'line',
+        data: {
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+          datasets: [{
+            label: 'Revenue Trend',
+            data: [5000, 7000, 6500, 8000, 7500, 9000],
+            backgroundColor: 'rgba(153, 102, 255, 0.6)',
+            borderColor: 'rgba(153, 102, 255, 1)',
+            borderWidth: 2,
+            fill: false
+          }]
+        },
+        options: { scales: { y: { beginAtZero: true } } }
+      });
+
+      // Pie Chart: Plan Distribution
+      const ctxPie = document.getElementById('chartPie').getContext('2d');
+      new Chart(ctxPie, {
+        type: 'pie',
+        data: {
+          labels: ['Basic', 'Standard', 'Premium'],
+          datasets: [{
+            data: [40, 35, 25],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(255, 206, 86, 0.6)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)'
+            ],
+            borderWidth: 1
+          }]
+        }
+      });
+
+      // Doughnut Chart: Plan Revenue
+      const ctxDoughnut = document.getElementById('chartDoughnut').getContext('2d');
+      new Chart(ctxDoughnut, {
+        type: 'doughnut',
+        data: {
+          labels: ['Basic', 'Standard', 'Premium'],
+          datasets: [{
+            data: [400000, 600000, 500000],
+            backgroundColor: [
+              'rgba(255, 159, 64, 0.6)',
+              'rgba(75, 192, 192, 0.6)',
+              'rgba(153, 102, 255, 0.6)'
+            ],
+            borderColor: [
+              'rgba(255, 159, 64, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)'
+            ],
+            borderWidth: 1
+          }]
+        }
+      });
+
+      // Radar Chart: Plan Popularity
+      const ctxRadar = document.getElementById('chartRadar').getContext('2d');
+      new Chart(ctxRadar, {
+        type: 'radar',
+        data: {
+          labels: ['Basic', 'Standard', 'Premium'],
+          datasets: [{
+            label: 'Popularity Score',
+            data: [65, 59, 80],
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            pointBackgroundColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 2
+          }]
+        },
+        options: {
+          scales: { r: { beginAtZero: true } }
+        }
+      });
+    });
+
+    // Plans Table Editing Functionality
+    let currentRow; // Stores the row currently being edited
+    function openEditModal(button) {
+      currentRow = button.parentElement.parentElement;
+      const cells = currentRow.getElementsByTagName('td');
+      document.getElementById('planName').value = cells[0].innerText;
+      document.getElementById('planPrice').value = cells[1].innerText;
+      document.getElementById('planValidity').value = cells[2].innerText;
+      const editModal = new bootstrap.Modal(document.getElementById('editPlanModal'));
+      editModal.show();
+    }
+    function savePlan() {
+      const name = document.getElementById('planName').value;
+      const price = document.getElementById('planPrice').value;
+      const validity = document.getElementById('planValidity').value;
+      if (currentRow) {
+        const cells = currentRow.getElementsByTagName('td');
+        cells[0].innerText = name;
+        cells[1].innerText = price;
+        cells[2].innerText = validity;
+      }
+      const editModalEl = document.getElementById('editPlanModal');
+      const modalInstance = bootstrap.Modal.getInstance(editModalEl);
+      modalInstance.hide();
+    }
+    
+    // Dummy function for Recharge History Modal
+    function showRechargeHistory(name, phone) {
+      document.getElementById('subscriberName').innerText = name + "'s Recharge History";
+      const rechargeDetails = document.getElementById('rechargeDetails');
+      rechargeDetails.innerHTML = `<tr>
+          <td>${phone}</td>
+          <td>Basic Plan</td>
+          <td>2025-02-15</td>
+          <td>Credit Card</td>
+        </tr>
+        <tr>
+          <td>${phone}</td>
+          <td>Standard Plan</td>
+          <td>2025-01-10</td>
+          <td>Debit Card</td>
+        </tr>`;
+      const rechargeModal = new bootstrap.Modal(document.getElementById('rechargeModal'));
+      rechargeModal.show();
+    }
+  </script>
+</body>
+</html>

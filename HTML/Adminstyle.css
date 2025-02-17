@@ -1,0 +1,15 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.card {
+    border-radius: 0.5rem;
+}
+
+#wrapper {
+    width: 100%;
+}
+
+#sidebar-wrapper {
+    min-height: 100vh;
+}

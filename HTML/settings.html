@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link href="/css/main.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <header class="bg-#224e87">
+
+    <nav class="navbar navbar-expand-lg  fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="/Assets/Images/M Logo.jpg" alt="Avatar Logo" style="width:40px;" class="rounded-pill">
+            </a>
+            
+            <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="btn text-white p-2" href="/HTML/PlanLogin.html">Plans</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/HTML/Profile.html" class="btn text-white text-center p-2">Back to Profile</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    </header>
+
+    <div class="container mt-5 pt-4">
+        <h2 class="text-center">Settings</h2>
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5>User Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="settingsForm">
+                            <div class="mb-3">
+                                <label for="userName" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="userName" value="User  Name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="userEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="userEmail" value="user@example.com" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="userPhone" class="form-label">Phone Number</label>
+                                <input type="text" class="form-control" id="userPhone" value="+91 9876543210" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="userPassword" class="form-label">Change Password</label>
+                                <input type="password" class="form-control" id="userPassword" placeholder="New Password">
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm New Password">
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                <a href="/HTML/profile.html" class="btn btn-secondary ms-2">Go to Profile</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Notification Preferences -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5>Notification Preferences</h5>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="emailNotifications" checked>
+                                <label class="form-check-label" for="emailNotifications">
+                                    Email Notifications
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="smsNotifications">
+                                <label class="form-check-label" for="smsNotifications">
+                                    SMS Notifications
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="appNotifications" checked>
+                                <label class="form-check-label" for="appNotifications">
+                                    App Notifications
+                                </label>
+                            </div>
+                            <div class="text-center mt-3">
+                                <button type="button" class="btn btn-primary">Update Preferences</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Account Management -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5>Account Management</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">If you wish to delete your account, please contact customer support.</p>
+                        <div class="text-center">
+                            <a href="#" class="btn btn-danger">Delete Account</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->    <footer class="bg-oxford-blue text-white text-center py-4 mt-auto">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <h5>About Us</h5>
+                    <p>MobiComm Services is dedicated to providing reliable and affordable mobile services to enhance connectivity and communication for our customers.</p>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5>Quick Links</h5>
+                    <nav class="mb-2">
+                        <a href="/Bootstrap/MobilePrepaidRecharge.html" class="text-light text-decoration-none">Home</a><br>
+                        <a href="#" class="text-light text-decoration-none" data-bs-toggle="modal" data-bs-target="#loginModal">Plans</a><br>
+                        <a href="#" class="text-light text-decoration-none">FAQs</a><br>
+                        <a href="#" class="text-light text-decoration-none">Contact</a>
+                    </nav>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5>Follow Us</h5>
+                    <a href="#" class="text-light me-2"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="text-light me-2"><i class="bi bi-twitter"></i></a>
+                    <a href="#" class="text-light me-2"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="text-light"><i class="bi bi-linkedin"></i></a>
+                </div>
+            </div>
+            <hr class="border-light">
+            <p class="mb -0">© 2023 MobiComm Services Ltd. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-bTtcWmfYiM0wljEyyi+eGACm92h6pEqB+Pq3e/8QmiiMzCjK2a4zkxZbB6FLfF7z"
+        crossorigin="anonymous"></script>
+</body>
+</html>

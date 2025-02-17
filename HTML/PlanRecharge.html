@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan-loggedIn</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link href="/css/main.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+    <style>
+    body {
+        padding: 20px;
+        background-color: #f8f9fa;
+        font-family: Arial, sans-serif;
+    }
+    header {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100%;
+}
+    
+    /* Sidebar and Plans Section */
+    .container-fluid {
+        padding-top: 30px;
+    }
+    
+    .category {
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        padding: 15px;
+        border-radius: 8px;
+        font-weight: bold;
+        background-color: #8AD2FF;
+        color: #1b1b1b;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+    
+    .category:hover, .category.active {
+        background-color: #477ABD;
+        color: white;
+        transform: scale(1.05);
+    }
+    
+    /* Card Styling */
+    .card {
+        border: 2px solid #ffcccb;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s ease-in-out;
+        margin-bottom: 25px;
+        padding: 20px;
+    }
+    
+    .card:hover {
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+        transform: translateY(-5px);
+    }
+    
+    /* Price Highlight */
+    .price {
+        background-color: #ffcccb;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-weight: bold;
+        display: inline-block;
+    }
+    
+    /* Section Spacing */
+    #categories, #plan-container {
+        margin-top: 30px;
+    }
+    
+    /* Buttons */
+    .btn-primary {
+        background-color: #8AD2FF;
+        border: none;
+        transition: all 0.3s ease-in-out;
+        color: #1b1b1b;
+        font-weight: bold;
+        padding: 12px;
+        border-radius: 8px;
+    }
+    
+    .btn-primary:hover {
+        background-color: #477ABD;
+        color: white;
+    }
+    
+    
+    
+    /* Animations */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .card {
+        animation: fadeIn 0.5s ease-in-out;
+    }
+    .welcome-container {
+        padding: 20px;
+        margin: 20px auto;
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+        background-color: #A7DAFF; /* Lightened blue color */
+        color: #1b1b1b;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease-in-out;
+    }
+    
+    .welcome-container:hover {
+        background-color: #8AC7FF; /* Slightly darker on hover */
+        transform: scale(1.05);
+    }
+    
+    
+        .welcome-text {
+            color: #414141;
+            font-size: 2rem;
+            font-weight: bold;
+            animation: fadeIn 1s ease-in-out;
+        }
+    
+        .select-plan {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 50px;
+        margin: 40px auto;
+        background-color: #E3F2FD;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s ease-in-out;
+        text-align: left;
+        max-width: 1020px;
+    }
+    
+    .select-plan img {
+        max-width: 500px;
+        border-radius: 10px;
+        margin-right: 30px;
+    }
+    
+    .select-plan h2 {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #1b1b1b;
+    }
+    
+    .select-plan:hover {
+        background-color: #BBDEFB;
+        transform: scale(1.02);
+    }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- Navbar -->
+    <header class="bg-oxford-blue">
+        <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container-fluid">
+        <!-- Left-aligned Logo -->
+        <a class="navbar-brand" href="#">
+            <img src="/Assets/Images/M Logo.jpg" alt="Avatar Logo" style="width:40px;" class="rounded-pill">
+        </a>
+        <span class="fw-bold text-white" style="font-size: 1.5rem;">MobiComm</span>
+
+
+        <!-- Right-aligned Navigation Links -->
+        <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/HTML/Guest.html">Home</a> <!-- Set text color to black -->
+                </li>
+             
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Plans</a> <!-- Set text color to black -->
+                </li>
+             
+                <!-- User Profile Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a></li>
+
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+</header>
+<br><br><br>
+     <!-- Recommended Plans -->
+      <div id="plan-location"></div>
+     <div class="container mt-5 ">
+         <h3 class="text-center display-6 text-secondary">Recommended Plans</h3>
+         <br>
+         <div class="row justify-content-center">
+             <!-- Plan 1 -->
+             <div class="col-md-4">
+                 <div class="card recommended-card p-4 position-relative shadow-lg border-2" style="border-color: #477ABD;">
+                     <h5 class="text-center">
+                         <span class="px-3 py-1 text-white rounded-pill" style="background-color: #477ABD;">₹330+</span>
+                     </h5>
+                     <p class="text-center text-muted">50GB Data | 30 Days Validity</p>
+                     <ul class="list-unstyled text-center">
+                         <li>Unlimited Calls</li>
+                         <li>100 SMS/Day</li>
+                         <li>Free Netflix Subscription</li>
+                     </ul>
+                     <button class="btn w-100 mt-2 text-white" style="background-color: #477ABD;" onclick="window.location.href='Transaction.html'">Buy Now</button>
+                 </div>
+             </div>
+     
+             <!-- Plan 2 -->
+             <div class="col-md-4">
+                 <div class="card recommended-card p-4 position-relative shadow-lg border-2" style="border-color: #8AD2FF;">
+                     <h5 class="text-center">
+                         <span class="px-3 py-1 text-dark rounded-pill" style="background-color: #8AD2FF;">₹250+</span>
+                     </h5>
+                     <p class="text-center text-muted">30GB Data | 30 Days Validity</p>
+                     <ul class="list-unstyled text-center">
+                         <li>Unlimited Calls</li>
+                         <li>50 SMS/Day</li>
+                         <li>Free Amazon Prime Subscription</li>
+                     </ul>
+                     <button class="btn w-100 mt-2 text-dark" style="background-color: #8AD2FF;" onclick="window.location.href='Transaction.html'">Buy Now</button>
+                 </div>
+             </div>
+     
+             <!-- Plan 3 -->
+             <div class="col-md-4">
+                 <div class="card recommended-card p-4 position-relative shadow-lg border-2" style="border-color: #FFADAD;">
+                     <h5 class="text-center">
+                         <span class="px-3 py-1 text-dark rounded-pill" style="background-color: #FFADAD;">₹310+</span>
+                     </h5>
+                     <p class="text-center text-muted">40GB Data | 30 Days Validity</p>
+                     <ul class="list-unstyled text-center">
+                         <li>Unlimited Calls</li>
+                         <li>100 SMS/Day</li>
+                         <li>Free Hotstar Subscription</li>
+                     </ul>
+                     <button class="btn w-100 mt-2 text-dark" style="background-color: #FFADAD;" onclick="window.location.href='Transaction.html'">Buy Now</button>
+                 </div>
+             </div>
+         </div>
+     </div>
+     <br />
+     <hr class="border-white-50 my-4" />
+     <br />
+     
+     <div class="select-plan">
+        <img src="/Assets/Images/plans image.jpg" alt="Select Plan">
+        <h2>Select the suitable plan for your needs</h2>
+    </div>
+    <br />
+     <hr class="border-white-50 my-4" />
+     <br />
+     
+    
+    <div class="row">
+        <!-- Sidebar Categories -->
+        <aside class="col-md-3">
+            <div class="card p-3">
+                <h5 class="text-center mb-3">Categories</h5>
+                <ul class="list-group" id="categories">
+                    <li class="list-group-item category active" data-category="basic">Basic Plans</li>
+                    <li class="list-group-item category" data-category="standard">Standard Plans</li>
+                    <li class="list-group-item category" data-category="premium">Premium Plans</li>
+                    <li class="list-group-item category" data-category="annual">Annual Plans</li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Plans Display -->
+        <section class="col-md-9">
+            <h2 id="selected-category" class="text-center">Basic Plans</h2>
+            <div id="plan-container" class="row"></div>
+        </section>
+    </div>
+</div>
+<br><br>
+<!-- Footer -->
+ <footer class="bg-oxford-blue text-white text-center py-4 mt-auto">
+    <div class="container-fluid ">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <h5>About Us</h5>
+                <p>MobiComm Services is dedicated to providing reliable and affordable mobile services to enhance connectivity and communication for our customers.</p>
+            </div>
+            <div class="col-md-4 mb-3">
+                <h5>Quick Links</h5>
+                <nav class="mb-2">
+                    <a href="/Bootstrap/MobilePrepaidRecharge.html" class="text-light text-decoration-none">Home</a><br>
+                    <a href="#" class="text-light text-decoration-none" data-bs-toggle="modal" data-bs-target="#loginModal">Plans</a><br>
+                    <a href="#" class="text-light text-decoration-none">FAQs</a><br>
+                    <a href="#" class="text-light text-decoration-none">Contact</a>
+                </nav>
+            </div>
+            <div class="col-md-4 mb-3">
+                <h5>Follow Us</h5>
+                <a href="#" class="text-light me-2"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="text-light me-2"><i class="bi bi-twitter"></i></a>
+                <a href="#" class="text-light me-2"><i class="bi bi-instagram"></i></a>
+                <a href="#" class="text-light"><i class="bi bi-linkedin"></i></a>
+            </div>
+        </div>
+        <hr class="border-light">
+        <p class="mb -0">© 2023 MobiComm Services Ltd. All rights reserved.</p>
+    </div>
+</footer>
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="mb-3">
+                        <label for="phoneNumber" class="form-label">Phone Number</label>
+                        <input type="text" class="form-control" id="phoneNumber" placeholder="Enter phone number" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Enter password" required>
+                    </div>
+                    <div class="text-danger text-center" id="login-error-message" style="display: none;"></div> <!-- Error message inside modal -->
+                    <button type="submit" class="btn btn-primary w-100 mt-2">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Function to prompt login when viewing more plans
+    function promptLogin() {
+        const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+        loginModal.show();
+    }
+
+    // Event listener for login form submission
+    document.getElementById("loginForm").addEventListener("submit", async function(event) {
+        event.preventDefault(); // Prevent form submission
+
+        try {
+            // Fetch user data from numbers.json
+            const response = await fetch("/HTML/numbers.json"); // Ensure correct path
+            if (!response.ok) throw new Error("Failed to load user data");
+
+            const data = await response.json();
+            const users = data.users;
+
+            // Get user input
+            const phoneNumber = document.getElementById("phoneNumber").value.trim();
+            const password = document.getElementById("password").value.trim();
+            const errorMessage = document.getElementById("login-error-message"); // Error container
+
+            // Clear previous errors
+            errorMessage.textContent = "";
+            errorMessage.style.display = "none"; // Hide initially
+
+            // Find user with matching phone number and password
+            const user = users.find(user => user.phone === phoneNumber && user.password === password);
+
+            if (user) {
+                // Redirect to Profile.html upon successful login
+                window.location.href = "/HTML/PlanLogin.html";
+            } else {
+                // Show error message inside modal
+                errorMessage.textContent = "Invalid phone number or password.";
+                errorMessage.style.display = "block"; // Ensure visibility
+            }
+        } catch (error) {
+            console.error("Error loading JSON file:", error);
+            const errorMessage = document.getElementById("login-error-message");
+            errorMessage.textContent = "Error validating credentials. Try again.";
+            errorMessage.style.display = "block"; // Ensure visibility
+        }
+    });</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const categories = document.querySelectorAll(".category");
+    const planContainer = document.getElementById("plan-container");
+    const selectedCategory = document.getElementById("selected-category");
+
+    const rechargePlans = {
+        basic: [
+            { price: "₹199", data: "1GB", validity: "7 days", calls: "50 min", sms: "50" },
+            { price: "₹749", data: "1GB", validity: "28 days", calls: "100 min", sms: "100" },
+            { price: "₹999", data: "5GB", validity: "30 days", calls: "500 min", sms: "500" }
+        ],
+        standard: [
+            { price: "₹1,499", data: "10GB", validity: "60 days", calls: "1000 min", sms: "1000" },
+            { price: "₹1,999", data: "15GB", validity: "90 days", calls: "2000 min", sms: "2000" },
+            { price: "₹2,499", data: "20GB", validity: "180 days", calls: "Unlimited", sms: "Unlimited" }
+        ],
+        premium: [
+            { price: "₹2,999", data: "30GB", validity: "90 days", calls: "Unlimited", sms: "Unlimited" },
+            { price: "₹3,499", data: "50GB", validity: "180 days", calls: "Unlimited", sms: "Unlimited" },
+            { price: "₹4,999", data: "100GB", validity: "365 days", calls: "Unlimited", sms: "Unlimited" }
+        ],
+        annual: [
+            { price: "₹4,999", data: "100GB", validity: "365 days", calls: "Unlimited", sms: "Unlimited" },
+            { price: "₹5,999", data: "200GB", validity: "365 days", calls: "Unlimited", sms: "Unlimited" },
+            { price: "₹6,999", data: "500GB", validity: "365 days", calls: "Unlimited", sms: "Unlimited" }
+        ]
+    };
+
+    function displayPlans(category) {
+        planContainer.innerHTML = "";
+        selectedCategory.textContent = category.charAt(0).toUpperCase() + category.slice(1) + " Plans";
+
+        rechargePlans[category].forEach(plan => {
+            planContainer.innerHTML += `
+                <div class="col-md-4">
+                    <div class="card p-3">
+                     
+                        <p class="mt-2"><span class="price">${plan.price}</span></p>
+                        <p><strong>Data:</strong> ${plan.data}</p>
+                        <p><strong>Validity:</strong> ${plan.validity}</p>
+                        <p><strong>Calls:</strong> ${plan.calls}</p>
+                        <p><strong>SMS:</strong> ${plan.sms}</p>
+                        <button class="btn btn-primary" onclick="window.location.href='/HTML/Transaction.html'">Recharge</button>      </div>
+                </div>`;
+        });
+    }
+
+    categories.forEach(category => {
+        category.addEventListener("click", function () {
+            document.querySelector(".category.active").classList.remove("active");
+            this.classList.add("active");
+            displayPlans(this.dataset.category);
+        });
+    });
+
+    displayPlans("basic");
+});
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
