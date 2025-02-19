@@ -1,0 +1,108 @@
+body {
+    display: flex;
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+  }
+  /* Sidebar Styling */
+  .sidebar {
+    width: 260px;
+    background: #477abd;
+    color: white;
+    height: 100vh;
+    padding-top: 20px;
+    position: fixed;
+    transition: all 0.3s ease-in-out;
+  }
+  .sidebar h4 {
+    text-align: center;
+    font-weight: bold;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  .sidebar a {
+    padding: 15px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 16px;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  .sidebar a:hover {
+    background: #5a8dd0;
+    color: black;
+    font-weight: bold;
+  }
+  .sidebar a i {
+    margin-right: 10px;
+  }
+  /* Content Styling */
+  .content {
+    margin-left: 260px;
+    padding: 20px;
+    width: 100%;
+    transition: all 0.3s ease-in-out;
+  }
+  /* Table Styling */
+  .table-container {
+    margin: 20px auto;
+    width: 90%;
+  }
+  .table {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .table thead {
+    background-color: #477abd;
+    color: white;
+    text-align: center;
+  }
+  .table tbody td {
+    text-align: center;
+  }
+  .table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+  /* Custom Button */
+  .btn-custom {
+    background-color: #477abd;
+    border: none;
+    transition: 0.3s;
+  }
+  .btn-custom:hover {
+    background-color: #5a8dd0;
+    color: black;
+  }
+  /* Modal Customization */
+  .modal-header {
+    background-color: #4d85ce;
+    color: white;
+  }
+  .modal-content {
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  /* Page Sections */
+  .page {
+    display: none;
+  }
+  /* Expiring Plans Section */
+  .expiring-plans {
+    margin-bottom: 20px;
+  }
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    body {
+      flex-direction: column;
+    }
+    .sidebar {
+      width: 100%;
+      height: auto;
+      position: relative;
+    }
+    .content {
+      margin-left: 0;
+    }
+  }

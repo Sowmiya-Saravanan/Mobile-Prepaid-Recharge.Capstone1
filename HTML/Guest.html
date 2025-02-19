@@ -1,589 +1,336 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guest Page</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <link href="/css/main.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<!-- CSS for Animations & Styling -->
-<style>
-    /* Smooth Transition for Hover Effects */
-     .transition-effect {
-        transition: all 0.3s ease-in-out;
-    }
-
-    /* Card Styling */
-    .plan-card {
-        border: 2px solid #477ABD;
-        padding: 20px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    }
-
-    /* Card Hover Effect */
-    .plan-card:hover {
-        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-        transform: translateY(-5px);
-    }
-
-    /* Button Styling */
-    .plan-button {
-        background-color: #477ABD;
-        color: white;
-        padding: 10px;
-        border-radius: 5px;
-        border: none;
-        width: 100%;
-        transition: all 0.3s ease-in-out;
-    }
-
-    /* Button Hover */
-    .plan-button:hover {
-        background-color: #8AD2FF;
-        color: #000;
-        transform: scale(1.05);
-    }
-
-    /* Fade-in Animation */
-    .animate-fade-in {
-        opacity: 0;
-        animation: fadeIn 1s forwards;
-    }
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 1;
-        }
-    }
-
-    /* Slide-up Animation */
-    .animate-slide-up {
-        transform: translateY(30px);
-        opacity: 0;
-        animation: slideUp 1s forwards;
-    }
-
-    @keyframes slideUp {
-        from {
-            transform: translateY(30px);
-            opacity: 0;
-        }
-        to {
-            transform: translateY(0);
-            opacity: 1;
-        }
-    }
-
-    /* Reveal Animation on Scroll */
-    .hidden {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    }
-
-    .visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MobiComm Services - Mobile Prepaid Recharge</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" />
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <!-- Custom CSS (compiled from SCSS) -->
+  <link rel="stylesheet" href="/css/style.css" />
 </head>
-
-<body class="d-flex flex-column min-vh-100">
-
-    <!-- Navbar -->
-    <header class="bg-oxford-blue fixed-top">
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <div class="container-fluid">
-                <a class="navbar-brand d-flex align-items-center" href="#">
-                    <img src="/Assets/Images/M Logo.jpg" alt="Avatar Logo" style="width:40px;" class="rounded-pill me-2">
-                    <span class="fw-bold text-white" style="font-size: 1.5rem;">MobiComm</span>
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar" aria-controls="collapsibleNavbar" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="#carouselSection">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="#rechargeSection">Recharge</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="#planLocation">Plans</a>
-                        </li>
-                       
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-person"></i> Login
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a></li>
-                            </ul>
-                        </li>
-                        
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <br><br><br><div id="carouselSection"></div>
-
-
-    <!-- Carousel Section -->
-    <section id="carouselSection1" class="animate__animated animate__fadeIn" style=" margin-top: -1px;"></section>
-        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="/Assets/Images/caorusel123.svg" class="d-block w-100" alt="..." style="height: 400px; ">
-                    <div class="carousel-caption d-none d-md-block text-black p-2">
-                        <h5 style="font-weight: bold; color: #A0153E; font-size: 1.75rem;">Welcome to Mobi-Comm Services</h5>
-                        <p style="font-size: 1.25rem;">Your one-stop solution for mobile recharges.</p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="/Assets/Images/carousel2222.svg" class="d-block w-100" alt="..." style="height: 400px; ;">
-                    <div class="carousel-caption d-none d-md-block text-black">
-                        <h5 style="font-weight: bold; color: #A0153E; font-size: 1.75rem;">Best Plans Available</h5>
-                        <p style="font-size: 1.25rem;">Explore our range of voice and data plans.</p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="/Assets/Images/carousel33.svg" class="d-block w-100" alt="..." style="height: 400px; ">
-                    <div class="carousel-caption d-none d-md-block text-black">
-                        <h5 style="font-weight: bold; color: #A0153E; font-size: 1.75rem;">Recharge Anytime, Anywhere, and win offers</h5>
-                        <p style="font-size: 1.25rem;">Convenient and quick recharge options.</p>
-                    </div>
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+<body class="mobile-recharge-page d-flex flex-column min-vh-100">
+  <!-- Header -->
+  <header class="site-header">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+          <img src="/Assets/Images/Mobicomm Logo.svg" alt="MobiComm Logo" class="brand-logo rounded-pill me-2">
+          <span class="fw-bold">MobiComm Services</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="mainNav">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="#heroSection">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#rechargeSection">Recharge</a></li>
+            <li class="nav-item"><a class="nav-link" href="#plansSection">Plans</a></li>
+            <li class="nav-item"><a class="nav-link" href="#whyChooseUs">Why Us</a></li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="loginDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person"></i> Login
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="loginDropdown">
+                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a></li>
+              </ul>
+            </li>
+          </ul>
         </div>
-    </section>
-<!-- 
-    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="margin-top: -1px;">
+      </div>
+    </nav>
+  </header>
+  
+  <!-- Main Content -->
+  <main class="flex-grow-1">
+    <!-- Hero Carousel Section -->
+    <section id="heroSection" class="hero-section ">
+      <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="/Assets/Images/imageimagenew carouel.png" class="d-block w-100" alt="..."
-                    style="height: 500px; object-fit: cover;">
+          <div class="carousel-item active">
+            <img src="/Assets/Images/hero1.jpg" class="d-block w-100 hero-img" alt="Reliable Recharge">
+            <div class="carousel-caption d-none d-md-block">
+              <h2 class="hero-title">Reliable Mobile Recharge</h2>
+              <p class="hero-subtitle">Fast, secure, and hassle-free prepaid recharge solutions.</p>
             </div>
-            <div class="carousel-item">
-                <img src="/Assets/Images/carousel-2.png" class="d-block w-100" alt="..."
-                    style="height: 500px; object-fit: cover;">
+          </div>
+          <div class="carousel-item">
+            <img src="/Assets/Images/hero2.jpg" class="d-block w-100 hero-img" alt="Best Value Plans">
+            <div class="carousel-caption d-none d-md-block">
+              <h2 class="hero-title">Best Value Plans</h2>
+              <p class="hero-subtitle">Choose from a range of plans tailored to your needs.</p>
             </div>
-            <div class="carousel-item">
-                <img src="/Assets/Images/carousel--3.png" class="d-block w-100" alt="..."
-                    style="height: 500px; object-fit: cover;">
+          </div>
+          <div class="carousel-item">
+            <img src="/Assets/Images/hero3.jpg" class="d-block w-100 hero-img" alt="24/7 Customer Support">
+            <div class="carousel-caption d-none d-md-block">
+              <h2 class="hero-title">24/7 Customer Support</h2>
+              <p class="hero-subtitle">We’re here to assist you anytime, anywhere.</p>
             </div>
+          </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
         </button>
-    </div> -->
-
-
-    
-    
-    <!-- Recharge Section -->
-    <section id="rechargeSection" class="container-fluid animate__animated animate__fadeIn" style="background-color:#FFADAD; padding: 40px; color: white;">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6 text-center">
-                    <img src="/Assets/Images/guestImagenumber.jpg" alt="Recharge Image" class="img-fluid rounded transition-effect" style="border-radius: 15px; max-width: 80%; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
-                </div>
-                <div class="col-md-6 ">
-                    <h3 class="text-center mb-3 fw-bold " style="font-size: 1.75rem;">Quick Recharge</h3>
-                    <div class="card recharge-card mb-3 transition-effect" style="color:#8AD2FF; background-color: white; width: 100%; padding: 20px; border-radius: 15px;">
-                        <div class="card-header text-center border-radius:15px">
-                            <h4 style="font-size: 1.25rem;">Recharge for All</h4>
-                            <br>
-                        </div>
-                        
-                        <div class="card-body ">
-                            <form onsubmit="validateNumber(event)">
-                                <div class="mb-3">
-                                    <input type="text" id="mobileNumber" class="form-control" placeholder="Enter a mobile number to recharge:" required style="padding: 5px; border-radius: 8px;">
-                                </div>
-                                <p id="error-message" class="text-danger text-center"></p> <!-- Error message area -->
-                                <div class="d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-light px-4 py-2" style="border-radius: 8px;">Recharge</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+      </div>
     </section>
-
-    <style>
-        .transition-effect:hover {
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-            transform: translateY(-5px);
-        }
-    </style>
-
-
-<!-- Our Plans Section --><section class="our-plans-section" id="planLocation" style="padding: 60px 20px; background-color: #f9f9f9;">
-    <div class="container bg-white p-5 shadow-lg rounded animate-fade-in">
-        <h2 class="text-center text-dark mb-5 animate-scale">Our Plans</h2>
-        <div class="row" id="plansContainer">
-            
-            <!-- Basic Plan -->
-            <article class="col-md-4 mb-4 hidden">
-                <div class="card plan-card border border-dark shadow-sm p-3 transition-effect">
-                    <div class="card-body">
-                        <h5 class="card-title text-center">Basic Plan 
-                            <span class="badge text-white" style="background-color: #ffc107;">Best Value</span>
-                        </h5>
-                        <div class="d-flex justify-content-between align-items-center bg-light p-2 rounded">
-                            <span class="fw-bold text-dark">₹299</span>
-                            <span class="text-muted">30 Days Validity</span>
-                        </div>
-                        <p class="card-text mt-3"><strong>Data:</strong> 2GB</p>
-                        <p class="card-text"><strong>Calls:</strong> 100 minutes</p>
-                        <p class="card-text"><strong>SMS:</strong> 100 SMS</p>
-                    </div>
-                    <div class="card-footer text-center bg-white border-0">
-                        <button class="btn plan-button w-100 transition-effect" onclick="promptLogin()">View More Plans</button>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Premium Plan -->
-            <article class="col-md-4 mb-4 hidden">
-                <div class="card plan-card border border-dark shadow-sm p-3 transition-effect">
-                    <div class="card-body">
-                        <h5 class="card-title text-center">Premium Plan 
-                            <span class="badge text-white" style="background-color: #ffc107;">Popular</span>
-                        </h5>
-                        <div class="d-flex justify-content-between align-items-center bg-light p-2 rounded">
-                            <span class="fw-bold text-dark">₹499</span>
-                            <span class="text-muted">30 Days Validity</span>
-                        </div>
-                        <p class="card-text mt-3"><strong>Data:</strong> 5GB</p>
-                        <p class="card-text"><strong>Calls:</strong> 300 minutes</p>
-                        <p class="card-text"><strong>SMS:</strong> 300 SMS</p>
-                    </div>
-                    <div class="card-footer text-center bg-white border-0">
-                        <button class="btn plan-button w-100 transition-effect" onclick="promptLogin()">View More Plans</button>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Unlimited Plan -->
-            <article class="col-md-4 mb-4 hidden">
-                <div class="card plan-card border border-dark shadow-sm p-3 transition-effect">
-                    <div class="card-body">
-                        <h5 class="card-title text-center">Unlimited Plan 
-                            <span class="badge text-white" style="background-color: #ffc107;">Most Bought</span>
-                        </h5>
-                        <div class="d-flex justify-content-between align-items-center bg-light p-2 rounded">
-                            <span class="fw-bold text-dark">₹799</span>
-                            <span class="text-muted">30 Days Validity</span>
-                        </div>
-                        <p class="card-text mt-3"><strong>Data:</strong> Unlimited</p>
-                        <p class="card-text"><strong>Calls:</strong> Unlimited</p>
-                        <p class="card-text"><strong>SMS:</strong> 500 SMS</p>
-                    </div>
-                    <div class="card-footer text-center bg-white border-0">
-                        <button class="btn plan-button w-100 transition-effect" onclick="promptLogin()">View More Plans</button>
-                    </div>
-                </div>
-            </article>
-
+    
+    <!-- Quick Recharge Section -->
+    <section id="rechargeSection" class="quick-recharge-section py-5">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 mb-4 mb-lg-0 text-center">
+            <img src="/Assets/Images/recharge-mobile.jpg" alt="Recharge Your Mobile" class="img-fluid rounded shadow">
+          </div>
+          <div class="col-lg-6">
+            <h3 class="section-title mb-4">Quick Mobile Recharge</h3>
+            <div class="card recharge-card">
+              <div class="card-header text-center">
+                <h4>Recharge Instantly</h4>
+              </div>
+              <div class="card-body">
+                <form onsubmit="validateNumber(event)">
+                  <div class="mb-3">
+                    <input type="text" id="mobileNumber" class="form-control" placeholder="Enter 10-digit mobile number" required>
+                  </div>
+                  <p id="error-message" class="text-danger text-center"></p>
+                  <div class="d-grid">
+                    <button type="submit" class="btn btn-primary recharge-btn">Recharge Now</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+    </section>
+    
+    <!-- Plans Section -->
+    <section id="plansSection" class="plans-section py-5 bg-light">
+      <div class="container">
+        <h2 class="section-title text-center mb-5">Our Exclusive Plans</h2>
+        <div class="row">
+          <!-- Basic Plan -->
+          <div class="col-md-4 mb-4">
+            <div class="card plan-card h-100">
+              <div class="card-body">
+                <h5 class="card-title text-center">Basic Plan <span class="badge bg-secondary">Value</span></h5>
+                <div class="plan-price text-center my-3">
+                  <span class="display-6">₹299</span>
+                  <small>30 Days</small>
+                </div>
+                <ul class="list-unstyled">
+                  <li><strong>Data:</strong> 2GB</li>
+                  <li><strong>Calls:</strong> 100 mins</li>
+                  <li><strong>SMS:</strong> 100 SMS</li>
+                </ul>
+              </div>
+              <div class="card-footer text-center">
+                <button class="btn btn-outline-primary w-100" onclick="promptLogin()">View Details</button>
+              </div>
+            </div>
+          </div>
+          <!-- Premium Plan -->
+          <div class="col-md-4 mb-4">
+            <div class="card plan-card h-100">
+              <div class="card-body">
+                <h5 class="card-title text-center">Premium Plan <span class="badge bg-secondary">Popular</span></h5>
+                <div class="plan-price text-center my-3">
+                  <span class="display-6">₹499</span>
+                  <small>30 Days</small>
+                </div>
+                <ul class="list-unstyled">
+                  <li><strong>Data:</strong> 5GB</li>
+                  <li><strong>Calls:</strong> 300 mins</li>
+                  <li><strong>SMS:</strong> 300 SMS</li>
+                </ul>
+              </div>
+              <div class="card-footer text-center">
+                <button class="btn btn-outline-primary w-100" onclick="promptLogin()">View Details</button>
+              </div>
+            </div>
+          </div>
+          <!-- Unlimited Plan -->
+          <div class="col-md-4 mb-4">
+            <div class="card plan-card h-100">
+              <div class="card-body">
+                <h5 class="card-title text-center">Unlimited Plan <span class="badge bg-secondary">Best Seller</span></h5>
+                <div class="plan-price text-center my-3">
+                  <span class="display-6">₹799</span>
+                  <small>30 Days</small>
+                </div>
+                <ul class="list-unstyled">
+                  <li><strong>Data:</strong> Unlimited</li>
+                  <li><strong>Calls:</strong> Unlimited</li>
+                  <li><strong>SMS:</strong> 500 SMS</li>
+                </ul>
+              </div>
+              <div class="card-footer text-center">
+                <button class="btn btn-outline-primary w-100" onclick="promptLogin()">View Details</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Why Choose Us Section -->
+    <section id="whyChooseUs" class="why-choose-us-section py-5">
+      <div class="container">
+        <h2 class="section-title text-center mb-5">Why Choose MobiComm?</h2>
+        <div class="row">
+          <div class="col-md-4 mb-4 text-center">
+            <i class="bi bi-lightning-charge display-4 text-primary"></i>
+            <h5 class="mt-3">Fast & Secure</h5>
+            <p>Experience instant, secure recharges with state-of-the-art technology.</p>
+          </div>
+          <div class="col-md-4 mb-4 text-center">
+            <i class="bi bi-check-circle display-4 text-primary"></i>
+            <h5 class="mt-3">Best Value Plans</h5>
+            <p>Our plans are designed to offer maximum value for your money.</p>
+          </div>
+          <div class="col-md-4 mb-4 text-center">
+            <i class="bi bi-headset display-4 text-primary"></i>
+            <h5 class="mt-3">24/7 Support</h5>
+            <p>Our expert team is available round the clock to assist you.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <!-- Footer -->
+  <footer class="site-footer bg-dark text-white py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <h5>About MobiComm</h5>
+          <p>MobiComm Services offers secure, reliable, and affordable mobile prepaid recharge solutions to keep you connected.</p>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="#heroSection" class="footer-link">Home</a></li>
+            <li><a href="#rechargeSection" class="footer-link">Recharge</a></li>
+            <li><a href="#plansSection" class="footer-link">Plans</a></li>
+            <li><a href="#whyChooseUs" class="footer-link">Why Us</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Follow Us</h5>
+          <ul class="list-inline">
+            <li class="list-inline-item"><a href="#" class="footer-link"><i class="bi bi-facebook"></i></a></li>
+            <li class="list-inline-item"><a href="#" class="footer-link"><i class="bi bi-twitter"></i></a></li>
+            <li class="list-inline-item"><a href="#" class="footer-link"><i class="bi bi-instagram"></i></a></li>
+            <li class="list-inline-item"><a href="#" class="footer-link"><i class="bi bi-linkedin"></i></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="text-center">
+        <hr class="bg-light">
+        <p class="mb-0">© 2023 MobiComm Services. All rights reserved.</p>
+      </div>
     </div>
-</section>
-
-<!-- JavaScript for Scroll Animation -->
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const hiddenElements = document.querySelectorAll(".hidden");
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add("visible");
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.2 });
-
-        hiddenElements.forEach(element => {
-            observer.observe(element);
-        });
+  </footer>
+  
+  <!-- Login Modal -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <header class="modal-header">
+          <h5 class="modal-title" id="loginModalLabel">Login</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </header>
+        <div class="modal-body">
+          <form id="loginForm">
+            <div class="mb-3">
+              <label for="phoneNumber" class="form-label">Phone Number</label>
+              <input type="text" class="form-control" id="phoneNumber" placeholder="Enter phone number" required>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password" placeholder="Enter password" required>
+            </div>
+            <div id="login-error-message" class="text-danger text-center d-none"></div>
+            <button type="submit" class="btn btn-primary w-100 mt-2">Login</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Bootstrap Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom Scripts -->
+  <script>
+    // Prompt login for plan details
+    function promptLogin() {
+      const loginModal = new bootstrap.Modal(document.getElementById("loginModal"));
+      loginModal.show();
+    }
+  
+    // Login form submission handling
+    document.getElementById("loginForm").addEventListener("submit", async function (event) {
+      event.preventDefault();
+      try {
+        const response = await fetch("/HTML/Users.json");
+        if (!response.ok) throw new Error("Failed to load user data");
+        const data = await response.json();
+        const users = data.users;
+        const phoneNumber = document.getElementById("phoneNumber").value.trim();
+        const password = document.getElementById("password").value.trim();
+        const errorMessage = document.getElementById("login-error-message");
+        errorMessage.textContent = "";
+        errorMessage.classList.add("d-none");
+        const user = users.find(u => u.phone === phoneNumber && u.password === password);
+        if (user) {
+          window.location.href = "/HTML/PlanLogin.html";
+        } else {
+          errorMessage.textContent = "Invalid phone number or password.";
+          errorMessage.classList.remove("d-none");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        const errorMessage = document.getElementById("login-error-message");
+        errorMessage.textContent = "Error validating credentials. Try again.";
+        errorMessage.classList.remove("d-none");
+      }
     });
-</script>
-
-<!-- CSS for Animations --><!-- CSS for Animations -->
-<!-- Our Plans Section -->
-
-<!-- CSS for Animations -->
-
-
-    <br>
-
-    <!-- About Us Section -->
-    <!-- <section class="container-fluid mt-5 animate__animated animate__fadeIn" style="background-color: #f0f4f8; padding: 40px;">
-        <div class="container bg-light p-4 rounded shadow">
-            <h2 class="text-center" style="color: #A0153E;">About Us</h2>
-            <p class="text-center" style="font-size: 1.1rem; color: #333;">
-                Mobi-Comm Services Ltd. is a leading mobile service provider in India, dedicated to delivering innovative and reliable mobile solutions. Our journey began in [Year], and since then, we have been committed to enhancing connectivity for millions of customers across the country.
-            </p>
-            
-            <h4 class="text-center" style="color: #5D0E41;">Our Mission</h4>
-            <p class="text-center" style="font-size: 1rem; color: #333;">
-                To provide affordable and high-quality mobile services that empower our customers to stay connected anytime, anywhere.
-            </p>
-
-            <h4 class="text-center" style="color: #5D0E41;">Our Vision</h4>
-            <p class="text-center" style="font-size: 1rem; color: #333;">
-                To be the most trusted mobile service provider in India, recognized for our commitment to customer satisfaction and innovation.
-            </p>
-
-            <h4 class="text-center" style="color: #5D0E41;">Our Values</h4>
-            <ul class="list-group mt-4">
-                <li class="list-group-item" style="background-color: #A0153E; color: white;">🤝 Customer-Centric: We prioritize our customers' needs and strive to exceed their expectations.</li>
-                <li class="list-group-item" style="background-color: #A0153E; color: white;">💡 Innovation: We embrace change and continuously seek new ways to improve our services.</li>
-                <li class="list-group-item" style="background-color: #A0153E; color: white;">🔒 Integrity: We conduct our business with honesty and transparency.</li>
-                <li class="list-group-item" style="background-color: #A0153E; color: white;">🌍 Sustainability: We are committed to sustainable practices that benefit our community and environment.</li>
-            </ul>
-
-            <h4 class="text-center" style="color: #5D0E41;">Why Choose Us?</h4>
-            <p class="text-center" style="font-size: 1rem; color: #333;">
-                With a wide range of prepaid mobile plans, exceptional customer service, and a commitment to innovation, Mobi-Comm                Services Ltd. stands out as a leader in the mobile industry. Our dedicated team works tirelessly to ensure that you have the best mobile experience possible.
-            </p>
-
-            <div class="text-center mt-4">
-                <a href="#contactSection" class="btn btn-primary" style="background-color: #A0153E; border: none;">Contact Us for More Information</a>
-            </div>
-        </div>
-    </section> -->
-
-    <br>
-<!-- 
-    FAQ Section
-    <section class="container mt-5 animate__animated animate__fadeIn" style="background-color: #e9ecef; padding: 40px; border-radius: 15px;">
-        <h2 class="text-center">Frequently Asked Questions</h2>
-        <div class="accordion" id="faqAccordion">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        What is a prepaid mobile plan?
-                    </button>
-                </h2>
-                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
-                    <div class="accordion-body">
-                        A prepaid mobile plan allows you to pay for your mobile services in advance. You can recharge your account with a specific amount and use the services until the balance runs out.
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        How do I recharge my prepaid plan?
-                    </button>
-                </h2>
-                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
-                    <div class="accordion-body">
-                        You can recharge your prepaid plan through our website or mobile app by entering your mobile number and selecting a plan. You can also recharge through authorized retailers.
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingThree">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        What should I do if my number is not valid?
-                    </button>
-                </h2>
-                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
-                    <div class="accordion-body">
-                        If your number is not valid, please ensure that you have entered the correct number. If the issue persists, contact our customer support for assistance.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <br> 
-
- 
-
-    <br>
--->
-    <footer class="bg-oxford-blue text-white text-center py-4 mt-auto">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <h5>About Us</h5>
-                    <p>MobiComm Services is dedicated to providing reliable and affordable mobile services to enhance connectivity and communication for our customers.</p>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <h5>Quick Links</h5>
-                    <nav class="mb-2">
-                        <a href="/Bootstrap/MobilePrepaidRecharge.html" class="text-light text-decoration-none">Home</a><br>
-                        <a href="#" class="text-light text-decoration-none" data-bs-toggle="modal" data-bs-target="#loginModal">Plans</a><br>
-                        <a href="#" class="text-light text-decoration-none">FAQs</a><br>
-                        <a href="#" class="text-light text-decoration-none">Contact</a>
-                    </nav>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <h5>Follow Us</h5>
-                    <a href="#" class="text-light me-2"><i class="bi bi-facebook"></i></a>
-                    <a href="#" class="text-light me-2"><i class="bi bi-twitter"></i></a>
-                    <a href="#" class="text-light me-2"><i class="bi bi-instagram"></i></a>
-                    <a href="#" class="text-light"><i class="bi bi-linkedin"></i></a>
-                </div>
-            </div>
-            <hr class="border-light">
-            <p class="mb -0">© 2023 MobiComm Services Ltd. All rights reserved.</p>
-        </div>
-    </footer>
-      <!-- Login Modal -->
-      <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="loginModalLabel">Login</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="loginForm">
-                        <div class="mb-3">
-                            <label for="phoneNumber" class="form-label">Phone Number</label>
-                            <input type="text" class="form-control" id="phoneNumber" placeholder="Enter phone number" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" placeholder="Enter password" required>
-                        </div>
-                        <div class="text-danger text-center" id="login-error-message" style="display: none;"></div> <!-- Error message inside modal -->
-                        <button type="submit" class="btn btn-primary w-100 mt-2">Login</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Function to prompt login when viewing more plans
-        function promptLogin() {
-            const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
-            loginModal.show();
+  
+    // Validate mobile number for recharge
+    async function validateNumber(event) {
+      event.preventDefault();
+      const mobileNumber = document.getElementById("mobileNumber").value.trim();
+      const errorMessage = document.getElementById("error-message");
+      errorMessage.textContent = "";
+      if (!/^\d{10}$/.test(mobileNumber)) {
+        errorMessage.textContent = "Please enter a valid 10-digit phone number.";
+        return;
+      }
+      try {
+        const response = await fetch("/HTML/Users.json");
+        const data = await response.json();
+        const validNumbers = data.users.map(u => u.phone);
+        if (validNumbers.includes(mobileNumber)) {
+          window.location.href = "/HTML/PlanRecharge.html";
+        } else {
+          errorMessage.textContent = "The number you entered is not registered with MobiComm.";
         }
-
-        // Event listener for login form submission
-        document.getElementById("loginForm").addEventListener("submit", async function(event) {
-            event.preventDefault(); // Prevent form submission
-
-            try {
-                // Fetch user data from numbers.json
-                const response = await fetch("/HTML/numbers.json"); // Ensure correct path
-                if (!response.ok) throw new Error("Failed to load user data");
-
-                const data = await response.json();
-                const users = data.users;
-
-                // Get user input
-                const phoneNumber = document.getElementById("phoneNumber").value.trim();
-                const password = document.getElementById("password").value.trim();
-                const errorMessage = document.getElementById("login-error-message"); // Error container
-
-                // Clear previous errors
-                errorMessage.textContent = "";
-                errorMessage.style.display = "none"; // Hide initially
-
-                // Find user with matching phone number and password
-                const user = users.find(user => user.phone === phoneNumber && user.password === password);
-
-                if (user) {
-                    // Redirect to Profile.html upon successful login
-                    window.location.href = "/HTML/PlanLogin.html";
-                } else {
-                    // Show error message inside modal
-                    errorMessage.textContent = "Invalid phone number or password.";
-                    errorMessage.style.display = "block"; // Ensure visibility
-                }
-            } catch (error) {
-                console.error("Error loading JSON file:", error);
-                const errorMessage = document.getElementById("login-error-message");
-                errorMessage.textContent = "Error validating credentials. Try again.";
-                errorMessage.style.display = "block"; // Ensure visibility
-            }
-        });
-
-        // Function to validate mobile number
-        async function validateNumber(event) {
-            event.preventDefault(); // Prevent form submission
-
-            let numberInput = document.getElementById("mobileNumber").value.trim();
-            let errorMessage = document.getElementById("error-message");
-
-            // Clear previous error messages
-            errorMessage.textContent = "";
-
-            // Validate 10-digit number format
-            if (!/^\d{10}$/.test(numberInput)) {
-                errorMessage.textContent = "Please enter a valid 10-digit phone number.";
-                return;
-            }
-
-            try {
-                let response = await fetch("/HTML/numbers.json"); // Ensure correct path
-                let data = await response.json();
-                let validNumbers = data.users.map(user => user.phone); // Extract phone numbers
-
-                // Check if the number exists in the validNumbers array
-                if (validNumbers.includes(numberInput)) {
-                    window.location.href = "/HTML/PlanRecharge.html"             
-                 } else {
-                    errorMessage.textContent = "The number you have entered is a non-Mobicomm number.";
-                }
-            } catch (error) {
-                errorMessage.textContent = "Error fetching data. Please try again later.";
-            }
-        }
-    </script>
-     <script>
-        function promptLogin() {
-            alert("Please log in to view more plans.");
-        }
-    </script>
-
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
-    <!-- Bootstrap Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-integrity="sha384-lpyF13mvwIf6g2BGBp4jKf+6Gbz5x6s1l+h6pD9TEtrFJX57j6HLm/O+OYZbz1l1Q"
-crossorigin="anonymous"></script>
-
-   
+      } catch (error) {
+        errorMessage.textContent = "Error fetching data. Please try again later.";
+      }
+    }
+  </script>
 </body>
 </html>
