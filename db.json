@@ -9,10 +9,12 @@
       "transactions": [
         1001,
         1002,
+        1003,
         1004,
-        1007,
-        1011,
-        1013
+        1013,
+        1014,
+        1018,
+        1019
       ]
     },
     {
@@ -22,7 +24,9 @@
       "email": "jane@example.com",
       "registeredOn": "2025-02-01",
       "transactions": [
-        1003
+        1005,
+        1015,
+        1016
       ]
     },
     {
@@ -32,8 +36,9 @@
       "email": "alice@example.com",
       "registeredOn": "2025-03-05",
       "transactions": [
-        1006,
-        1009
+        1007,
+        1008,
+        1017
       ]
     },
     {
@@ -43,7 +48,7 @@
       "email": "bob@example.com",
       "registeredOn": "2025-03-06",
       "transactions": [
-        1005
+        1009
       ]
     },
     {
@@ -54,7 +59,8 @@
       "registeredOn": "2025-03-07",
       "transactions": [
         1010,
-        1012
+        1011,
+        1019
       ]
     },
     {
@@ -64,7 +70,7 @@
       "email": "diana@example.com",
       "registeredOn": "2025-03-08",
       "transactions": [
-        1008
+        1012
       ]
     }
   ],
@@ -82,8 +88,7 @@
         "Ideal for light usage",
         "Budget-friendly",
         "Limited data"
-      ],
-      "error": "Method not allowed"
+      ]
     },
     {
       "id": 2,
@@ -533,8 +538,7 @@
         "Advanced plan",
         "Extra data",
         "Superior connectivity"
-      ],
-      "error": "Method not allowed"
+      ]
     },
     {
       "id": 32,
@@ -617,118 +621,201 @@
       "id": 1001,
       "userId": 1,
       "planId": 1,
-      "transactionDate": "2025-01-15T10:30:00Z",
+      "transactionDate": "2023-12-15T10:30:00Z",
+      "expiryDate": "2023-12-22T10:30:00Z",
       "status": "Completed",
       "amount": 199,
-      "paymentMethod": "Credit Card"
+      "paymentMethod": "Credit Card",
+      "queueAfterActivePlan": false
     },
     {
       "id": 1002,
       "userId": 1,
-      "planId": 9,
-      "transactionDate": "2025-02-15T11:00:00Z",
-      "status": "Pending",
-      "amount": 4999,
-      "paymentMethod": "Net Banking"
+      "planId": 2,
+      "transactionDate": "2023-12-22T11:00:00Z",
+      "expiryDate": "2024-01-19T11:00:00Z",
+      "status": "Completed",
+      "amount": 749,
+      "paymentMethod": "Net Banking",
+      "queueAfterActivePlan": false
     },
     {
       "id": 1003,
-      "userId": 2,
-      "planId": 5,
-      "transactionDate": "2025-03-01T09:45:00Z",
-      "status": "Completed",
-      "amount": 1999,
-      "paymentMethod": "UPI"
-    },
-    {
       "userId": 1,
-      "planId": 1,
-      "transactionDate": "2025-02-24T18:29:05.066Z",
-      "status": "Completed",
-      "amount": 199,
-      "paymentMethod": "Net Banking",
-      "id": 1004
-    },
-    {
-      "userId": 4,
-      "planId": 7,
-      "transactionDate": "2025-02-24T18:31:32.957Z",
-      "status": "Completed",
-      "amount": 399,
-      "paymentMethod": "Net Banking",
-      "id": 1005
-    },
-    {
-      "userId": 3,
       "planId": 3,
-      "transactionDate": "2025-02-24T18:37:43.051Z",
+      "transactionDate": "2024-01-20T09:00:00Z",
+      "expiryDate": "2024-02-19T09:00:00Z",
       "status": "Completed",
       "amount": 999,
       "paymentMethod": "Wallets",
-      "id": 1006
+      "queueAfterActivePlan": false
     },
     {
+      "id": 1004,
+      "userId": 1,
+      "planId": 11,
+      "transactionDate": "2024-02-20T10:00:00Z",
+      "expiryDate": "2024-05-20T10:00:00Z",
+      "status": "Completed",
+      "amount": 1999,
+      "paymentMethod": "Wallets",
+      "queueAfterActivePlan": false
+    },
+    {
+      "id": 1013,
+      "userId": 1,
+      "planId": 2,
+      "transactionDate": "2025-01-15T09:00:00Z",
+      "expiryDate": "2025-02-12T09:00:00Z",
+      "status": "Completed",
+      "amount": 749,
+      "paymentMethod": "Credit Card",
+      "queueAfterActivePlan": false
+    },
+    {
+      "id": 1014,
       "userId": 1,
       "planId": 1,
-      "transactionDate": "2025-02-25T10:57:00.807Z",
+      "transactionDate": "2025-02-13T10:00:00Z",
+      "expiryDate": "2025-02-20T10:00:00Z",
       "status": "Completed",
       "amount": 199,
       "paymentMethod": "Net Banking",
-      "id": 1007
+      "queueAfterActivePlan": false
     },
     {
+      "id": 1005,
+      "userId": 2,
+      "planId": 5,
+      "transactionDate": "2024-03-01T09:45:00Z",
+      "expiryDate": "2024-03-22T09:45:00Z",
+      "status": "Completed",
+      "amount": 1999,
+      "paymentMethod": "UPI",
+      "queueAfterActivePlan": false
+    },
+    {
+      "id": 1015,
+      "userId": 2,
+      "planId": 7,
+      "transactionDate": "2024-04-01T08:30:00Z",
+      "expiryDate": "2024-04-15T08:30:00Z",
+      "status": "Completed",
+      "amount": 399,
+      "paymentMethod": "Wallets",
+      "queueAfterActivePlan": false
+    },
+    {
+      "id": 1016,
+      "userId": 2,
+      "planId": 2,
+      "transactionDate": "2024-04-15T09:00:00Z",
+      "expiryDate": "2024-05-13T09:00:00Z",
+      "status": "Completed",
+      "amount": 749,
+      "paymentMethod": "Credit Card",
+      "queueAfterActivePlan": false
+    },
+    {
+      "id": 1007,
+      "userId": 3,
+      "planId": 3,
+      "transactionDate": "2024-02-24T18:37:43.051Z",
+      "expiryDate": "2024-03-26T18:37:43.051Z",
+      "status": "Completed",
+      "amount": 999,
+      "paymentMethod": "Wallets",
+      "queueAfterActivePlan": false
+    },
+    {
+      "id": 1008,
+      "userId": 3,
+      "planId": 1,
+      "transactionDate": "2024-03-27T10:00:00Z",
+      "expiryDate": "2024-04-03T10:00:00Z",
+      "status": "Completed",
+      "amount": 199,
+      "paymentMethod": "Net Banking",
+      "queueAfterActivePlan": false
+    },
+    {
+      "id": 1017,
+      "userId": 3,
+      "planId": 11,
+      "transactionDate": "2024-04-05T11:30:00Z",
+      "expiryDate": "2024-07-04T11:30:00Z",
+      "status": "Completed",
+      "amount": 1999,
+      "paymentMethod": "Credit Card",
+      "queueAfterActivePlan": false
+    },
+    {
+      "id": 1009,
+      "userId": 4,
+      "planId": 7,
+      "transactionDate": "2024-02-24T18:31:32.957Z",
+      "expiryDate": "2024-03-10T18:31:32.957Z",
+      "status": "Completed",
+      "amount": 399,
+      "paymentMethod": "Net Banking",
+      "queueAfterActivePlan": false
+    },
+    {
+      "id": 1010,
+      "userId": 5,
+      "planId": 1,
+      "transactionDate": "2024-02-26T10:40:55.098Z",
+      "expiryDate": "2024-03-05T10:40:55.098Z",
+      "status": "Completed",
+      "amount": 199,
+      "paymentMethod": "Net Banking",
+      "queueAfterActivePlan": false
+    },
+    {
+      "id": 1011,
+      "userId": 5,
+      "planId": 2,
+      "transactionDate": "2024-03-06T11:00:00Z",
+      "expiryDate": "2024-04-03T11:00:00Z",
+      "status": "Completed",
+      "amount": 749,
+      "paymentMethod": "Wallets",
+      "queueAfterActivePlan": false
+    },
+    {
+      "id": 1012,
       "userId": 6,
       "planId": 19,
-      "transactionDate": "2025-02-26T07:34:48.409Z",
+      "transactionDate": "2024-02-26T07:34:48.409Z",
+      "expiryDate": "2024-05-27T07:34:48.409Z",
       "status": "Completed",
       "amount": 2999,
       "paymentMethod": "Net Banking",
-      "id": 1008
-    },
-    {
-      "userId": 3,
-      "planId": 1,
-      "transactionDate": "2025-02-26T10:26:58.499Z",
-      "status": "Completed",
-      "amount": 199,
-      "paymentMethod": "Net Banking",
-      "id": 1009
-    },
-    {
-      "userId": 5,
-      "planId": 1,
-      "transactionDate": "2025-02-26T10:40:55.098Z",
-      "status": "Completed",
-      "amount": 199,
-      "paymentMethod": "Net Banking",
-      "id": 1010
+      "queueAfterActivePlan": false
     },
     {
       "userId": 1,
       "planId": 1,
-      "transactionDate": "2025-02-27T03:33:32.245Z",
+      "planName": "Basic Saver",
+      "transactionDate": "2025-03-02T16:02:56.215Z",
       "status": "Completed",
       "amount": 199,
-      "paymentMethod": "Wallets",
-      "id": 1011
-    },
-    {
-      "userId": 5,
-      "planId": 37,
-      "transactionDate": "2025-02-27T03:42:36.814Z",
-      "status": "Completed",
-      "amount": 150,
-      "paymentMethod": "UPI",
-      "id": 1012
+      "paymentMethod": "Net Banking",
+      "expiryDate": "2025-03-09T16:02:56.197Z",
+      "queueAfterActivePlan": false,
+      "id": 1018
     },
     {
       "userId": 1,
-      "planId": 11,
-      "transactionDate": "2025-02-28T10:20:05.989Z",
+      "planId": 1,
+      "planName": "Basic Saver",
+      "transactionDate": "2025-03-02T16:04:29.038Z",
       "status": "Completed",
-      "amount": 1999,
-      "paymentMethod": "None",
-      "id": 1013
+      "amount": 199,
+      "paymentMethod": "Net Banking",
+      "expiryDate": "2025-03-09T16:04:29.022Z",
+      "queueAfterActivePlan": true,
+      "id": 1019
     }
   ]
 }
