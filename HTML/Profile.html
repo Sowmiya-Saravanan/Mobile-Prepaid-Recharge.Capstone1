@@ -1,171 +1,419 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <link href="/css/main.min.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Profile | MobiComm Services</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+  <!-- AOS Animation CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+  <!-- Animate.css (optional) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <style>
+    :root {
+      --primary: #c44e44;    /* Vibrant red */
+      --secondary: #e07a5f;  /* Warm tone */
+      --tertiary: #f6d6ad;   /* Soft light hue */
+      --light: #f8f9fa;      /* Off-white background */
+      --dark: #343a40;       /* Dark text */
+      --accent: #7a46c8;     /* Accent for buttons/modals */
+    }
+    body {
+      background: var(--light);
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      padding-top: 80px;
+    }
+    /* Navbar */
+    .navbar {
+      background: var(--primary);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .navbar-brand, .nav-link {
+      color: var(--light) !important;
+    }
+    .nav-link:hover {
+      color: var(--secondary) !important;
+    }
+    /* Profile Header */
+    .profile-header {
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+      padding: 40px;
+      color: var(--light);
+      text-align: center;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      animation: fadeInDown 1s;
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    /* Card Base Styling */
+    .card-custom {
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+      animation: fadeInUp 1s;
+    }
+    .card-custom:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(196, 78, 68, 0.8);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    /* Profile Image Styling */
+    .profile-img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid var(--primary);
+      margin-bottom: 15px;
+    }
+    /* Notifications Section (Unified) */
+    .notif-section {
+      background: var(--secondary);
+      color: var(--light);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      animation: fadeInUp 1s;
+    }
+    .notif-section h5 {
+      border-bottom: 1px solid var(--light);
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+    }
+    .notif-section ul {
+      list-style: none;
+      padding: 0;
+    }
+    .notif-section li {
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+    /* Transaction History Summary Table */
+    .table-summary {
+      animation: fadeIn 1s;
+    }
+    /* Modals – General Styling */
+    .modal-header {
+      background: var(--primary);
+      color: var(--light);
+    }
+    .modal-content {
+      border-radius: 10px;
+      animation: fadeInUp 0.8s;
+    }
+    /* Footer */
+    footer {
+      background: var(--primary);
+      color: var(--light);
+      padding: 40px 0;
+    }
+    footer a { color: var(--light); transition: color 0.3s ease; }
+    footer a:hover { color: var(--secondary); }
+  </style>
 </head>
 <body>
-    <!-- Navbar -->
-     <header class="bg-oxford-blue fixed-top">
-            <nav class="navbar navbar-expand-lg navbar-light">
-                <div class="container-fluid">
-                    <a class="navbar-brand d-flex align-items-center" href="#">
-                        <img src="/Assets/Images/M Logo.jpg" alt="Avatar Logo" style="width:40px;" class="rounded-pill me-2">
-                        <span class="fw-bold text-white" style="font-size: 1.5rem;">MobiComm</span>
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar" aria-controls="collapsibleNavbar" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="/HTML/Guest.html">Home</a>
-                            </li>
-                        
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="/HTML/PlanLogin.html">Plans</a>
-                            </li>
-                           
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bi bi-person"></i> Profile
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="/HTML/Profile.html">View Profile</a></li>
-                                    <li><a class="dropdown-item" href="/HTML/settings.html">Settings</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="/HTML/Guest.html">Logout</a></li>
-                                </ul>
-                            </li>
-                            
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </header>
-
-    <!-- User Dashboard -->
-    <br><br>
-<div class="container mt-5 pt-4">
-    <h2 class="h5 text-start">Welcome, User</h2>
-
-    <div class="row">
-        <!-- Left Section: User Info, Active Plan, Data Usage, Transaction History -->
-        <div class="col-md-8">
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">User Information</h5>
-                    <p class="card-text"><strong>Phone:</strong> +91 9876543210</p>
-                    <a href="/HTML/settings.html" class="btn btn-primary">Edit Profile</a>
-                </div>
-            </div>
-
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">Active Plan</h5>
-                    <p class="card-text"><strong>Data Available:</strong> 2GB</p>
-                    <p class="card-text"><strong>Expiry:</strong> 25th February 2025</p>
-                    <a href="/HTML/Plan.html" class="btn btn-primary">View Plan</a>
-                </div>
-            </div>
-
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">Data Usage</h5>
-                    <strong>1.39GB</strong> left of 2GB
-                    <div class="progress">
-                        <div class="progress-bar bg-success" style="width:70%"></div>
-                    </div>
-                    <div class="text-end mt-3">
-                        <a href="/HTML/transaction.html" class="btn btn-primary btn-sm">Renew Plan</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">Transaction History</h5>
-                    <ul class="list-group">
-                        <li class="list-group-item">Recharge - ₹299 - 1st January 2025</li>
-                        <li class="list-group-item">Recharge - ₹199 - 15th December 2024</li>
-                        <li class="list-group-item">Recharge - ₹499 - 1st November 2024</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Right Section: Profile Image Upload & Notifications -->
-        <div class="col-md-4">
-            <div class="card mb-4">
-                <div class="card-body text-center">
-                    <img id="profilePreview" src="/Assets/Images/default-profile.png" class="profile-img" alt="Profile Image">
-                    <div class="image-upload">
-                        <input type="file" id="imageUpload" accept="image/*" onchange="previewImage(event)">
-                        <label for="imageUpload"><i class="bi bi-upload"></i> Upload New Photo</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">Notifications</h5>
-                    <ul class="list-group">
-                        <li class="list-group-item">Your plan will expire in 5 days.</li>
-                        <li class="list-group-item">Recharge your account to avoid service interruption.</li>
-                        <li class="list-group-item">New offers available! Check them out.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">MobiComm</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="/HTML/Guest.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="/HTML/PlanLogin.html">Plans</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown">
+              <i class="bi bi-person-circle"></i> Profile
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+              <li><a class="dropdown-item" href="#">View Profile</a></li>
+              <li><a class="dropdown-item" href="#">Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/HTML/Guest.html">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
-</div>
-
-<br><br><br>
-
-
-
-    <!-- Footer -->
-    <footer class="bg-oxford-blue text-white text-center py-4 mt-auto">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <h5>About Us</h5>
-                    <p>MobiComm Services is dedicated to providing reliable and affordable mobile services to enhance connectivity and communication for our customers.</p>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <h5>Quick Links</h5>
-                    <nav class="mb-2">
-                        <a href="/Bootstrap/MobilePrepaidRecharge.html" class="text-light text-decoration-none">Home</a><br>
-                        <a href="#" class="text-light text-decoration-none" data-bs-toggle="modal" data-bs-target="#loginModal">Plans</a><br>
-                        <a href="#" class="text-light text-decoration-none">FAQs</a><br>
-                        <a href="#" class="text-light text-decoration-none">Contact</a>
-                    </nav>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <h5>Follow Us</h5>
-                    <a href="#" class="text-light me-2"><i class="bi bi-facebook"></i></a>
-                    <a href="#" class="text-light me-2"><i class="bi bi-twitter"></i></a>
-                    <a href="#" class="text-light me-2"><i class="bi bi-instagram"></i></a>
-                    <a href="#" class="text-light"><i class="bi bi-linkedin"></i></a>
-                </div>
-            </div>
-            <hr class="border-light">
-            <p class="mb -0">© 2023 MobiComm Services Ltd. All rights reserved.</p>
+  </nav>
+  
+  <!-- Profile Header -->
+  <div class="container">
+    <div class="profile-header" data-aos="fade-down">
+      <h1>Welcome, John Doe</h1>
+      <p>Member since January 2023</p>
+    </div>
+  </div>
+  
+  <!-- Main Content -->
+  <div class="container" data-aos="fade-up">
+    <div class="row">
+      <!-- Left Column: User Info, Active Plan, Transaction History Summary -->
+      <div class="col-md-8">
+        <!-- User Information Card -->
+        <div class="card card-custom">
+          <div class="card-body">
+            <h5 class="card-title">User Information</h5>
+            <p class="card-text"><strong>Phone:</strong> +91 9876543210</p>
+            <p class="card-text"><strong>Email:</strong> john.doe@example.com</p>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profile</button>
+          </div>
         </div>
-    </footer>
-
-<!-- Bootstrap JS (Required for modal functionality) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-bTtcWmfYiM0wljEyyi+eGACm92h6pEqB+Pq3e/8QmiiMzCjK2a4zkxZbB6FLfF7z"
-    crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ...></script>
-
-<br><br><br>
+        <!-- Active Plan Card -->
+        <div class="card card-custom">
+          <div class="card-body">
+            <h5 class="card-title">Active Plan</h5>
+            <p class="card-text"><strong>Plan:</strong> Premium Plan</p>
+            <p class="card-text"><strong>Expiry Date:</strong> 25th February 2025</p>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#planDetailsModal">View Plan Details</button>
+          </div>
+        </div>
+        <!-- Transaction History Summary Card -->
+        <div class="card card-custom">
+          <div class="card-body">
+            <h5 class="card-title">Recent Transactions</h5>
+            <table class="table table-summary">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Plan</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>01-Jan-2025</td>
+                  <td>Premium Plan</td>
+                  <td>₹299</td>
+                </tr>
+                <tr>
+                  <td>15-Dec-2024</td>
+                  <td>Basic Plan</td>
+                  <td>₹199</td>
+                </tr>
+                <tr>
+                  <td>01-Nov-2024</td>
+                  <td>Unlimited Plan</td>
+                  <td>₹499</td>
+                </tr>
+              </tbody>
+            </table>
+            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#transHistoryModal">View All Transactions</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Right Column: Profile Image, Notifications -->
+      <div class="col-md-4">
+        <!-- Profile Image Card with Save Functionality -->
+        <div class="card card-custom text-center">
+          <div class="card-body">
+            <img id="profilePreview" src="/Assets/Images/default-profile.png" class="profile-img" alt="Profile Image">
+            <div class="mt-3">
+              <input type="file" id="imageUpload" accept="image/*" class="d-none" onchange="previewImage(event)">
+              <label for="imageUpload" class="btn btn-primary btn-sm"><i class="bi bi-upload"></i> Change Photo</label>
+              <button id="saveImageBtn" class="btn btn-success btn-sm d-none mt-2" onclick="saveProfileImage()">Save Image</button>
+            </div>
+          </div>
+        </div>
+        <!-- Notifications Section -->
+        <div class="card card-custom notif-section">
+          <div class="card-body">
+            <h5 class="card-title">Notifications</h5>
+            <ul>
+              <li>Your plan will expire in 5 days.</li>
+              <li>New offer: 10% off on next recharge!</li>
+              <li>Maintenance scheduled on 15th May.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modals -->
+  <!-- Edit Profile Modal -->
+  <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editProfileForm">
+            <div class="mb-3">
+              <label for="editName" class="form-label">Name</label>
+              <input type="text" class="form-control" id="editName" value="John Doe">
+            </div>
+            <div class="mb-3">
+              <label for="editEmail" class="form-label">Email</label>
+              <input type="email" class="form-control" id="editEmail" value="john.doe@example.com">
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Save Changes</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Plan Details Modal (with full plan details and renew logic) -->
+  <div class="modal fade" id="planDetailsModal" tabindex="-1" aria-labelledby="planDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="planDetailsModalLabel">Plan Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- In a real app, these details would be populated dynamically -->
+          <p><strong>Plan:</strong> Premium Plan</p>
+          <p><strong>Price:</strong> ₹499</p>
+          <p><strong>Data:</strong> 5GB</p>
+          <p><strong>Calls:</strong> 300 Minutes</p>
+          <p><strong>SMS:</strong> 300 SMS</p>
+          <p><strong>Validity:</strong> 30 Days</p>
+          <p><strong>Expiry Date:</strong> 25th February 2025</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" onclick="renewPlan()">Renew Plan</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Transaction History Modal (Expanded view) -->
+  <div class="modal fade" id="transHistoryModal" tabindex="-1" aria-labelledby="transHistoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="transHistoryModalLabel">Transaction History</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Full transaction details with extra columns and receipt option -->
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Plan</th>
+                <th>Amount</th>
+                <th>Payment Mode</th>
+                <th>Time</th>
+                <th>Status</th>
+                <th>Receipt</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>01-Jan-2025</td>
+                <td>Premium Plan</td>
+                <td>₹299</td>
+                <td>Credit Card</td>
+                <td>10:30 AM</td>
+                <td>Success</td>
+                <td><button class="btn btn-sm btn-outline-primary">View Receipt</button></td>
+              </tr>
+              <tr>
+                <td>15-Dec-2024</td>
+                <td>Basic Plan</td>
+                <td>₹199</td>
+                <td>Net Banking</td>
+                <td>03:45 PM</td>
+                <td>Success</td>
+                <td><button class="btn btn-sm btn-outline-primary">View Receipt</button></td>
+              </tr>
+              <tr>
+                <td>01-Nov-2024</td>
+                <td>Unlimited Plan</td>
+                <td>₹499</td>
+                <td>Wallet</td>
+                <td>08:20 AM</td>
+                <td>Success</td>
+                <td><button class="btn btn-sm btn-outline-primary">View Receipt</button></td>
+              </tr>
+              <!-- Additional rows as needed -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Back-to-Top Button -->
+  <button id="backToTop"><i class="bi bi-arrow-up"></i></button>
+  
+  <!-- Bootstrap Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-..." crossorigin="anonymous"></script>
+  <!-- AOS Animation JS -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init();
+    
+    // Back-to-top button functionality
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      backToTop.style.display = window.scrollY > 300 ? 'flex' : 'none';
+    });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    
+    // Dummy function for image preview and saving to localStorage
+    function previewImage(event) {
+      const reader = new FileReader();
+      reader.onload = function(){
+        const output = document.getElementById('profilePreview');
+        output.src = reader.result;
+        // Show the save button when a new image is loaded
+        document.getElementById('saveImageBtn').classList.remove('d-none');
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+    
+    function saveProfileImage() {
+      const profileImage = document.getElementById('profilePreview').src;
+      // Save image data in localStorage (for demo purposes)
+      localStorage.setItem("profileImage", profileImage);
+      alert("Profile image saved!");
+      document.getElementById('saveImageBtn').classList.add('d-none');
+    }
+    
+    // On page load, check if a profile image is saved and load it
+    document.addEventListener("DOMContentLoaded", function() {
+      const savedImage = localStorage.getItem("profileImage");
+      if (savedImage) {
+        document.getElementById('profilePreview').src = savedImage;
+      }
+    });
+    
+    // Renew Plan functionality
+    function renewPlan() {
+      // Check if an active plan exists (for demo, we use localStorage)
+      if (localStorage.getItem("activePlanExists") === "true") {
+        if (confirm("You already have an active plan. Do you want to queue the new plan to start after your current plan expires?")) {
+          localStorage.setItem("queueAfterActivePlan", "true");
+          window.location.href = "/HTML/PlanLogin.html";
+        }
+      } else {
+        window.location.href = "/HTML/PlanLogin.html";
+      }
+    }
+  </script>
+  
 </body>
 </html>
