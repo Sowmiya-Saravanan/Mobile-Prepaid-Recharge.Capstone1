@@ -3,14 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Plan-Recharge</title>
+  <title>Plan Recharge | MobiComm</title>
   <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
   <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
   <!-- AOS Animation CSS -->
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
   <style>
     :root {
       --primary: #c44e44;
@@ -20,18 +21,12 @@
       --dark: #343a40;
       --accent: #7a46c8;
     }
-    
-    /* Reset and Base */
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
     body {
       background: var(--light);
       font-family: 'Montserrat', sans-serif;
       margin: 0;
     }
-    
-    /* Navbar */
     .navbar {
       background: var(--primary);
       padding: 15px 20px;
@@ -51,14 +46,7 @@
     .navbar-nav .nav-link:hover {
       color: var(--secondary) !important;
     }
-    
-    /* Section Spacing */
-    .section-spacing {
-      padding: 60px 0;
-      margin-bottom: 60px;
-    }
-    
-    /* Active Plan Banner */
+    .section-spacing { padding: 60px 0; margin-bottom: 60px; }
     #activePlanInfo {
       background: linear-gradient(135deg, var(--accent), var(--secondary));
       color: var(--light);
@@ -69,16 +57,11 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       animation: fadeInUp 0.8s ease-out;
     }
-    #activePlanInfo div {
-      margin: 5px 0;
-      font-size: 1.1rem;
-    }
+    #activePlanInfo div { margin: 5px 0; font-size: 1.1rem; }
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    
-    /* Filters Sidebar */
     .filter-card {
       background: #ffffff;
       border: 1px solid #ddd;
@@ -89,28 +72,12 @@
       position: sticky;
       top: 100px;
     }
-    .filter-card h4 {
-      color: var(--primary);
-      margin-bottom: 20px;
-    }
-    .filter-card label {
-      font-weight: 600;
-      color: var(--dark);
-    }
-    .filter-card input[type="range"] {
-      border: none;
-      border-radius: 5px;
-      padding: 5px;
-      margin-bottom: 15px;
-    }
-    .filter-card input[type="range"]::-webkit-slider-runnable-track {
-      height: 8px;
-      background: var(--secondary);
-      border-radius: 5px;
-    }
+    .filter-card h4 { color: var(--primary); margin-bottom: 20px; }
+    .filter-card label { font-weight: 600; color: var(--dark); }
+    .filter-card input[type="range"] { border: none; border-radius: 5px; padding: 5px; margin-bottom: 15px; }
+    .filter-card input[type="range"]::-webkit-slider-runnable-track { height: 8px; background: var(--secondary); border-radius: 5px; }
     .filter-card input[type="range"]::-webkit-slider-thumb {
       -webkit-appearance: none;
-      appearance: none;
       width: 20px;
       height: 20px;
       background: var(--primary);
@@ -118,29 +85,6 @@
       cursor: pointer;
       margin-top: -6px;
     }
-    .filter-card input[type="range"]::-moz-range-track {
-      height: 8px;
-      background: var(--secondary);
-      border-radius: 5px;
-    }
-    .filter-card input[type="range"]::-moz-range-thumb {
-      width: 20px;
-      height: 20px;
-      background: var(--primary);
-      border-radius: 50%;
-      cursor: pointer;
-    }
-    .filter-card select {
-      border-radius: 5px;
-      border: 1px solid var(--secondary);
-      padding: 5px;
-      margin-bottom: 15px;
-    }
-    .apply-filters-btn {
-      margin-top: 20px;
-    }
-    
-    /* Search Bar */
     #planSearch {
       border: 2px solid var(--secondary);
       border-radius: 50px;
@@ -148,25 +92,15 @@
       font-size: 1rem;
       transition: box-shadow 0.3s ease;
     }
-    #planSearch:focus {
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    }
-    
-    /* Category Tabs */
+    #planSearch:focus { box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
     #categoryTabs .nav-link {
       font-size: 1.1rem;
       font-weight: 600;
       color: var(--dark);
-      transition: background 0.3s ease, transform 0.3s ease;
+      transition: background 0.3s ease;
       margin-right: 5px;
     }
-    #categoryTabs .nav-link.active {
-      background: var(--secondary);
-      color: var(--light);
-      border-radius: 8px;
-    }
-    
-    /* Plan Cards */
+    #categoryTabs .nav-link.active { background: var(--secondary); color: var(--light); border-radius: 8px; }
     #plan-container .card {
       background: #ffffff;
       border: none;
@@ -174,31 +108,17 @@
       box-shadow: 0 6px 12px rgba(196, 78, 68, 0.2);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       margin-bottom: 30px;
-      overflow: hidden;
     }
     #plan-container .card:hover {
       transform: translateY(-8px) scale(1.03);
       box-shadow: 0 16px 32px rgba(196, 78, 68, 0.8);
     }
-    #plan-container .card .price {
-      font-size: 1.7rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 10px;
-    }
-    
-    /* Plan Details Modal */
-    .modal-content {
-      border-radius: 15px;
-      overflow: hidden;
-      animation: slideIn 0.6s ease-out;
-    }
+    #plan-container .card .price { font-size: 1.7rem; font-weight: 700; color: var(--primary); margin-bottom: 10px; }
+    .modal-content { border-radius: 15px; overflow: hidden; animation: slideIn 0.6s ease-out; }
     @keyframes slideIn {
       from { opacity: 0; transform: translateY(50px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    
-    /* Unique Button Styles */
     .btn-primary {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       border: none;
@@ -215,7 +135,6 @@
       box-shadow: 0 8px 15px rgba(0,0,0,0.25);
       background: linear-gradient(135deg, var(--secondary), var(--primary));
     }
-    
     .btn-custom,
     .btn-filter {
       background: var(--primary);
@@ -228,20 +147,7 @@
       transition: background 0.3s ease, transform 0.3s ease;
     }
     .btn-custom:hover,
-    .btn-filter:hover {
-      background: var(--secondary);
-      transform: scale(1.05);
-    }
-    
-    #confirmationMessage {
-      animation: fadeIn 0.5s ease;
-      border: 1px solid var(--secondary);
-      border-radius: 8px;
-      padding: 15px;
-      background: #fff3cd;
-      color: #856404;
-      margin-top: 20px;
-    }
+    .btn-filter:hover { background: var(--secondary); transform: scale(1.05); }
     #backToTop {
       position: fixed;
       bottom: 20px;
@@ -259,26 +165,18 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       z-index: 1000;
     }
-    #backToTop:hover {
-      transform: scale(1.1);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    }
-    
-    footer {
-      background: var(--secondary);
-      color: #fff;
-      padding: 40px 0;
-    }
+    #backToTop:hover { transform: scale(1.1); box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
+    footer { background: var(--secondary); color: #fff; padding: 40px 0; }
     footer a { color: #fff; transition: color 0.3s ease; }
     footer a:hover { color: var(--tertiary); }
-    @media (max-width: 768px) {
-      .section-spacing { padding: 40px 0; }
-      #plan-container .card { margin-bottom: 20px; }
-    }
+    @media (max-width: 768px) { .section-spacing { padding: 40px 0; } #plan-container .card { margin-bottom: 20px; } }
+    /* OTP Input Styling */
+    .otp-input { width: 40px; height: 40px; text-align: center; font-size: 1.2rem; margin: 0 5px; border-radius: 5px; border: 1px solid var(--primary); }
+    .otp-input:focus { outline: none; border-color: var(--secondary); box-shadow: 0 0 5px rgba(224, 122, 95, 0.5); }
   </style>
 </head>
 <body>
-  <!-- Navbar with Login Option -->
+  <!-- Navbar -->
   <header>
     <nav class="navbar navbar-expand-lg fixed-top customs-header" data-aos="fade-down">
       <div class="container">
@@ -291,23 +189,17 @@
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
           <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link text-white" href="/HTML/Guest.html">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-white" href="#plan-location">Plans</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-white" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
-            </li>
+            <li class="nav-item"><a class="nav-link text-white" href="/HTML/Guest.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="#plan-location">Plans</a></li>
+            <li class="nav-item"><a class="nav-link text-white login-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a></li>
           </ul>
         </div>
       </div>
     </nav>
   </header>
   <div style="height: 80px;"></div>
-  
-  <!-- Main Container: Filters and Plans -->
+
+  <!-- Main Container -->
   <div class="container section-spacing" id="plan-location" data-aos="fade-up">
     <div class="row">
       <!-- Filters Sidebar -->
@@ -347,35 +239,61 @@
       </div>
       <!-- Right Section -->
       <div class="col-md-9" data-aos="fade-left">
-        <!-- Combined Banner: Recharging for Number & Active Plan Details -->
         <div id="activePlanInfo" data-aos="fade-down"></div>
-        <!-- Search Bar -->
         <div class="mb-4" data-aos="fade-up">
           <input type="text" id="planSearch" class="form-control" placeholder="Search all plans...">
         </div>
-        <!-- Category Tabs -->
         <ul class="nav nav-tabs mb-4" id="categoryTabs" data-aos="fade-up">
-          <li class="nav-item">
-            <a class="nav-link active" data-category="basic" href="#">Basic Plans</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-category="standard" href="#">Standard Plans</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-category="premium" href="#">Premium Plans</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-category="annual" href="#">Annual Plans</a>
-          </li>
+          <li class="nav-item"><a class="nav-link active" data-category="basic" href="#">Basic Plans</a></li>
+          <li class="nav-item"><a class="nav-link" data-category="standard" href="#">Standard Plans</a></li>
+          <li class="nav-item"><a class="nav-link" data-category="premium" href="#">Premium Plans</a></li>
+          <li class="nav-item"><a class="nav-link" data-category="annual" href="#">Annual Plans</a></li>
         </ul>
-        <!-- Display Header & Plans Container -->
         <h2 id="selected-category" class="text-center mb-4" data-aos="fade-up"></h2>
         <div id="plan-container" class="row" data-aos="fade-up"></div>
       </div>
     </div>
   </div>
-  
-  <!-- Plan Details Modal (Used for both normal plan details and renew modal) -->
+
+  <!-- Login Modal with 6-Digit OTP -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginModalLabel">Login to MobiComm</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="loginForm">
+            <div class="mb-3">
+              <label for="loginMobileNumber" class="form-label">Enter Your Mobile Number</label>
+              <input type="text" class="form-control" id="loginMobileNumber" placeholder="e.g., 9876543210" maxlength="10" required>
+            </div>
+            <div id="loginMessage" class="text-danger mb-3"></div>
+            <button type="submit" id="requestOtpBtn" class="btn btn-primary w-100">Request OTP</button>
+          </form>
+          <div id="otpSection" style="display: none;" class="mt-3">
+            <div class="mb-3">
+              <label class="form-label">Enter OTP</label>
+              <div class="d-flex justify-content-center gap-2">
+                <input type="text" id="otp1" class="otp-input" maxlength="1" required>
+                <input type="text" id="otp2" class="otp-input" maxlength="1" required>
+                <input type="text" id="otp3" class="otp-input" maxlength="1" required>
+                <input type="text" id="otp4" class="otp-input" maxlength="1" required>
+                <input type="text" id="otp5" class="otp-input" maxlength="1" required>
+                <input type="text" id="otp6" class="otp-input" maxlength="1" required>
+              </div>
+            </div>
+            <div id="otp-error" class="text-danger text-center mb-2"></div>
+            <button type="button" id="verifyOtpBtn" class="btn btn-primary w-100">Verify OTP</button>
+            <div id="otpTimer" class="text-center mt-2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Plan Details Modal -->
   <div class="modal fade" id="planModal" tabindex="-1" aria-labelledby="planModalLabel" aria-hidden="true" data-aos="zoom-in">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -383,9 +301,7 @@
           <h5 class="modal-title" id="planModalLabel">Plan Details</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body" id="planDetails">
-          <!-- Plan details will be dynamically inserted here -->
-        </div>
+        <div class="modal-body" id="planDetails"></div>
         <div class="modal-footer">
           <button type="button" id="buyPlanBtn" class="btn btn-primary">Recharge Now</button>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Go Back</button>
@@ -393,7 +309,7 @@
       </div>
     </div>
   </div>
-  
+
   <!-- Footer -->
   <footer class="text-white text-center py-4" data-aos="fade-up">
     <div class="container">
@@ -405,8 +321,8 @@
         <div class="col-md-4 mb-3">
           <h5>Quick Links</h5>
           <nav>
-            <a href="/Bootstrap/MobilePrepaidRecharge.html" class="text-light text-decoration-none">Home</a><br>
-            <a href="/HTML/Plan.html" class="text-light text-decoration-none">Plans</a><br>
+            <a href="/HTML/Guest.html" class="text-light text-decoration-none">Home</a><br>
+            <a href="#plan-location" class="text-light text-decoration-none">Plans</a><br>
             <a href="#" class="text-light text-decoration-none">FAQs</a><br>
             <a href="#" class="text-light text-decoration-none">Contact</a>
           </nav>
@@ -420,261 +336,32 @@
         </div>
       </div>
       <hr class="border-light">
-      <p class="mb-0">&copy; 2025 Mobicomm Services. All rights reserved.</p>
+      <p class="mb-0">© 2025 Mobicomm Services. All rights reserved.</p>
     </div>
   </footer>
-  
+
   <!-- Back-to-Top Button -->
   <button id="backToTop"><i class="bi bi-arrow-up"></i></button>
-  
-  <!-- Login Modal with OTP Input Boxes -->
-  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Login to MobiComm</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="loginForm">
-            <div class="mb-3">
-              <label for="loginPhone" class="form-label">Phone Number</label>
-              <input type="text" class="form-control" id="loginPhone" placeholder="Enter phone number" required />
-            </div>
-            <div id="login-error" class="text-danger mb-3"></div>
-            <button type="submit" class="btn btn-custom w-100">Send OTP</button>
-          </form>
-          <div id="otpSection" style="display: none;" class="mt-3">
-            <div id="otpDisplay" class="mb-3 text-center"></div>
-            <div class="mb-3">
-              <label for="otpInput" class="form-label">Enter OTP</label>
-              <div class="d-flex justify-content-center gap-2">
-                <input type="text" id="otp1" class="form-control text-center" maxlength="1" style="width: 50px;">
-                <input type="text" id="otp2" class="form-control text-center" maxlength="1" style="width: 50px;">
-                <input type="text" id="otp3" class="form-control text-center" maxlength="1" style="width: 50px;">
-                <input type="text" id="otp4" class="form-control text-center" maxlength="1" style="width: 50px;">
-              </div>
-            </div>
-            <div id="otp-error" class="text-danger text-center mb-2"></div>
-            <button type="button" class="btn btn-success w-100" onclick="verifyOTP()">Verify OTP</button>
-            <div id="otpTimer" class="text-center mt-2"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Bootstrap Bundle JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
-          integrity="sha384-..." crossorigin="anonymous"></script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
   <!-- AOS Animation JS -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
     AOS.init();
-  </script>
-  
-  <!-- Dynamic Plans, Active Plan, and Renew Modal Scripts -->
-  <script>
-    // Function to handle plan selection from a card
-    function selectPlanFromCard(cardElement) {
-      const planData = cardElement.getAttribute("data-plan");
-      if (planData) {
-        const selectedPlan = JSON.parse(planData);
-        localStorage.setItem("selectedPlan", JSON.stringify(selectedPlan));
-        window.location.href = "/HTML/Transaction.html";
-      }
-    }
-    
-    // Function to open the plan details modal (used for normal plan card clicks)
-    function openPlanModal(plan) {
-      const planDetailsDiv = document.getElementById("planDetails");
-      planDetailsDiv.innerHTML = `
-        <h4>${plan.name}</h4>
-        <p><strong>Price:</strong> ${plan.price || "N/A"}</p>
-        <p><strong>Data:</strong> ${plan.data || "N/A"}</p>
-        <p><strong>Validity:</strong> ${plan.validity || "N/A"}</p>
-        <p><strong>Calls:</strong> ${plan.calls || "N/A"}</p>
-        <p><strong>SMS:</strong> ${plan.sms || "N/A"}</p>
-        <p><strong>Features:</strong> ${plan.features ? plan.features.join(", ") : "N/A"}</p>
-      `;
-      // Default behavior for the Recharge Now button
-      document.getElementById("buyPlanBtn").textContent = "Recharge Now";
-      document.getElementById("buyPlanBtn").onclick = function() {
-        if (localStorage.getItem("activePlanExists") === "true") {
-          let confirmationDiv = document.getElementById("confirmationMessage");
-          if (!confirmationDiv) {
-            confirmationDiv = document.createElement("div");
-            confirmationDiv.id = "confirmationMessage";
-            confirmationDiv.className = "alert alert-warning mt-3";
-            confirmationDiv.innerHTML = `
-              You already have an active plan. Do you want to queue the new plan to start after your current plan expires?
-              <div class="mt-2 text-end">
-                <button id="confirmYes" class="btn btn-success btn-sm me-2">Yes, Queue It</button>
-                <button id="confirmNo" class="btn btn-secondary btn-sm">Cancel</button>
-              </div>
-            `;
-            planDetailsDiv.appendChild(confirmationDiv);
-          }
-          document.getElementById("confirmYes").onclick = function() {
-            localStorage.setItem("queueAfterActivePlan", "true");
-            selectPlanFromCard({ getAttribute: () => JSON.stringify(plan) });
-          };
-          document.getElementById("confirmNo").onclick = function() {
-            localStorage.setItem("queueAfterActivePlan", "false");
-            confirmationDiv.remove();
-          };
-        } else {
-          selectPlanFromCard({ getAttribute: () => JSON.stringify(plan) });
-        }
-      };
-      var planModal = new bootstrap.Modal(document.getElementById("planModal"));
-      planModal.show();
-    }
-    
-    // NEW: Function to open a Renew Modal when the user clicks Renew Now in the active plan banner.
-    function openRenewModal(plan) {
-      const planDetailsDiv = document.getElementById("planDetails");
-      planDetailsDiv.innerHTML = `
-        <h4>${plan.name}</h4>
-        <p><strong>Price:</strong> ${plan.price || "N/A"}</p>
-        <p><strong>Data:</strong> ${plan.data || "N/A"}</p>
-        <p><strong>Validity:</strong> ${plan.validity || "N/A"}</p>
-        <p><strong>Calls:</strong> ${plan.calls || "N/A"}</p>
-        <p><strong>SMS:</strong> ${plan.sms || "N/A"}</p>
-        <p><strong>Features:</strong> ${plan.features ? plan.features.join(", ") : "N/A"}</p>
-      `;
-      // Change primary button text to "Renew Now"
-      const renewBtn = document.getElementById("buyPlanBtn");
-      renewBtn.textContent = "Renew Now";
-      renewBtn.onclick = function() {
-        localStorage.setItem("selectedPlan", JSON.stringify(plan));
-        window.location.href = "/HTML/Transaction.html";
-      };
-      // Change secondary button text to "View Other Plan"
-      const otherPlanBtn = document.querySelector("#planModal .btn-secondary");
-      otherPlanBtn.textContent = "View Other Plan";
-      // Optionally, you could clear the selected plan or simply dismiss the modal
-      var planModal = new bootstrap.Modal(document.getElementById("planModal"));
-      planModal.show();
-    }
-    
-    // Function to check the active plan status and update the banner
-    async function checkActivePlan() {
-      const mobileNumber = localStorage.getItem("mobileNumber");
-      if (!mobileNumber) return;
-      try {
-        const [usersRes, transactionsRes, plansRes] = await Promise.all([
-          fetch("/api/users"),
-          fetch("/api/transactions"),
-          fetch("/api/plans")
-        ]);
-        const users = await usersRes.json();
-        const transactions = await transactionsRes.json();
-        const plans = await plansRes.json();
-    
-        const user = users.find(u => u.phone.trim() === mobileNumber.trim());
-        if (!user) return;
-    
-        const now = new Date();
-        let activeTx = null;
-        let lastTx = null;
-    
-        const userTxs = transactions
-          .filter(tx => tx.userId === user.id && tx.status === "Completed")
-          .sort((a, b) => new Date(b.transactionDate) - new Date(a.transactionDate));
-    
-        for (let tx of userTxs) {
-          const plan = plans.find(p => p.id === tx.planId);
-          if (plan) {
-            const validityDays = parseInt(plan.validity, 10);
-            if (isNaN(validityDays)) continue;
-            const txDate = new Date(tx.transactionDate);
-            const expiryDate = new Date(txDate);
-            expiryDate.setDate(expiryDate.getDate() + validityDays);
-            if (expiryDate > now) {
-              activeTx = tx;
-              break;
-            } else if (!lastTx) {
-              lastTx = tx;
-            }
-          }
-        }
-    
-        const activePlanBanner = document.getElementById("activePlanInfo");
-        const mobileText = `<div><strong>Recharging for Number:</strong> ${mobileNumber}</div>`;
-        
-        if (activeTx) {
-          const plan = plans.find(p => p.id === activeTx.planId);
-          const planName = plan ? plan.name : activeTx.planName || "N/A";
-          const txDate = new Date(activeTx.transactionDate);
-          const validityDays = plan ? parseInt(plan.validity, 10) : 0;
-          const expiryDate = new Date(txDate);
-          expiryDate.setDate(expiryDate.getDate() + validityDays);
-          const timeRemaining = Math.ceil((expiryDate - now) / (1000 * 3600 * 24));
-          activePlanBanner.innerHTML = `
-            ${mobileText}
-            <div class="mt-2">
-              <strong>Active Plan:</strong> ${planName} &nbsp;&nbsp;|&nbsp;&nbsp;
-              <strong>Recharged on:</strong> ${txDate.toLocaleDateString()} &nbsp;&nbsp;|&nbsp;&nbsp;
-              <strong>Expires on:</strong> ${expiryDate.toLocaleDateString()} &nbsp;&nbsp;|&nbsp;&nbsp;
-              <strong>Time Remaining:</strong> ${timeRemaining} day(s)
-            </div>
-          `;
-          activePlanBanner.style.display = "block";
-          localStorage.setItem("activePlanExists", "true");
-        } else if (lastTx) {
-          const plan = plans.find(p => p.id === lastTx.planId);
-          const planName = plan ? plan.name : lastTx.planName || "N/A";
-          const txDate = new Date(lastTx.transactionDate);
-          const validityDays = plan ? parseInt(plan.validity, 10) : 0;
-          const expiryDate = new Date(txDate);
-          expiryDate.setDate(expiryDate.getDate() + validityDays);
-          activePlanBanner.innerHTML = `
-            ${mobileText}
-            <div class="mt-2">
-              <strong>Last Plan:</strong> ${planName} &nbsp;&nbsp;|&nbsp;&nbsp;
-              <strong>Recharged on:</strong> ${txDate.toLocaleDateString()} &nbsp;&nbsp;|&nbsp;&nbsp;
-              <strong>Expired on:</strong> ${expiryDate.toLocaleDateString()}
-            </div>
-            <div class="mt-2">
-              <button id="renewNowBtn" class="btn btn-primary">Renew Now</button>
-            </div>
-          `;
-          activePlanBanner.style.display = "block";
-          localStorage.removeItem("activePlanExists");
-          document.getElementById("renewNowBtn").addEventListener("click", function(){
-            // Open the renew modal with the plan details from the last transaction
-            openRenewModal(plan);
-          });
-        } else {
-          activePlanBanner.innerHTML = mobileText;
-          activePlanBanner.style.display = "block";
-          localStorage.removeItem("activePlanExists");
-        }
-      } catch (err) {
-        console.error("Error checking active plan:", err);
-      }
-    }
-    
-    // Bind "View Details" buttons to open the plan modal
-    function bindViewDetailsButtons() {
-      const viewDetailsBtns = document.querySelectorAll(".view-details-btn");
-      viewDetailsBtns.forEach(btn => {
-        btn.addEventListener("click", function () {
-          const card = this.closest(".card");
-          const planData = card.getAttribute("data-plan");
-          if (planData) {
-            const plan = JSON.parse(planData);
-            openPlanModal(plan);
-          }
-        });
-      });
-    }
-    
+
+    // Back-to-top button
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      backToTop.style.display = window.scrollY > 300 ? 'flex' : 'none';
+    });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
     document.addEventListener("DOMContentLoaded", function () {
-      checkActivePlan();
-      
-      const categoryTabs = document.querySelectorAll("#categoryTabs .nav-link");
+      const mobileNumber = localStorage.getItem("mobileNumber");
+      const activePlanBanner = document.getElementById("activePlanInfo");
       const planContainer = document.getElementById("plan-container");
       const selectedCategoryElem = document.getElementById("selected-category");
       const planSearch = document.getElementById("planSearch");
@@ -683,35 +370,93 @@
       const dataFilter = document.getElementById("dataFilter");
       const validityFilter = document.getElementById("validityFilter");
       const callsFilter = document.getElementById("callsFilter");
-      
+      const applyFiltersBtn = document.querySelector(".apply-filters-btn");
+
       let rechargePlans = [];
       let categorizedPlans = {};
       let currentCategory = "basic";
-      
-      fetch("/api/plans")
-        .then(response => {
-          if (!response.ok) throw new Error("Failed to fetch JSON data");
-          return response.json();
-        })
-        .then(data => {
-          rechargePlans = data || [];
-          categorizedPlans = {};
-          rechargePlans.forEach(plan => {
-            const cat = (plan.category || "uncategorized").toLowerCase();
-            if (!categorizedPlans[cat]) {
-              categorizedPlans[cat] = [];
-            }
-            categorizedPlans[cat].push(plan);
-          });
-          currentCategory = "basic";
-          displayPlans("basic", categorizedPlans);
-          createNewCategoryTabs();
-        })
-        .catch(err => {
-          console.error("Error fetching plans:", err);
-          planContainer.innerHTML = "<p>Error loading plans.</p>";
+      let activeTx; // Store active transaction for guest mode
+
+      // Set initial banner content
+      activePlanBanner.innerHTML = `<div><strong>Recharging for Number:</strong> ${mobileNumber || "Unknown"}</div>`;
+      activePlanBanner.style.display = "block";
+
+      // Fetch active plan and plans
+      Promise.all([
+        mobileNumber ? fetch(`http://localhost:8082/api/guest/transactions?mobileNumber=${mobileNumber}`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" }
+        }).then(res => {
+          if (!res.ok) {
+            console.warn("No transactions found or endpoint error:", res.status);
+            return [];
+          }
+          return res.json();
+        }) : Promise.resolve([]),
+        fetch("http://localhost:8082/api/public/plans") // Updated to use public endpoint
+          .then(res => {
+            if (!res.ok) throw new Error("Failed to fetch plans");
+            return res.json();
+          })
+      ])
+      .then(([transactions, plans]) => {
+        rechargePlans = plans || [];
+        // Filter out inactive plans
+        rechargePlans = rechargePlans.filter(plan => plan.isActive !== false);
+        categorizedPlans = {};
+        rechargePlans.forEach(plan => {
+          const cat = (plan.category?.categoryName || "uncategorized").toLowerCase();
+          if (!categorizedPlans[cat]) categorizedPlans[cat] = [];
+          categorizedPlans[cat].push(plan);
         });
-      
+
+        // Find the most recent active transaction if mobileNumber exists
+        if (mobileNumber && transactions.length > 0) {
+          activeTx = transactions
+            .sort((a, b) => new Date(b.transactionDate) - new Date(a.transactionDate))
+            .find(tx => {
+              const plan = tx.rechargePlan;
+              if (plan) {
+                const expiryDate = new Date(tx.transactionDate);
+                expiryDate.setDate(expiryDate.getDate() + plan.validityDays);
+                return expiryDate > new Date();
+              }
+              return false;
+            });
+
+          if (activeTx) {
+            const plan = activeTx.rechargePlan;
+            console.log("Active Plan Data:", plan);
+            const txDate = new Date(activeTx.transactionDate);
+            const expiryDate = new Date(txDate);
+            expiryDate.setDate(txDate.getDate() + plan.validityDays);
+            const timeRemaining = Math.ceil((expiryDate - new Date()) / (1000 * 3600 * 24));
+            activePlanBanner.innerHTML = `
+              <div><strong>Recharging for Number:</strong> ${mobileNumber}</div>
+              <div class="mt-2">
+                <strong>Active Plan:</strong> ${plan.planName} | 
+                <strong>Recharged on:</strong> ${txDate.toLocaleDateString()} | 
+                <strong>Expires on:</strong> ${expiryDate.toLocaleDateString()} | 
+                <strong>Time Remaining:</strong> ${timeRemaining} day(s)
+              </div>
+              <div class="mt-2">
+                <button id="renewNowBtn" class="btn btn-primary">Renew Now</button>
+              </div>
+            `;
+            document.getElementById("renewNowBtn").addEventListener("click", () => openRenewModal(plan));
+          }
+        }
+
+        currentCategory = "basic";
+        displayPlans(currentCategory, categorizedPlans);
+        createNewCategoryTabs();
+      })
+      .catch(err => {
+        console.error("Error fetching data:", err);
+        activePlanBanner.innerHTML += `<div>Error loading active plan: ${err.message}</div>`;
+        planContainer.innerHTML = "<p>Error loading plans. Please try again.</p>";
+      });
+
       function createNewCategoryTabs() {
         const knownCategories = ["basic", "standard", "premium", "annual"];
         const tabsUl = document.getElementById("categoryTabs");
@@ -731,54 +476,43 @@
             allTabs.forEach(t => t.classList.remove("active"));
             this.classList.add("active");
             currentCategory = this.getAttribute("data-category");
-            displayPlans(currentCategory, categorizedPlans, planSearch ? planSearch.value : "");
+            displayPlans(currentCategory, categorizedPlans, planSearch.value);
           });
         });
       }
-      
+
       function displayPlans(category, categorizedPlans, searchTerm = "") {
         planContainer.innerHTML = "";
-        let plansToDisplay;
-        if (searchTerm.trim() !== "") {
-          plansToDisplay = rechargePlans.filter(plan => {
-            let planStr = "";
-            for (let key in plan) {
-              if (typeof plan[key] === "string") {
-                planStr += plan[key].toLowerCase() + " ";
-              }
-            }
-            return planStr.includes(searchTerm.toLowerCase());
-          });
-          selectedCategoryElem.textContent = "Search Results";
-        } else {
-          plansToDisplay = categorizedPlans[category] || [];
-          selectedCategoryElem.textContent = category.charAt(0).toUpperCase() + category.slice(1) + " Plans";
-        }
+        let plansToDisplay = searchTerm.trim()
+          ? rechargePlans.filter(plan => {
+              let planStr = Object.values(plan).join(" ").toLowerCase();
+              return planStr.includes(searchTerm.toLowerCase());
+            })
+          : categorizedPlans[category] || [];
+
         plansToDisplay = plansToDisplay.filter(plan => {
-          let numericPrice = parseInt(plan.price.replace(/[^\d]/g, ''), 10) || 0;
+          let numericPrice = parseFloat(plan.price || "0");
           let priceOk = numericPrice <= parseInt(priceRange.value, 10);
-          let dataOk = (dataFilter.value === "" || 
-                        (plan.data.includes(dataFilter.value) && 
-                         (dataFilter.value !== "unlimited" || plan.data.toLowerCase() === "unlimited")));
-          let validityOk = (validityFilter.value === "" || plan.validity.includes(validityFilter.value));
-          let callsOk = (callsFilter.value === "" || 
-                         (plan.calls.toLowerCase().includes(callsFilter.value) || 
-                          (callsFilter.value === "unlimited" && plan.calls.toLowerCase() === "unlimited")));
+          let dataOk = !dataFilter.value || (plan.dataLimit === "Unlimited" ? dataFilter.value === "unlimited" : parseFloat(plan.dataLimit) <= parseFloat(dataFilter.value));
+          let validityOk = !validityFilter.value || String(plan.validityDays) === validityFilter.value;
+          let callsOk = !callsFilter.value || 
+                        (plan.talktime === "Unlimited" ? callsFilter.value === "unlimited" : parseFloat(plan.talktime || "0") <= parseFloat(callsFilter.value));
           return priceOk && dataOk && validityOk && callsOk;
         });
+
         if (plansToDisplay.length > 0) {
           plansToDisplay.forEach(plan => {
-            if (!plan.name) {
-              plan.name = plan.category ? plan.category.charAt(0).toUpperCase() + plan.category.slice(1) + " Plan" : "Unnamed Plan";
-            }
+            const dataDisplay = plan.dataLimit === "Unlimited" ? "Unlimited" : `${plan.dataLimit} GB`;
+            const talktimeDisplay = plan.talktime === "Unlimited" ? "Unlimited" : `${plan.talktime} min`;
+            const smsDisplay = plan.sms === "Unlimited" ? "Unlimited" : `${plan.sms} SMS`;
             planContainer.innerHTML += `
               <div class="col-md-4 mb-4" data-aos="fade-up">
                 <div class="card p-3 shadow-sm" data-plan='${JSON.stringify(plan)}'>
-                  <p class="mt-2"><span class="price">${plan.price || "N/A"}</span></p>
-                  <p><strong>Data:</strong> ${plan.data || "N/A"}</p>
-                  <p><strong>Validity:</strong> ${plan.validity || "N/A"}</p>
-                  <p><strong>Calls:</strong> ${plan.calls || "N/A"}</p>
-                  <p><strong>SMS:</strong> ${plan.sms || "N/A"}</p>
+                  <p class="mt-2"><span class="price">₹${plan.price}</span></p>
+                  <p><strong>Data:</strong> ${dataDisplay}</p>
+                  <p><strong>Validity:</strong> ${plan.validityDays} days</p>
+                  <p><strong>Calls:</strong> ${talktimeDisplay}</p>
+                  <p><strong>SMS:</strong> ${smsDisplay}</p>
                   <button class="btn btn-primary view-details-btn">View Details</button>
                 </div>
               </div>`;
@@ -787,98 +521,283 @@
         } else {
           planContainer.innerHTML = "<p>No plans available for this category.</p>";
         }
+        selectedCategoryElem.textContent = searchTerm.trim() ? "Search Results" : category.charAt(0).toUpperCase() + category.slice(1) + " Plans";
       }
-      
-      if (planSearch) {
-        planSearch.addEventListener("keyup", function () {
-          displayPlans(currentCategory, categorizedPlans, this.value);
+
+      function openPlanModal(plan) {
+        const dataDisplay = plan.dataLimit === "Unlimited" ? "Unlimited" : `${plan.dataLimit} GB`;
+        const talktimeDisplay = plan.talktime === "Unlimited" ? "Unlimited" : `${plan.talktime} min`;
+        const smsDisplay = plan.sms === "Unlimited" ? "Unlimited" : `${plan.sms} SMS`;
+        const planDetailsDiv = document.getElementById("planDetails");
+        planDetailsDiv.innerHTML = `
+          <h4>${plan.planName}</h4>
+          <p><strong>Price:</strong> ₹${plan.price}</p>
+          <p><strong>Data:</strong> ${dataDisplay}</p>
+          <p><strong>Validity:</strong> ${plan.validityDays} days</p>
+          <p><strong>Calls:</strong> ${talktimeDisplay}</p>
+          <p><strong>SMS:</strong> ${smsDisplay}</p>
+          <p><strong>Features:</strong> ${plan.features || "N/A"}</p>
+        `;
+        document.getElementById("buyPlanBtn").onclick = function() {
+          const mobileNumber = localStorage.getItem("mobileNumber");
+          console.log("Mobile Number:", mobileNumber);
+          console.log("Plan ID:", plan.planId);
+
+          if (!mobileNumber) {
+            alert("Mobile number not found. Please start from Guest page.");
+            window.location.href = "/HTML/Guest.html";
+            return;
+          }
+
+          const requestBody = { mobileNumber: mobileNumber, planId: plan.planId };
+          fetch("http://localhost:8082/api/guest/recharge", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(requestBody)
+          })
+          .then(response => {
+            console.log("Response Status:", response.status);
+            if (!response.ok) {
+              return response.text().then(text => { 
+                throw new Error(`Failed to initiate transaction: ${text}`); 
+              });
+            }
+            return response.json();
+          })
+          .then(data => {
+            console.log("Response Data:", data);
+            const transactionId = data.transactionId;
+            console.log("Setting transactionId:", transactionId);
+            localStorage.setItem("transactionId", transactionId);
+            console.log("Stored transactionId:", localStorage.getItem("transactionId"));
+            localStorage.setItem("selectedPlan", JSON.stringify(plan));
+            console.log("Stored in localStorage:", { transactionId, selectedPlan: plan });
+            window.location.href = "/HTML/transaction.html";
+          })
+          .catch(err => {
+            console.error("Error initiating transaction:", err);
+            alert("Error initiating recharge: " + err.message);
+          });
+        };
+        var planModal = new bootstrap.Modal(document.getElementById("planModal"));
+        planModal.show();
+      }
+
+      function openRenewModal(plan) {
+        console.log("Renew Modal Plan Data:", plan);
+        const txDate = new Date(activeTx.transactionDate);
+        const expiryDate = new Date(txDate);
+        expiryDate.setDate(txDate.getDate() + plan.validityDays);
+        const timeRemaining = Math.ceil((expiryDate - new Date()) / (1000 * 3600 * 24));
+        const dataDisplay = plan.dataLimit === "Unlimited" ? "Unlimited" : `${plan.dataLimit} GB`;
+        const talktimeDisplay = plan.talktime === "Unlimited" ? "Unlimited" : `${plan.talktime} min`;
+        const smsDisplay = plan.sms === "Unlimited" ? "Unlimited" : `${plan.sms} SMS`;
+        const planDetailsDiv = document.getElementById("planDetails");
+        planDetailsDiv.innerHTML = `
+          <h4>${plan.planName || "Unknown Plan"}</h4>
+          <p><strong>Price:</strong> ₹${plan.price || "N/A"}</p>
+          <p><strong>Data:</strong> ${dataDisplay || "N/A"}</p>
+          <p><strong>Validity:</strong> ${plan.validityDays || "N/A"} days</p>
+          <p><strong>Calls:</strong> ${talktimeDisplay || "N/A"}</p>
+          <p><strong>SMS:</strong> ${smsDisplay || "N/A"}</p>
+          <p><strong>Features:</strong> ${plan.features || "N/A"}</p>
+          <p><strong>Recharged on:</strong> ${txDate.toLocaleDateString()}</p>
+          <p><strong>Expires on:</strong> ${expiryDate.toLocaleDateString()}</p>
+          <p><strong>Time Remaining:</strong> ${timeRemaining} day(s)</p>
+        `;
+        document.getElementById("buyPlanBtn").textContent = "Renew Now";
+        document.getElementById("buyPlanBtn").onclick = function() {
+          const mobileNumber = localStorage.getItem("mobileNumber");
+          if (!mobileNumber) {
+            alert("Mobile number not found. Please start from Guest page.");
+            window.location.href = "/HTML/Guest.html";
+            return;
+          }
+          console.log("Initiating renewal for plan:", plan.planId, "Mobile:", mobileNumber);
+          const requestBody = { mobileNumber: mobileNumber, planId: plan.planId };
+          fetch("http://localhost:8082/api/guest/recharge", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(requestBody)
+          })
+          .then(response => {
+            console.log("Renew Response Status:", response.status);
+            if (!response.ok) {
+              return response.text().then(text => { 
+                throw new Error(`Failed to initiate renewal: ${text}`); 
+              });
+            }
+            return response.json();
+          })
+          .then(data => {
+            console.log("Renew Response Data:", data);
+            const transactionId = data.transactionId;
+            localStorage.setItem("transactionId", transactionId);
+            localStorage.setItem("selectedPlan", JSON.stringify(plan));
+            window.location.href = "/HTML/transaction.html";
+          })
+          .catch(err => {
+            console.error("Error renewing plan:", err);
+            alert("Error renewing plan: " + err.message);
+          });
+        };
+        var planModal = new bootstrap.Modal(document.getElementById("planModal"));
+        planModal.show();
+      }
+
+      function bindViewDetailsButtons() {
+        document.querySelectorAll(".view-details-btn").forEach(btn => {
+          btn.addEventListener("click", function () {
+            const card = this.closest(".card");
+            const planData = card.getAttribute("data-plan");
+            if (planData) openPlanModal(JSON.parse(planData));
+          });
         });
       }
-      
+
+      // Login Modal Logic
+      const loginModal = new bootstrap.Modal(document.getElementById("loginModal"));
+      let otpTimeRemaining = 30;
+      let otpTimerInterval;
+
+      document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const mobileNumber = document.getElementById("loginMobileNumber").value.trim();
+        const loginMessage = document.getElementById("loginMessage");
+        loginMessage.textContent = "";
+
+        if (!/^\d{10}$/.test(mobileNumber)) {
+          loginMessage.textContent = "Please enter a valid 10-digit mobile number.";
+          return;
+        }
+
+        fetch(`http://localhost:8082/api/guest/check?mobileNumber=${mobileNumber}`)
+          .then(response => {
+            if (!response.ok) throw new Error("Failed to check mobile number");
+            return response.json();
+          })
+          .then(data => {
+            if (data.message === "Mobile number is valid and registered" || !data.error) { // Allow unregistered numbers for guest mode
+              fetch("http://localhost:8082/api/auth/request-otp", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ mobileNumber })
+              })
+              .then(response => {
+                if (!response.ok) throw new Error("Failed to request OTP");
+                return response.json();
+              })
+              .then(() => {
+                localStorage.setItem("mobileNumber", mobileNumber);
+                document.getElementById("loginForm").style.display = "none";
+                document.getElementById("otpSection").style.display = "block";
+                loginMessage.style.color = "green";
+                loginMessage.textContent = "OTP sent to your mobile number.";
+                startOTPTimer();
+
+                const otpInputs = document.querySelectorAll('.otp-input');
+                otpInputs[0].focus();
+                otpInputs.forEach((input, index) => {
+                  input.addEventListener('input', function() {
+                    if (this.value.length === 1 && index < otpInputs.length - 1) {
+                      otpInputs[index + 1].focus();
+                    }
+                  });
+                  input.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' && index === otpInputs.length - 1) {
+                      document.getElementById('verifyOtpBtn').click();
+                    }
+                  });
+                });
+              })
+              .catch(err => {
+                loginMessage.textContent = "Error requesting OTP: " + err.message;
+              });
+            } else {
+              loginMessage.textContent = "Error checking number: " + (data.error || "Unknown error");
+            }
+          })
+          .catch(err => {
+            loginMessage.textContent = "Error checking number: " + err.message;
+          });
+      });
+
+      function startOTPTimer() {
+        otpTimeRemaining = 30;
+        document.getElementById('otpTimer').innerText = `Time Remaining: ${otpTimeRemaining} seconds`;
+        otpTimerInterval = setInterval(function() {
+          otpTimeRemaining--;
+          if (otpTimeRemaining <= 0) {
+            clearInterval(otpTimerInterval);
+            document.getElementById('otp-error').textContent = "OTP expired. Please request a new OTP.";
+          } else {
+            document.getElementById('otpTimer').innerText = `Time Remaining: ${otpTimeRemaining} seconds`;
+          }
+        }, 1000);
+      }
+
+      document.getElementById('verifyOtpBtn').addEventListener('click', function() {
+        const mobileNumber = document.getElementById("loginMobileNumber").value.trim();
+        const otpInputs = document.querySelectorAll('.otp-input');
+        const otp = Array.from(otpInputs).map(input => input.value).join('');
+        const otpError = document.getElementById('otp-error');
+        otpError.textContent = "";
+
+        if (otp.length !== 6) {
+          otpError.textContent = "Please enter a 6-digit OTP.";
+          return;
+        }
+
+        fetch("http://localhost:8082/api/auth/verify-otp", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ mobileNumber, otp })
+        })
+        .then(response => {
+          if (!response.ok) throw new Error("Invalid OTP or server error");
+          return response.json();
+        })
+        .then(data => {
+          clearInterval(otpTimerInterval);
+          localStorage.setItem("mobileNumber", mobileNumber); // Store mobileNumber
+          if (data.token) {
+            localStorage.setItem("token", data.token); // Store token if provided
+          }
+          document.getElementById("loginMessage").style.color = "green";
+          document.getElementById("loginMessage").textContent = "Verification successful! Redirecting...";
+          setTimeout(() => {
+            loginModal.hide();
+            window.location.href = "/HTML/planlogin.html"; // Redirect to planlogin.html
+          }, 1000);
+        })
+        .catch(err => {
+          otpError.textContent = "Invalid OTP or login failed: " + err.message;
+        });
+      });
+
+      // Reset modal on close
+      document.getElementById("loginModal").addEventListener("hidden.bs.modal", function () {
+        document.getElementById("loginForm").style.display = "block";
+        document.getElementById("otpSection").style.display = "none";
+        document.getElementById("loginMobileNumber").value = "";
+        document.querySelectorAll('.otp-input').forEach(input => input.value = "");
+        document.getElementById("loginMessage").textContent = "";
+        document.getElementById("otp-error").textContent = "";
+        clearInterval(otpTimerInterval);
+        document.getElementById('otpTimer').innerText = "";
+      });
+
+      // Event listeners for filters and search
+      planSearch.addEventListener("keyup", () => displayPlans(currentCategory, categorizedPlans, planSearch.value));
       priceRange.addEventListener("input", function () {
         priceValue.textContent = "Below ₹" + this.value;
-        displayPlans(currentCategory, categorizedPlans, planSearch ? planSearch.value : "");
+        displayPlans(currentCategory, categorizedPlans, planSearch.value);
       });
-      dataFilter.addEventListener("change", () => displayPlans(currentCategory, categorizedPlans, planSearch ? planSearch.value : ""));
-      validityFilter.addEventListener("change", () => displayPlans(currentCategory, categorizedPlans, planSearch ? planSearch.value : ""));
-      callsFilter.addEventListener("change", () => displayPlans(currentCategory, categorizedPlans, planSearch ? planSearch.value : ""));
+      dataFilter.addEventListener("change", () => displayPlans(currentCategory, categorizedPlans, planSearch.value));
+      validityFilter.addEventListener("change", () => displayPlans(currentCategory, categorizedPlans, planSearch.value));
+      callsFilter.addEventListener("change", () => displayPlans(currentCategory, categorizedPlans, planSearch.value));
+      applyFiltersBtn.addEventListener("click", () => displayPlans(currentCategory, categorizedPlans, planSearch.value));
     });
   </script>
-  
-  <!-- Login Modal OTP Script -->
-  <script>
-    document.getElementById("loginForm").addEventListener("submit", async function(event) {
-      event.preventDefault();
-      const loginError = document.getElementById("login-error");
-      loginError.textContent = "";
-      try {
-        const response = await fetch("/api/users");
-        if (!response.ok) throw new Error("Failed to load user data");
-        const users = await response.json();
-        const phone = document.getElementById("loginPhone").value.trim();
-        const user = users.find(u => u.phone === phone);
-        if (user) {
-          localStorage.setItem("mobileNumber", phone);
-          generateOTP();
-        } else {
-          loginError.textContent = "The number is not registered with MobiComm.";
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        loginError.textContent = "Error validating credentials. Try again.";
-      }
-    });
-    
-    let otpGenerated, otpTimerInterval, otpTimeRemaining = 30;
-    
-    function generateOTP() {
-      otpGenerated = Math.floor(1000 + Math.random() * 9000);
-      document.getElementById("otpDisplay").innerHTML = `<p>Your OTP is: <strong>${otpGenerated}</strong></p>`;
-      document.getElementById("loginForm").style.display = "none";
-      document.getElementById("otpSection").style.display = "block";
-      startOTPTimer();
-      const otpInputs = document.querySelectorAll("#otpSection input");
-      otpInputs[0].focus();
-      otpInputs.forEach((input, index) => {
-        input.addEventListener("input", function() {
-          if (this.value.length === 1 && index < otpInputs.length - 1) {
-            otpInputs[index + 1].focus();
-          }
-        });
-      });
-    }
-    
-    function startOTPTimer() {
-      otpTimeRemaining = 30;
-      document.getElementById("otpTimer").innerText = `Time Remaining: ${otpTimeRemaining} seconds`;
-      otpTimerInterval = setInterval(function() {
-        otpTimeRemaining--;
-        if (otpTimeRemaining <= 0) {
-          clearInterval(otpTimerInterval);
-          document.getElementById("otp-error").textContent = "OTP expired. Please generate a new OTP.";
-        } else {
-          document.getElementById("otpTimer").innerText = `Time Remaining: ${otpTimeRemaining} seconds`;
-        }
-      }, 1000);
-    }
-    
-    function verifyOTP() {
-      const otpInputs = document.querySelectorAll("#otpSection input");
-      const userOTP = Array.from(otpInputs).map(input => input.value).join("");
-      const otpError = document.getElementById("otp-error");
-      otpError.textContent = "";
-      if (userOTP === "") {
-        otpError.textContent = "Please enter the OTP.";
-        return;
-      }
-      if (parseInt(userOTP) === otpGenerated && otpTimeRemaining > 0) {
-        clearInterval(otpTimerInterval);
-        window.location.href = "/HTML/PlanLogin.html";
-      } else {
-        otpError.textContent = "Invalid or expired OTP. Please try again.";
-      }
-    }
-  </script>
-  
 </body>
 </html>
