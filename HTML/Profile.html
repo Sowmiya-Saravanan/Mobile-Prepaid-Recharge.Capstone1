@@ -5,14 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>User Profile | MobiComm Services</title>
   <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
   <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
   <!-- AOS Animation CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
-  <!-- Animate.css (optional) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
   <style>
     :root {
       --primary: #c44e44;    /* Vibrant red */
@@ -22,110 +19,277 @@
       --dark: #343a40;       /* Dark text */
       --accent: #7a46c8;     /* Accent for buttons/modals */
     }
+
+    * { box-sizing: border-box; }
+
     body {
       background: var(--light);
       font-family: 'Montserrat', sans-serif;
       margin: 0;
-      padding-top: 80px;
+      padding-top: 80px; /* Matches navbar height */
     }
-    /* Navbar */
+
+    /* Navbar Styling */
     .navbar {
       background: var(--primary);
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      padding: 15px 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
     }
-    .navbar-brand, .nav-link {
+
+    .navbar-brand {
+      font-size: 1.8rem;
+      font-weight: 700;
       color: var(--light) !important;
     }
-    .nav-link:hover {
+
+    .navbar-nav .nav-link {
+      font-size: 1.1rem;
+      margin: 0 10px;
+      color: var(--light) !important;
+      transition: color 0.3s ease;
+    }
+
+    .navbar-nav .nav-link:hover {
       color: var(--secondary) !important;
     }
+
+    .dropdown-menu {
+      background: var(--light);
+      border: 1px solid var(--primary);
+      border-radius: 8px;
+    }
+
+    .dropdown-item {
+      color: var(--dark);
+      transition: background 0.3s ease;
+    }
+
+    .dropdown-item:hover {
+      background: var(--secondary);
+      color: var(--light);
+    }
+
     /* Profile Header */
     .profile-header {
       background: linear-gradient(135deg, var(--secondary), var(--primary));
-      padding: 40px;
+      padding: 20px; /* Reduced from 40px */
       color: var(--light);
       text-align: center;
-      border-radius: 10px;
-      margin-bottom: 30px;
-      animation: fadeInDown 1s;
+      border-radius: 12px;
+      margin-bottom: 20px; /* Reduced from 40px */
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      animation: fadeInDown 0.8s ease-out;
     }
+
     @keyframes fadeInDown {
       from { opacity: 0; transform: translateY(-20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    /* Card Base Styling */
+
+    .profile-header h1 {
+      font-size: 1.8rem; /* Reduced from 2.5rem */
+      font-weight: 700;
+      margin-bottom: 5px; /* Added to reduce spacing */
+    }
+
+    .profile-header p {
+      font-size: 0.9rem; /* Reduced from 1.1rem */
+      margin-top: 5px; /* Reduced from 10px */
+    }
+
+    /* Card Styling */
     .card-custom {
+      background: #ffffff;
       border: none;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
-      animation: fadeInUp 1s;
+      border-radius: 15px;
+      box-shadow: 0 6px 12px rgba(196, 78, 68, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      margin-bottom: 20px; /* Reduced from 30px */
+      padding: 15px; /* Reduced from 20px */
     }
+
     .card-custom:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 24px rgba(196, 78, 68, 0.8);
-      transition: transform 0.3s, box-shadow 0.3s;
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 16px 32px rgba(196, 78, 68, 0.8);
     }
-    /* Profile Image Styling */
-    .profile-img {
-      width: 150px;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 4px solid var(--primary);
-      margin-bottom: 15px;
+
+    .card-custom h5 {
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 1.2rem; /* Slightly reduced */
+      margin-bottom: 10px; /* Reduced from 15px */
+      border-bottom: 1px solid var(--tertiary);
+      padding-bottom: 8px; /* Reduced from 10px */
     }
-    /* Notifications Section (Unified) */
-    .notif-section {
-      background: var(--secondary);
+
+    .card-custom p {
+      font-size: 0.9rem; /* Reduced from 1rem */
+      color: var(--dark);
+      margin-bottom: 8px; /* Reduced from 10px */
+    }
+
+    /* Buttons */
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border: none;
+      border-radius: 30px;
+      padding: 10px 20px; /* Slightly reduced */
+      font-weight: 700;
+      font-size: 0.95rem; /* Reduced from 1.05rem */
       color: var(--light);
-      border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      animation: fadeInUp 1s;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.15);
     }
-    .notif-section h5 {
-      border-bottom: 1px solid var(--light);
-      padding-bottom: 10px;
-      margin-bottom: 15px;
+
+    .btn-primary:hover {
+      transform: scale(1.06);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.25);
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
     }
-    .notif-section ul {
-      list-style: none;
-      padding: 0;
+
+    .btn-secondary {
+      background: var(--dark);
+      border: none;
+      border-radius: 30px;
+      padding: 10px 20px; /* Slightly reduced */
+      font-weight: 600;
+      color: var(--light);
+      transition: all 0.3s ease;
     }
-    .notif-section li {
-      margin-bottom: 10px;
-      font-size: 0.95rem;
+
+    .btn-secondary:hover {
+      background: var(--secondary);
+      transform: scale(1.06);
     }
-    /* Transaction History Summary Table */
-    .table-summary {
+
+    /* Transaction Table */
+    .table {
       animation: fadeIn 1s;
     }
-    /* Modals – General Styling */
+
+    .table th {
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 0.9rem; /* Reduced */
+    }
+
+    .table td {
+      color: var(--dark);
+      vertical-align: middle;
+      font-size: 0.85rem; /* Reduced */
+    }
+
+    /* Modal Styling */
+    .modal-content {
+      border-radius: 15px;
+      overflow: hidden;
+      animation: slideIn 0.6s ease-out;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     .modal-header {
       background: var(--primary);
       color: var(--light);
+      border-bottom: none;
     }
-    .modal-content {
-      border-radius: 10px;
-      animation: fadeInUp 0.8s;
+
+    .modal-body p {
+      font-size: 0.9rem; /* Reduced from 1rem */
+      color: var(--dark);
+      margin-bottom: 8px; /* Reduced from 10px */
     }
+
+    .modal-footer {
+      border-top: none;
+    }
+
+    /* Back-to-Top Button */
+    #backToTop {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      z-index: 1000;
+    }
+
+    #backToTop:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
     /* Footer */
     footer {
-      background: var(--primary);
-      color: var(--light);
-      padding: 40px 0;
+      background: var(--secondary);
+      color: #fff;
+      padding: 30px 0; /* Reduced from 40px */
     }
-    footer a { color: var(--light); transition: color 0.3s ease; }
-    footer a:hover { color: var(--secondary); }
+
+    footer a {
+      color: #fff;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: var(--tertiary);
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .profile-header {
+        padding: 15px; /* Further reduced */
+      }
+
+      .profile-header h1 {
+        font-size: 1.4rem; /* Further reduced from 1.8rem */
+      }
+
+      .profile-header p {
+        font-size: 0.8rem; /* Further reduced */
+      }
+
+      .card-custom {
+        margin-bottom: 15px; /* Further reduced */
+        padding: 10px; /* Further reduced */
+      }
+
+      .card-custom h5 {
+        font-size: 1rem; /* Further reduced */
+      }
+
+      .card-custom p {
+        font-size: 0.85rem; /* Further reduced */
+      }
+
+      .btn-primary,
+      .btn-secondary {
+        padding: 8px 16px; /* Further reduced */
+        font-size: 0.9rem; /* Further reduced */
+      }
+    }
   </style>
 </head>
 <body>
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg fixed-top">
+  <nav class="navbar navbar-expand-lg fixed-top" data-aos="fade-down">
     <div class="container">
-      <a class="navbar-brand" href="#">MobiComm</a>
+      <a class="navbar-brand" href="#">
+        <img src="/Assets/Images/MobicommLogo.svg" alt="MobiComm Logo" style="width:40px;" class="rounded-pill me-2">
+        MobiComm
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -139,7 +303,7 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
               <li><a class="dropdown-item" href="#">View Profile</a></li>
-              <li><a class="dropdown-item" href="#">Settings</a></li>
+              <li><a class="dropdown-item" href="/HTML/Settings.html">Settings</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="/HTML/Guest.html">Logout</a></li>
             </ul>
@@ -148,38 +312,40 @@
       </div>
     </div>
   </nav>
-  
+
   <!-- Profile Header -->
-  <div class="container">
+  <div class="container mt-3"> <!-- Added margin-top to create buffer below navbar -->
     <div class="profile-header" data-aos="fade-down">
-      <h1>Welcome, John Doe</h1>
-      <p>Member since January 2023</p>
+      <h1 id="welcomeName">Hey [Username], Thrilled to Have You Back with MobiComm!</h1>
+      <p id="memberSince">Joined the MobiComm Family on [Date]</p>
     </div>
   </div>
-  
+
   <!-- Main Content -->
   <div class="container" data-aos="fade-up">
     <div class="row">
-      <!-- Left Column: User Info, Active Plan, Transaction History Summary -->
-      <div class="col-md-8">
+      <!-- Full-width Column: User Info, Active Plan, Transaction History -->
+      <div class="col-md-12">
         <!-- User Information Card -->
         <div class="card card-custom">
           <div class="card-body">
             <h5 class="card-title">User Information</h5>
-            <p class="card-text"><strong>Phone:</strong> +91 9876543210</p>
-            <p class="card-text"><strong>Email:</strong> john.doe@example.com</p>
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profile</button>
+            <p class="card-text" id="phoneInfo"><strong>Phone:</strong> [Phone]</p>
+            <p class="card-text" id="emailInfo"><strong>Email:</strong> [Email]</p>
+            <a href="/HTML/Settings.html" class="btn btn-primary">Edit Profile</a>
           </div>
         </div>
+
         <!-- Active Plan Card -->
         <div class="card card-custom">
           <div class="card-body">
             <h5 class="card-title">Active Plan</h5>
-            <p class="card-text"><strong>Plan:</strong> Premium Plan</p>
-            <p class="card-text"><strong>Expiry Date:</strong> 25th February 2025</p>
+            <p class="card-text" id="planName"><strong>Plan:</strong> [Plan Name]</p>
+            <p class="card-text" id="planExpiry"><strong>Expiry Date:</strong> [Expiry Date]</p>
             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#planDetailsModal">View Plan Details</button>
           </div>
         </div>
+
         <!-- Transaction History Summary Card -->
         <div class="card card-custom">
           <div class="card-body">
@@ -192,84 +358,17 @@
                   <th>Amount</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>01-Jan-2025</td>
-                  <td>Premium Plan</td>
-                  <td>₹299</td>
-                </tr>
-                <tr>
-                  <td>15-Dec-2024</td>
-                  <td>Basic Plan</td>
-                  <td>₹199</td>
-                </tr>
-                <tr>
-                  <td>01-Nov-2024</td>
-                  <td>Unlimited Plan</td>
-                  <td>₹499</td>
-                </tr>
-              </tbody>
+              <tbody id="transactionSummary"></tbody>
             </table>
             <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#transHistoryModal">View All Transactions</button>
           </div>
         </div>
       </div>
-      
-      <!-- Right Column: Profile Image, Notifications -->
-      <div class="col-md-4">
-        <!-- Profile Image Card with Save Functionality -->
-        <div class="card card-custom text-center">
-          <div class="card-body">
-            <img id="profilePreview" src="/Assets/Images/default-profile.png" class="profile-img" alt="Profile Image">
-            <div class="mt-3">
-              <input type="file" id="imageUpload" accept="image/*" class="d-none" onchange="previewImage(event)">
-              <label for="imageUpload" class="btn btn-primary btn-sm"><i class="bi bi-upload"></i> Change Photo</label>
-              <button id="saveImageBtn" class="btn btn-success btn-sm d-none mt-2" onclick="saveProfileImage()">Save Image</button>
-            </div>
-          </div>
-        </div>
-        <!-- Notifications Section -->
-        <div class="card card-custom notif-section">
-          <div class="card-body">
-            <h5 class="card-title">Notifications</h5>
-            <ul>
-              <li>Your plan will expire in 5 days.</li>
-              <li>New offer: 10% off on next recharge!</li>
-              <li>Maintenance scheduled on 15th May.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
-  
+
   <!-- Modals -->
-  <!-- Edit Profile Modal -->
-  <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="editProfileForm">
-            <div class="mb-3">
-              <label for="editName" class="form-label">Name</label>
-              <input type="text" class="form-control" id="editName" value="John Doe">
-            </div>
-            <div class="mb-3">
-              <label for="editEmail" class="form-label">Email</label>
-              <input type="email" class="form-control" id="editEmail" value="john.doe@example.com">
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Save Changes</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Plan Details Modal (with full plan details and renew logic) -->
+  <!-- Plan Details Modal -->
   <div class="modal fade" id="planDetailsModal" tabindex="-1" aria-labelledby="planDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
@@ -277,15 +376,8 @@
           <h5 class="modal-title" id="planDetailsModalLabel">Plan Details</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-          <!-- In a real app, these details would be populated dynamically -->
-          <p><strong>Plan:</strong> Premium Plan</p>
-          <p><strong>Price:</strong> ₹499</p>
-          <p><strong>Data:</strong> 5GB</p>
-          <p><strong>Calls:</strong> 300 Minutes</p>
-          <p><strong>SMS:</strong> 300 SMS</p>
-          <p><strong>Validity:</strong> 30 Days</p>
-          <p><strong>Expiry Date:</strong> 25th February 2025</p>
+        <div class="modal-body" id="planDetailsBody">
+          <!-- Dynamic content will be inserted here -->
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" onclick="renewPlan()">Renew Plan</button>
@@ -294,8 +386,8 @@
       </div>
     </div>
   </div>
-  
-  <!-- Transaction History Modal (Expanded view) -->
+
+  <!-- Transaction History Modal -->
   <div class="modal fade" id="transHistoryModal" tabindex="-1" aria-labelledby="transHistoryModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
@@ -304,7 +396,6 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <!-- Full transaction details with extra columns and receipt option -->
           <table class="table">
             <thead>
               <tr>
@@ -317,53 +408,53 @@
                 <th>Receipt</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>01-Jan-2025</td>
-                <td>Premium Plan</td>
-                <td>₹299</td>
-                <td>Credit Card</td>
-                <td>10:30 AM</td>
-                <td>Success</td>
-                <td><button class="btn btn-sm btn-outline-primary">View Receipt</button></td>
-              </tr>
-              <tr>
-                <td>15-Dec-2024</td>
-                <td>Basic Plan</td>
-                <td>₹199</td>
-                <td>Net Banking</td>
-                <td>03:45 PM</td>
-                <td>Success</td>
-                <td><button class="btn btn-sm btn-outline-primary">View Receipt</button></td>
-              </tr>
-              <tr>
-                <td>01-Nov-2024</td>
-                <td>Unlimited Plan</td>
-                <td>₹499</td>
-                <td>Wallet</td>
-                <td>08:20 AM</td>
-                <td>Success</td>
-                <td><button class="btn btn-sm btn-outline-primary">View Receipt</button></td>
-              </tr>
-              <!-- Additional rows as needed -->
-            </tbody>
+            <tbody id="transactionHistory"></tbody>
           </table>
         </div>
       </div>
     </div>
   </div>
-  
+
+  <!-- Footer -->
+  <footer class="text-white text-center py-4" data-aos="fade-up">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <h5>About Us</h5>
+          <p>MobiComm Services provides reliable and affordable mobile services to keep you connected anywhere.</p>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Quick Links</h5>
+          <nav>
+            <a href="/HTML/Guest.html" class="text-light text-decoration-none">Home</a><br>
+            <a href="/HTML/PlanLogin.html" class="text-light text-decoration-none">Plans</a><br>
+            <a href="#" class="text-light text-decoration-none">FAQs</a><br>
+            <a href="#" class="text-light text-decoration-none">Contact</a>
+          </nav>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Follow Us</h5>
+          <a href="#" class="text-light me-2"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="text-light me-2"><i class="bi bi-twitter"></i></a>
+          <a href="#" class="text-light me-2"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="text-light"><i class="bi bi-linkedin"></i></a>
+        </div>
+      </div>
+      <hr class="border-light">
+      <p class="mb-0">© 2025 Mobicomm Services. All rights reserved.</p>
+    </div>
+  </footer>
+
   <!-- Back-to-Top Button -->
   <button id="backToTop"><i class="bi bi-arrow-up"></i></button>
-  
+
   <!-- Bootstrap Bundle JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
-    integrity="sha384-..." crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
   <!-- AOS Animation JS -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
     AOS.init();
-    
+
     // Back-to-top button functionality
     const backToTop = document.getElementById('backToTop');
     window.addEventListener('scroll', () => {
@@ -372,48 +463,132 @@
     backToTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-    
-    // Dummy function for image preview and saving to localStorage
-    function previewImage(event) {
-      const reader = new FileReader();
-      reader.onload = function(){
-        const output = document.getElementById('profilePreview');
-        output.src = reader.result;
-        // Show the save button when a new image is loaded
-        document.getElementById('saveImageBtn').classList.remove('d-none');
-      };
-      reader.readAsDataURL(event.target.files[0]);
-    }
-    
-    function saveProfileImage() {
-      const profileImage = document.getElementById('profilePreview').src;
-      // Save image data in localStorage (for demo purposes)
-      localStorage.setItem("profileImage", profileImage);
-      alert("Profile image saved!");
-      document.getElementById('saveImageBtn').classList.add('d-none');
-    }
-    
-    // On page load, check if a profile image is saved and load it
-    document.addEventListener("DOMContentLoaded", function() {
-      const savedImage = localStorage.getItem("profileImage");
-      if (savedImage) {
-        document.getElementById('profilePreview').src = savedImage;
+
+    // Profile data loading and management
+    document.addEventListener("DOMContentLoaded", function () {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("Please log in first.");
+        window.location.href = "/HTML/Guest.html";
+        return;
       }
-    });
-    
-    // Renew Plan functionality
-    function renewPlan() {
-      // Check if an active plan exists (for demo, we use localStorage)
-      if (localStorage.getItem("activePlanExists") === "true") {
-        if (confirm("You already have an active plan. Do you want to queue the new plan to start after your current plan expires?")) {
-          localStorage.setItem("queueAfterActivePlan", "true");
+
+      let subscriberData;
+
+      // Fetch profile data
+      fetch("http://localhost:8082/api/subscriber/profile", {
+        headers: { "Authorization": `Bearer ${token}` }
+      })
+      .then(response => {
+        if (!response.ok) throw new Error("Failed to fetch profile");
+        return response.json();
+      })
+      .then(subscriber => {
+        subscriberData = subscriber;
+
+        // Update profile header with creative welcome
+        const createdAt = new Date(subscriber.user.createdAt);
+        document.getElementById("welcomeName").textContent = `Hey ${subscriber.user.username}, Thrilled to Have You Back with MobiComm!`;
+        document.getElementById("memberSince").textContent = `Joined the MobiComm Family on ${createdAt.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}`;
+
+        // Update user information card
+        document.getElementById("phoneInfo").textContent = `Phone: ${subscriber.mobileNumber}`;
+        document.getElementById("emailInfo").textContent = `Email: ${subscriber.user.email}`;
+
+        // Update active plan card
+        const planName = subscriber.currentPlan ? subscriber.currentPlan.planName : "None";
+        const expiryDate = subscriber.planExpiryDate ? new Date(subscriber.planExpiryDate).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }) : "N/A";
+        document.getElementById("planName").textContent = `Plan: ${planName}`;
+        document.getElementById("planExpiry").textContent = `Expiry Date: ${expiryDate}`;
+
+        // Fetch and update transaction summary
+        fetch("http://localhost:8082/api/subscriber/transactions", {
+          headers: { "Authorization": `Bearer ${token}` }
+        })
+        .then(res => {
+          if (!res.ok) throw new Error("Failed to fetch transactions");
+          return res.json();
+        })
+        .then(transactions => {
+          const tbody = document.getElementById("transactionSummary");
+          tbody.innerHTML = transactions.slice(0, 3).map(tx => `
+            <tr>
+              <td>${new Date(tx.transactionDate).toLocaleDateString()}</td>
+              <td>${tx.rechargePlan.planName}</td>
+              <td>₹${tx.amount}</td>
+            </tr>
+          `).join("");
+        })
+        .catch(err => console.error("Error loading transactions:", err));
+      })
+      .catch(err => {
+        console.error("Error loading profile:", err);
+        alert("Error loading profile: " + err.message);
+      });
+
+      // Update Plan Details Modal
+      document.getElementById('planDetailsModal').addEventListener('show.bs.modal', function () {
+        const plan = subscriberData.currentPlan;
+        const modalBody = document.getElementById('planDetailsBody');
+        if (plan) {
+          const dataDisplay = plan.dataLimit === "Unlimited" ? "Unlimited" : `${plan.dataLimit} GB`;
+          const talktimeDisplay = plan.talktime === "Unlimited" ? "Unlimited" : `${plan.talktime} min`;
+          const smsDisplay = plan.sms === "Unlimited" ? "Unlimited" : `${plan.sms} SMS`;
+          const expiryDate = subscriberData.planExpiryDate ? new Date(subscriberData.planExpiryDate).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }) : "N/A";
+
+          modalBody.innerHTML = `
+            <p><strong>Plan:</strong> ${plan.planName}</p>
+            <p><strong>Price:</strong> ₹${plan.price}</p>
+            <p><strong>Data:</strong> ${dataDisplay}</p>
+            <p><strong>Calls:</strong> ${talktimeDisplay}</p>
+            <p><strong>SMS:</strong> ${smsDisplay}</p>
+            <p><strong>Validity:</strong> ${plan.validityDays} days</p>
+            <p><strong>Expiry Date:</strong> ${expiryDate}</p>
+            <p><strong>Features:</strong> ${plan.features || "N/A"}</p>
+          `;
+        } else {
+          modalBody.innerHTML = "<p>No active plan available.</p>";
+        }
+      });
+
+      // Update Transaction History Modal
+      document.getElementById('transHistoryModal').addEventListener('show.bs.modal', function () {
+        fetch("http://localhost:8082/api/subscriber/transactions", {
+          headers: { "Authorization": `Bearer ${token}` }
+        })
+        .then(res => {
+          if (!res.ok) throw new Error("Failed to fetch transactions");
+          return res.json();
+        })
+        .then(transactions => {
+          const tbody = document.getElementById("transactionHistory");
+          tbody.innerHTML = transactions.map(tx => `
+            <tr>
+              <td>${new Date(tx.transactionDate).toLocaleDateString()}</td>
+              <td>${tx.rechargePlan.planName}</td>
+              <td>₹${tx.amount}</td>
+              <td>${tx.paymentMethod || "N/A"}</td>
+              <td>${new Date(tx.transactionDate).toLocaleTimeString()}</td>
+              <td>${tx.status}</td>
+              <td><button class="btn btn-sm btn-outline-primary">View Receipt</button></td>
+            </tr>
+          `).join("");
+        })
+        .catch(err => console.error("Error loading transactions:", err));
+      });
+
+      // Renew Plan Logic
+      function renewPlan() {
+        if (localStorage.getItem("activePlanExists") === "true") {
+          if (confirm("You already have an active plan. Do you want to queue the new plan to start after your current plan expires?")) {
+            localStorage.setItem("queueAfterActivePlan", "true");
+            window.location.href = "/HTML/PlanLogin.html";
+          }
+        } else {
           window.location.href = "/HTML/PlanLogin.html";
         }
-      } else {
-        window.location.href = "/HTML/PlanLogin.html";
       }
-    }
+    });
   </script>
-  
 </body>
 </html>
