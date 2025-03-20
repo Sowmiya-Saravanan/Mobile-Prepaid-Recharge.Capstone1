@@ -2,521 +2,684 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Payment Page</title>
-  <!-- Bootstrap CSS -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment - MobiComm</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+  <!-- Google Fonts - Montserrat -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet" />
   <!-- Bootstrap Icons -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-  <link href="/css/main.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
   <style>
-    /* Custom styles */
-    .custom-header { background-color: #477ABD !important; }
-    .recharge-img { max-width: 80%; height: auto; margin: 0 auto; display: block; }
+    :root {
+      --primary: #c44e44;
+      --secondary: #e07a5f;
+      --tertiary: #f6d6ad;
+      --bg-light: #f7f7f7;
+      --text: #333;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--bg-light);
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      padding: 25px;
+      width: 100%;
+      max-width: 450px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .container:hover {
+      transform: translateY(-5px);
+    }
+
+    .header {
+      margin-bottom: 25px;
+    }
+
+    .header img {
+      width: 50px;
+      margin-bottom: 15px;
+    }
+
+    .header h2 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin: 0;
+    }
+
+    .plan-details {
+      text-align: left;
+      margin-bottom: 25px;
+      padding: 20px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      border-left: 4px solid var(--primary);
+    }
+
+    .plan-details p {
+      margin: 8px 0;
+      font-size: 1rem;
+      color: var(--text);
+    }
+
+    .plan-details p strong {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .amount {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 25px;
+    }
+
+    .pay-btn {
+      width: 100%;
+      padding: 14px;
+      background-color: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pay-btn:hover {
+      background-color: var(--secondary);
+      transform: scale(1.02);
+    }
+
+    .pay-btn:active {
+      transform: scale(0.98);
+    }
+
+    .pay-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: 0.5s;
+    }
+
+    .pay-btn:hover::before {
+      left: 100%;
+    }
+
+    .status-message {
+      margin-top: 20px;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    .status-message.success {
+      color: #28a745;
+    }
+
+    .status-message.error-container {
+      display: none;
+      background-color: #f8d7da;
+      color: #dc3545;
+      padding: 15px;
+      border-radius: 6px;
+      border: 1px solid #f5c6cb;
+      position: relative;
+      animation: slideIn 0.3s ease;
+    }
+
+    .status-message.error-container.visible {
+      display: block;
+    }
+
+    .error-message {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .error-close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background: none;
+      border: none;
+      color: #dc3545;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .error-close:hover {
+      color: #a71d2a;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .spinner {
+      display: none;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid var(--primary);
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background-color: #fff;
+      border-radius: 12px;
+      padding: 30px;
+      width: 90%;
+      max-width: 450px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-content .success-icon {
+      font-size: 3rem;
+      color: #28a745;
+      margin-bottom: 15px;
+      animation: bounce 0.5s ease;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-20px); }
+      60% { transform: translateY(-10px); }
+    }
+
+    .modal-content h3 {
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+
+    .modal-content .summary {
+      font-size: 0.9rem;
+      color: var(--text);
+      background-color: #f8f9fa;
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+    }
+
+    .modal-content .promo-message {
+      font-size: 0.85rem;
+      color: var(--secondary);
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .modal-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .modal-btn {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      min-width: 120px;
+    }
+
+    .modal-btn.plans {
+      background-color: var(--primary);
+      color: #fff;
+    }
+
+    .modal-btn.plans:hover {
+      background-color: var(--secondary);
+      transform: scale(1.02);
+    }
+
+    .modal-btn.history, .modal-btn.login {
+      background-color: #6c757d;
+      color: #fff;
+    }
+
+    .modal-btn.history:hover, .modal-btn.login:hover {
+      background-color: #5a6268;
+      transform: scale(1.02);
+    }
+
+    .modal-btn.share {
+      background-color: var(--tertiary);
+      color: var(--text);
+    }
+
+    .modal-btn.share:hover {
+      background-color: #f4c78c;
+      transform: scale(1.02);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 576px) {
+      .container {
+        padding: 20px;
+        max-width: 100%;
+      }
+
+      .header h2 {
+        font-size: 1.5rem;
+      }
+
+      .amount {
+        font-size: 1.75rem;
+      }
+
+      .modal-content {
+        padding: 20px;
+      }
+
+      .modal-buttons {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .modal-btn {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg bg-light navbar-light fixed-top">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">
-        <img src="/Assets/Images/MobicommLogo.svg" alt="Avatar Logo" style="width:40px;" class="rounded-pill">
-      </a>
+  <div class="container">
+    <div class="header">
+      <img src="/Assets/Images/MobicommLogo.svg" alt="MobiComm Logo">
+      <h2>MobiComm Recharge</h2>
     </div>
-  </nav>
-
-  <!-- Payment Options Heading -->
-  <div class="container pt-5">
-    <h3 class="pt-5">Payment Options</h3>
-    <p class="text-muted">Choose your preferred payment method below:</p>
-  </div>
-
-  <!-- Main Payment Section: Accordion and Payment Summary -->
-  <div class="container mt-5">
-    <div class="row">
-      <!-- Accordion Column (Payment Options) -->
-      <div class="col-lg-8 col-md-8 col-sm-12">
-        <div class="accordion" id="accordionExample">
-          <!-- Credit/Debit/ATM Card -->
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingOne">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                      data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                Credit/Debit/ATM Card
-              </button>
-            </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                 data-bs-parent="#accordionExample">
-              <div class="accordion-body">
-                <form>
-                  <div class="mb-3">
-                    <label for="cardNumber" class="form-label">Enter Card Number</label>
-                    <input type="text" class="form-control" id="cardNumber" placeholder="XXXX XXXX XXXX XXXX" required>
-                  </div>
-                  <div class="row mb-3">
-                    <div class="col">
-                      <label for="expiryDate" class="form-label">Valid thru - MM/YY</label>
-                      <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY" required>
-                    </div>
-                    <div class="col">
-                      <label for="cvv" class="form-label">CVV</label>
-                      <input type="password" class="form-control" id="cvv" placeholder="CVV" required>
-                      <small class="text-muted"><a href="#" class="text-decoration-none">What is CVV?</a></small>
-                    </div>
-                  </div>
-                  <div class="d-grid">
-                    <button type="button" class="btn btn-secondary proceed-payment" data-payment-method="Credit/Debit/ATM Card">
-                      Proceed to Payment
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-          <br>
-          <!-- Net Banking -->
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingTwo">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                      data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Net Banking
-              </button>
-            </h2>
-            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                 data-bs-parent="#accordionExample">
-              <div class="accordion-body">
-                <form>
-                  <div class="mb-3">
-                    <label for="bankSelect" class="form-label">Select Your Bank</label>
-                    <select class="form-select" id="bankSelect" required>
-                      <option value="" disabled selected>Select your bank</option>
-                      <option value="bank1">State Bank of India</option>
-                      <option value="bank2">ICICI Bank</option>
-                      <option value="bank3">Canara Bank</option>
-                    </select>
-                  </div>
-                  <div class="d-grid">
-                    <button type="button" class="btn btn-secondary proceed-payment" data-payment-method="Net Banking">
-                      Proceed to Payment
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-          <br>
-          <!-- UPI -->
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingThree">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                      data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                UPI
-              </button>
-            </h2>
-            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-                 data-bs-parent="#accordionExample">
-              <div class="accordion-body">
-                <form>
-                  <div class="mb-3">
-                    <label for="upiId" class="form-label">Enter UPI ID</label>
-                    <input type="text" class="form-control" id="upiId" placeholder="example@upi" required>
-                  </div>
-                  <div class="d-grid">
-                    <button type="button" class="btn btn-secondary proceed-payment" data-payment-method="UPI">
-                      Proceed to Payment
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-          <br>
-          <!-- Wallets -->
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingFour">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                      data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                Wallets
-              </button>
-            </h2>
-            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
-                 data-bs-parent="#accordionExample">
-              <div class="accordion-body">
-                <form>
-                  <div class="mb-3">
-                    <label for="walletSelect" class="form-label">Select Your Wallet</label>
-                    <select class="form-select" id="walletSelect" required>
-                      <option value="" disabled selected>Select your wallet</option>
-                      <option value="wallet1">Apple Pay</option>
-                      <option value="wallet2">Google Pay</option>
-                      <option value="wallet3">Samsung Pay</option>
-                    </select>
-                  </div>
-                  <div class="d-grid">
-                    <button type="button" class="btn btn-secondary proceed-payment" data-payment-method="Wallets">
-                      Proceed to Payment
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Payment Summary Column -->
-      <div class="col-lg-4 col-md-4 col-sm-12">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Payment Summary</h5>
-            <p class="card-text">Selected Payment Method: <strong id="selectedPaymentMethod">None</strong></p>
-            <p class="card-text">Total Amount: <strong id="totalAmount">₹999</strong></p>
-            <hr>
-            <h6>Payment Details:</h6>
-            <ul class="list-unstyled" id="paymentSummaryList">
-              <!-- Payment details will be populated dynamically -->
-            </ul>
-            <hr>
-            <div class="d-flex justify-content-between">
-              <button class="btn btn-primary" id="confirmPayment">Confirm Payment</button>
-              <button class="btn btn-secondary" id="cancelPayment">Cancel Payment</button>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="plan-details">
+      <p><strong>Mobile Number:</strong> <span id="mobile-number">Loading...</span></p>
+      <p><strong>Plan Name:</strong> <span id="plan-name">Loading...</span></p>
+      <p><strong>Data:</strong> <span id="data-limit">Loading...</span></p>
+      <p><strong>Validity:</strong> <span id="validity">Loading...</span></p>
+      <p><strong>Calls:</strong> <span id="talktime">Loading...</span></p>
+      <p><strong>SMS:</strong> <span id="sms">Loading...</span></p>
+    </div>
+    <div class="amount" id="total-amount">₹0</div>
+    <button class="pay-btn" id="pay-with-razorpay">Pay Now</button>
+    <div class="spinner" id="spinner"></div>
+    <div class="status-message" id="payment-status"></div>
+    <div class="status-message error-container" id="error-container">
+      <p class="error-message" id="error-message"></p>
+      <button class="error-close" id="error-close">×</button>
     </div>
   </div>
 
-  <br><br><br>
-  <!-- Footer -->
-  <footer class="bg-dark text-white text-center py-4 mt-auto">
-    <div class="container-fluid px-0">
-      <div class="row">
-        <div class="col-md-4 mb-3">
-          <h5>About Us</h5>
-          <p>MobiComm Services is dedicated to providing reliable and affordable mobile services to enhance connectivity and communication for our customers.</p>
-        </div>
-        <div class="col-md-4 mb-3">
-          <h5>Quick Links</h5>
-          <nav class="mb-2">
-            <a href="/Bootstrap/MobilePrepaidRecharge.html" class="text-light text-decoration-none">Home</a><br>
-            <a href="/HTML/Plan.html" class="text-light text-decoration-none">Plans</a><br>
-            <a href="#" class="text-light text-decoration-none">Forms</a><br>
-            <a href="#" class="text-light text-decoration-none">FAQs</a><br>
-            <a href="#" class="text-light text-decoration-none">Contact</a>
-          </nav>
-        </div>
-        <div class="col-md-4 mb-3">
-          <h5>Follow Us</h5>
-          <a href="#" class="text-light me-2"><i class="bi bi-facebook"></i></a>
-          <a href="#" class="text-light me-2"><i class="bi bi-twitter"></i></a>
-          <a href="#" class="text-light me-2"><i class="bi bi-instagram"></i></a>
-          <a href="#" class="text-light"><i class="bi bi-linkedin"></i></a>
-        </div>
-      </div>
-      <hr class="border-light">
-      <p class="mb-0">&copy; 2025 Mobicomm Services. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <!-- Login Modal -->
-  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="loginModalLabel">Login</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="loginForm">
-            <div class="mb-3">
-              <label for="phoneNumber" class="form-label">Phone Number</label>
-              <input type="text" class="form-control" id="phoneNumber" placeholder="Enter phone number" required>
-            </div>
-            <div class="mb-3">
-              <label for="password" class="form-label">Password</label>
-              <input type="password" class="form-control" id="password" placeholder="Enter password" required>
-            </div>
-            <div class="text-danger text-center" id="login-error-message" style="display: none;"></div>
-            <button type="submit" class="btn btn-primary w-100 mt-2">Login</button>
-          </form>
-        </div>
-      </div>
+  <!-- Success Modal -->
+  <div class="modal" id="success-modal">
+    <div class="modal-content">
+      <div class="success-icon">✔</div>
+      <h3 id="modal-title">Recharge Successful!</h3>
+      <div class="summary" id="modal-summary"></div>
+      <div class="promo-message">Recharge again and get 5% cashback on your next plan!</div>
+      <div class="modal-buttons" id="modal-buttons"></div>
     </div>
   </div>
 
-  <!-- Email Confirmation Modal -->
-  <div class="modal fade" id="emailModal" tabindex="-1" aria-labelledby="emailModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="emailModalLabel">Confirm Your Email</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="emailForm">
-            <div class="mb-3">
-              <label for="email" class="form-label">Enter your email address for confirmation:</label>
-              <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
-            </div>
-            <div class="d-grid">
-              <button type="submit" class="btn btn-primary">Send Confirmation</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Transaction Success Modal -->
-  <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content text-center">
-        <div class="modal-body">
-          <div id="loadingSpinner">
-            <div class="spinner-border text-primary" role="status">
-              <span class="visually-hidden">Processing...</span>
-            </div>
-            <p class="mt-3">Processing Payment...</p>
-          </div>
-          <div id="successMessage" style="display:none;">
-            <i class="bi bi-check-circle-fill" style="font-size: 3rem; color: green;"></i>
-            <h4 class="mt-3">Transaction Successful!</h4>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Bootstrap Bundle JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Custom Scripts -->
+  <!-- Razorpay Checkout Script -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <!-- Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <script>
-    // Update selected payment method in the Payment Summary
-    const paymentButtons = document.querySelectorAll('.proceed-payment');
-    const selectedPaymentMethod = document.getElementById('selectedPaymentMethod');
-    paymentButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        selectedPaymentMethod.textContent = button.getAttribute('data-payment-method');
-      });
-    });
+    document.addEventListener("DOMContentLoaded", function() {
+      const transactionId = localStorage.getItem("transactionId");
+      const mobileNumber = localStorage.getItem("mobileNumber");
+      const token = localStorage.getItem("token");
+      const baseUrl = "http://localhost:8082"; // Replace with production URL later
 
-    // Confirm Payment: Ensure a valid payment method is selected
-    const confirmPaymentButton = document.getElementById('confirmPayment');
-    confirmPaymentButton.addEventListener('click', () => {
-      const paymentMethod = selectedPaymentMethod.textContent || "None";
-      if (paymentMethod === "None" || paymentMethod.trim() === "") {
-        alert("Please select a payment method before confirming payment.");
+      const spinner = document.getElementById("spinner");
+      const paymentStatus = document.getElementById("payment-status");
+      const payButton = document.getElementById("pay-with-razorpay");
+      const successModal = document.getElementById("success-modal");
+      const modalTitle = document.getElementById("modal-title");
+      const modalSummary = document.getElementById("modal-summary");
+      const modalButtons = document.getElementById("modal-buttons");
+      const errorContainer = document.getElementById("error-container");
+      const errorMessage = document.getElementById("error-message");
+      const errorClose = document.getElementById("error-close");
+
+      console.log("Transaction ID:", transactionId);
+      console.log("Mobile Number:", mobileNumber);
+      console.log("Token:", token);
+
+      // Function to show error message
+      function showError(message) {
+        errorMessage.textContent = message;
+        errorContainer.classList.add("visible");
+        paymentStatus.textContent = "";
+      }
+
+      // Function to hide error message
+      function hideError() {
+        errorContainer.classList.remove("visible");
+        errorMessage.textContent = "";
+      }
+
+      // Close error message on click
+      errorClose.addEventListener("click", hideError);
+
+      if (!transactionId || !mobileNumber) {
+        showError("Error: Transaction or mobile number not found.");
+        setTimeout(() => window.location.href = token ? "/HTML/PlanLogin.html" : "/HTML/Guest.html", 2000);
         return;
       }
-      const emailModal = new bootstrap.Modal(document.getElementById('emailModal'));
-      emailModal.show();
-    });
 
-    // Email form submission: Show success modal, store transaction, and redirect
-    const emailForm = document.getElementById('emailForm');
-    emailForm.addEventListener('submit', function(event) {
-      event.preventDefault();
-      const email = document.getElementById('email').value;
-      console.log(`Confirmation email will be sent to: ${email}`);
-      const emailModal = bootstrap.Modal.getInstance(document.getElementById('emailModal'));
-      emailModal.hide();
-      const successModal = new bootstrap.Modal(document.getElementById('successModal'));
-      document.getElementById('loadingSpinner').style.display = 'block';
-      document.getElementById('successMessage').style.display = 'none';
-      successModal.show();
-      setTimeout(() => {
-        document.getElementById('loadingSpinner').style.display = 'none';
-        document.getElementById('successMessage').style.display = 'block';
-        // Store transaction with status "Completed"
-        storeTransactionInDB("Completed");
-        setTimeout(() => {
-          successModal.hide();
-          window.location.href = '/HTML/Guest.html';
-        }, 3000);
-      }, 2000);
-    });
+      // Fetch transaction details
+      function loadTransactionDetails() {
+        spinner.style.display = "block";
+        payButton.disabled = true;
+        const url = token
+          ? `${baseUrl}/api/payment/transaction/${transactionId}`
+          : `${baseUrl}/api/guest/transactions?mobileNumber=${mobileNumber}`;
+        const headers = token ? { "Authorization": `Bearer ${token}` } : { "Content-Type": "application/json" };
 
-    // Function to store transaction in db.json (includes new expiryDate and queueAfterActivePlan fields)
-    function storeTransactionInDB(status = "Completed") {
-      const planData = localStorage.getItem("selectedPlan");
-      if (!planData) return;
-      const selectedPlan = JSON.parse(planData);
-      const mobileNumber = localStorage.getItem("mobileNumber") || "";
-      const paymentMethod = selectedPaymentMethod.textContent || "None";
-      if (status === "Completed" && (paymentMethod === "None" || paymentMethod.trim() === "")) {
-        alert("Please select a payment method before proceeding.");
-        return;
-      }
-      // Compute expiryDate based on plan's validity (e.g., "7 days")
-      const validityDays = parseInt(selectedPlan.validity, 10) || 0;
-      let expiryDateObj = new Date();
-      expiryDateObj.setDate(expiryDateObj.getDate() + validityDays);
-      const expiryDate = expiryDateObj.toISOString();
-      // Retrieve queueAfterActivePlan flag from localStorage (will be "true" only if user opted to queue)
-      const queueAfterActivePlan = localStorage.getItem("queueAfterActivePlan") === "true";
-      fetch("/api/users")
-        .then(res => res.json())
-        .then(users => {
-          const user = users.find(u => u.phone.trim() === mobileNumber.trim());
-          if (!user) {
-            console.error("User not found for the provided mobile number.");
-            return;
-          }
-          const userId = user.id;
-          let numericAmount = 0;
-          if (selectedPlan.price) {
-            numericAmount = parseInt(selectedPlan.price.replace(/\D+/g, ''), 10) || 0;
-          }
-          const newTransaction = {
-            userId: userId,
-            planId: selectedPlan.id || 0,
-            planName: selectedPlan.name || "Unnamed Plan",
-            transactionDate: new Date().toISOString(),
-            status: status,
-            amount: numericAmount,
-            paymentMethod: paymentMethod,
-            expiryDate: expiryDate,
-            queueAfterActivePlan: queueAfterActivePlan
-          };
-          return fetch("/api/transactions", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(newTransaction)
+        console.log("Fetching transaction details from:", url);
+        console.log("Headers:", headers);
+
+        fetch(url, { method: "GET", headers })
+          .then(response => {
+            if (!response.ok) {
+              return response.json().then(err => {
+                throw new Error(err.message || response.statusText);
+              });
+            }
+            return response.json();
+          })
+          .then(data => {
+            const transaction = token ? data : data.find(t => String(t.transactionId) === String(transactionId));
+            if (!transaction) throw new Error("Transaction not found");
+            console.log("Transaction data:", transaction);
+            populateTransactionDetails(transaction);
+          })
+          .catch(error => {
+            console.error("Error:", error);
+            showError(error.message);
+          })
+          .finally(() => {
+            spinner.style.display = "none";
+            payButton.disabled = false;
           });
-        })
-        .then(res => {
-          if (!res) return;
-          if (!res.ok) {
-            throw new Error("Failed to save transaction");
-          }
-          return res.json();
-        })
-        .then(savedTx => {
-          console.log("Transaction saved to db.json:", savedTx);
-          localStorage.removeItem("selectedPlan");
-          localStorage.removeItem("queueAfterActivePlan");
-        })
-        .catch(err => console.error("Error saving transaction:", err));
-    }
-
-    // Cancel Payment: Store transaction as "Cancelled" and redirect
-    const cancelPaymentButton = document.getElementById("cancelPayment");
-    if (cancelPaymentButton) {
-      cancelPaymentButton.addEventListener("click", () => {
-        if (localStorage.getItem("selectedPlan")) {
-          storeTransactionInDB("Cancelled");
-        }
-        window.location.href = "/HTML/PlanLogin.html";
-      });
-    }
-
-    // Payment Summary: Display selected plan and mobile number
-    document.addEventListener("DOMContentLoaded", () => {
-      const planData = localStorage.getItem("selectedPlan");
-      const mobileNumber = localStorage.getItem("mobileNumber") || "N/A";
-      if (planData) {
-        const selectedPlan = JSON.parse(planData);
-        const planName = selectedPlan.name 
-          || (selectedPlan.category 
-              ? (selectedPlan.category.charAt(0).toUpperCase() + selectedPlan.category.slice(1) + " Plan")
-              : "Selected Plan");
-        const planPrice = selectedPlan.price || "N/A";
-        const planValidity = selectedPlan.validity || "N/A";
-        const planDataVal = selectedPlan.data || "N/A";
-        const planCalls = selectedPlan.calls || "N/A";
-        const planSMS = selectedPlan.sms || "N/A";
-        const paymentSummaryList = document.getElementById("paymentSummaryList");
-        paymentSummaryList.innerHTML = `
-          <li>Recharge For: ${mobileNumber}</li>
-          <li>Service: Mobile Recharge</li>
-          <li id="planName">Plan: ${planName}</li>
-          <li id="planData">Data: ${planDataVal}</li>
-          <li id="planValidity">Validity: ${planValidity}</li>
-          <li id="planCalls">Calls: ${planCalls}</li>
-          <li id="planSMS">SMS: ${planSMS}</li>
-        `;
-        const totalAmountElem = document.getElementById("totalAmount");
-        if (totalAmountElem) {
-          totalAmountElem.textContent = planPrice;
-        }
       }
-    });
-  </script>
 
-  <!-- Login Modal OTP Script -->
-  <script>
-    document.getElementById("loginForm").addEventListener("submit", async function(event) {
-      event.preventDefault();
-      const loginError = document.getElementById("login-error");
-      loginError.textContent = "";
-      try {
-        const response = await fetch("/api/users");
-        if (!response.ok) throw new Error("Failed to load user data");
-        const users = await response.json();
-        const phone = document.getElementById("loginPhone").value.trim();
-        const user = users.find(u => u.phone === phone);
-        if (user) {
-          localStorage.setItem("mobileNumber", phone);
-          generateOTP();
-        } else {
-          loginError.textContent = "The number is not registered with MobiComm.";
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        loginError.textContent = "Error validating credentials. Try again.";
+      function populateTransactionDetails(transaction) {
+        const plan = transaction.rechargePlan;
+        document.getElementById("mobile-number").textContent = transaction.mobileNumber;
+        document.getElementById("plan-name").textContent = plan.planName;
+        document.getElementById("data-limit").textContent = plan.dataLimit === "Unlimited" ? "Unlimited" : `${plan.dataLimit} GB`;
+        document.getElementById("validity").textContent = `${plan.validityDays} days`;
+        document.getElementById("talktime").textContent = plan.talktime === "Unlimited" ? "Unlimited" : `${plan.talktime} min`;
+        document.getElementById("sms").textContent = plan.sms === "Unlimited" ? "Unlimited" : `${plan.sms} SMS`;
+        document.getElementById("total-amount").textContent = `₹${transaction.amount}`;
+        window.transactionData = { 
+          amount: transaction.amount, 
+          mobileNumber: transaction.mobileNumber, 
+          planName: plan.planName 
+        };
       }
-    });
-    
-    let otpGenerated, otpTimerInterval, otpTimeRemaining = 30;
-    
-    function generateOTP() {
-      otpGenerated = Math.floor(1000 + Math.random() * 9000);
-      document.getElementById("otpDisplay").innerHTML = `<p>Your OTP is: <strong>${otpGenerated}</strong></p>`;
-      document.getElementById("loginForm").style.display = "none";
-      document.getElementById("otpSection").style.display = "block";
-      startOTPTimer();
-      const otpInputs = document.querySelectorAll("#otpSection input");
-      otpInputs[0].focus();
-      otpInputs.forEach((input, index) => {
-        input.addEventListener("input", function() {
-          if (this.value.length === 1 && index < otpInputs.length - 1) {
-            otpInputs[index + 1].focus();
+
+      loadTransactionDetails();
+
+      // Razorpay Payment
+      payButton.addEventListener("click", function() {
+        if (!window.transactionData) {
+          showError("Please wait, loading transaction details...");
+          return;
+        }
+
+        spinner.style.display = "block";
+        payButton.disabled = true;
+        paymentStatus.textContent = "Initiating payment...";
+        hideError();
+
+        // Create Razorpay order via backend
+        const url = `${baseUrl}/api/payment/create-order?transactionId=${transactionId}`;
+        const headers = {
+          "Content-Type": "application/json",
+          ...(token && { "Authorization": `Bearer ${token}` })
+        };
+
+        console.log("Creating Razorpay order at:", url);
+        console.log("Headers:", headers);
+
+        fetch(url, {
+          method: "POST",
+          headers: headers
+        })
+        .then(response => {
+          if (!response.ok) {
+            return response.json().then(err => {
+              throw new Error(err.message || response.statusText);
+            });
           }
+          return response.json();
+        })
+        .then(order => {
+          console.log("Razorpay order created:", order);
+          const options = {
+            key: order.razorpayKey,
+            amount: order.amount,
+            currency: order.currency,
+            name: 'MobiComm',
+            description: `Recharge for Transaction ID: ${order.transactionId}`,
+            order_id: order.orderId,
+            handler: function(response) {
+              verifyAndNotify(response, order.transactionId);
+            },
+            prefill: {
+              name: 'Test User',
+              email: 'testuser@example.com',
+              contact: window.transactionData.mobileNumber
+            },
+            theme: {
+              color: '#c44e44'
+            },
+            modal: {
+              ondismiss: function() {
+                paymentStatus.textContent = "Payment cancelled.";
+                paymentStatus.classList.add("error");
+                spinner.style.display = "none";
+                payButton.disabled = false;
+              }
+            }
+          };
+
+          const rzp = new Razorpay(options);
+          rzp.open();
+        })
+        .catch(error => {
+          console.error("Error creating order:", error);
+          showError(error.message);
+          spinner.style.display = "none";
+          payButton.disabled = false;
         });
       });
-    }
-    
-    function startOTPTimer() {
-      otpTimeRemaining = 30;
-      document.getElementById("otpTimer").innerText = `Time Remaining: ${otpTimeRemaining} seconds`;
-      otpTimerInterval = setInterval(function() {
-        otpTimeRemaining--;
-        if (otpTimeRemaining <= 0) {
-          clearInterval(otpTimerInterval);
-          document.getElementById("otp-error").textContent = "OTP expired. Please generate a new OTP.";
-        } else {
-          document.getElementById("otpTimer").innerText = `Time Remaining: ${otpTimeRemaining} seconds`;
-        }
-      }, 1000);
-    }
-    
-    function verifyOTP() {
-      const otpInputs = document.querySelectorAll("#otpSection input");
-      const userOTP = Array.from(otpInputs).map(input => input.value).join("");
-      const otpError = document.getElementById("otp-error");
-      otpError.textContent = "";
-      if (userOTP === "") {
-        otpError.textContent = "Please enter the OTP.";
-        return;
+
+      function launchConfetti() {
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#c44e44', '#e07a5f', '#f6d6ad']
+        });
       }
-      if (parseInt(userOTP) === otpGenerated && otpTimeRemaining > 0) {
-        clearInterval(otpTimerInterval);
-        window.location.href = "/HTML/PlanLogin.html";
-      } else {
-        otpError.textContent = "Invalid or expired OTP. Please try again.";
+
+      function verifyAndNotify(response, transactionId) {
+        paymentStatus.textContent = "Processing payment...";
+        spinner.style.display = "block";
+        hideError();
+
+        const verificationData = {
+          transactionId: parseInt(transactionId),
+          razorpayPaymentId: response.razorpay_payment_id,
+          razorpayOrderId: response.razorpay_order_id,
+          razorpaySignature: response.razorpay_signature
+        };
+
+        const url = `${baseUrl}/api/payment/verify`;
+        const headers = {
+          "Content-Type": "application/x-www-form-urlencoded",
+          ...(token && { "Authorization": `Bearer ${token}` })
+        };
+
+        console.log("Verifying payment at:", url);
+        console.log("Verification data:", verificationData);
+        console.log("Headers:", headers);
+
+        fetch(url, {
+          method: "POST",
+          headers: headers,
+          body: new URLSearchParams(verificationData).toString()
+        })
+        .then(response => {
+          if (!response.ok) {
+            return response.json().then(err => {
+              throw new Error(err.message || response.statusText);
+            });
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log("Payment verification response:", data);
+          paymentStatus.textContent = "Payment successful! Notifications sent.";
+          paymentStatus.classList.add("success");
+          spinner.style.display = "none";
+          payButton.disabled = true;
+
+          // Populate modal with transaction summary
+          modalSummary.innerHTML = `
+            Plan: ${window.transactionData.planName}<br>
+            Amount: ₹${window.transactionData.amount}<br>
+            Mobile: ${window.transactionData.mobileNumber}
+          `;
+
+          // Dynamically set modal buttons based on user authentication
+          if (token) {
+            // Logged-in user
+            modalButtons.innerHTML = `
+              <button class="modal-btn plans" id="go-to-plans">Explore More Plans</button>
+              <button class="modal-btn history" id="view-history">View Recharge History</button>
+              <button class="modal-btn share" id="share-details">Share Recharge Details</button>
+            `;
+
+            document.getElementById("go-to-plans").addEventListener("click", function() {
+              localStorage.removeItem("transactionId");
+              localStorage.removeItem("mobileNumber");
+              window.location.href = "/HTML/PlanLogin.html";
+            });
+
+            document.getElementById("view-history").addEventListener("click", function() {
+              localStorage.removeItem("transactionId");
+              localStorage.removeItem("mobileNumber");
+              window.location.href = "/HTML/profile.html"; // Adjust to your actual profile page
+            });
+
+            document.getElementById("share-details").addEventListener("click", function() {
+              const shareText = `Recharge Successful!\nPlan: ${window.transactionData.planName}\nAmount: ₹${window.transactionData.amount}\nMobile: ${window.transactionData.mobileNumber}`;
+              navigator.clipboard.writeText(shareText).then(() => {
+                showError("Recharge details copied to clipboard! Share via email or SMS.");
+                successModal.style.display = "none";
+              }).catch(err => {
+                showError("Failed to copy details. Please try again.");
+              });
+            });
+          } else {
+            // Guest user
+            modalButtons.innerHTML = `
+              <button class="modal-btn plans" id="go-to-plans">Explore More Plans</button>
+              <button class="modal-btn login" id="login-track">Login to Track Recharge</button>
+              <button class="modal-btn share" id="share-details">Share Recharge Details</button>
+            `;
+
+            document.getElementById("go-to-plans").addEventListener("click", function() {
+              localStorage.removeItem("transactionId");
+              localStorage.removeItem("mobileNumber");
+              window.location.href = "/HTML/PlanRecharge.html";
+            });
+
+            document.getElementById("login-track").addEventListener("click", function() {
+              localStorage.removeItem("transactionId");
+              localStorage.removeItem("mobileNumber");
+              window.location.href = "/HTML/Guest.html?showLogin=true";
+            });
+
+            document.getElementById("share-details").addEventListener("click", function() {
+              const shareText = `Recharge Successful!\nPlan: ${window.transactionData.planName}\nAmount: ₹${window.transactionData.amount}\nMobile: ${window.transactionData.mobileNumber}`;
+              navigator.clipboard.writeText(shareText).then(() => {
+                showError("Recharge details copied to clipboard! Share via email or SMS.");
+                successModal.style.display = "none";
+              }).catch(err => {
+                showError("Failed to copy details. Please try again.");
+              });
+            });
+          }
+
+          // Show the success modal and launch confetti
+          successModal.style.display = "flex";
+          launchConfetti();
+        })
+        .catch(error => {
+          console.error("Error:", error);
+          showError("Payment failed: " + error.message);
+          spinner.style.display = "none";
+          payButton.disabled = false;
+        });
       }
-    }
+    });
   </script>
 </body>
 </html>
