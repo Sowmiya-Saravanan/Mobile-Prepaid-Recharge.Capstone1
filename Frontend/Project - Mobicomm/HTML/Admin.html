@@ -1,0 +1,1970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <!-- Font Awesome & Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        :root {
+            --primary: #c44e44;
+            --secondary: #e07a5f;
+            --tertiary: #f6d6ad;
+            --light: #f8f9fa;
+            --dark: #343a40;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Arial", sans-serif;
+            display: flex;
+            background-color: var(--light);
+        }
+
+        .toast-container {
+            z-index: 1055;
+        }
+
+        .toast {
+            min-width: 300px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border: none;
+            overflow: hidden;
+        }
+
+        .toast-header {
+            background: linear-gradient(90deg, #4e73df, #224abe);
+            color: #ffffff;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 12px 16px;
+        }
+
+        .toast-header strong {
+            font-weight: 600;
+        }
+
+        .toast-header .btn-close {
+            filter: brightness(0) invert(1);
+        }
+
+        .toast-body {
+            background-color: #f8f9fc;
+            color: #333333;
+            font-size: 0.95rem;
+            padding: 16px;
+            line-height: 1.5;
+        }
+
+        .toast.success .toast-header {
+            background: linear-gradient(90deg, #1cc88a, #13855c);
+        }
+
+        .toast.error .toast-header {
+            background: linear-gradient(90deg, #e74a3b, #be2617);
+        }
+
+        .toast {
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        @media (max-width: 576px) {
+            .toast-container {
+                top: 20px !important;
+                transform: none !important;
+            }
+        }
+
+        .sidebar {
+            width: 260px;
+            background: var(--primary);
+            color: var(--light);
+            height: 100vh;
+            position: fixed;
+            padding-top: 20px;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar h4 {
+            text-align: center;
+            font-weight: bold;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            margin-bottom: 20px;
+        }
+
+        .sidebar a {
+            padding: 15px 20px;
+            color: var(--light);
+            text-decoration: none;
+            display: block;
+            transition: background 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background-color: var(--secondary);
+        }
+
+        .content {
+            margin-left: 260px;
+            padding: 30px;
+            width: calc(100% - 260px);
+            background-color: var(--light);
+            min-height: 100vh;
+        }
+
+        .page { display: none; }
+        .page.active { display: block; }
+
+        .card { margin-bottom: 20px; }
+
+        .table-container { margin: 20px auto; max-width: 1200px; }
+
+        .table {
+            background-color: var(--light);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .table thead {
+            background-color: var(--primary);
+            color: var(--light);
+            text-align: center;
+        }
+
+        .table tbody td {
+            text-align: center;
+            padding: 12px;
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: var(--tertiary);
+        }
+
+        .btn-custom {
+            background-color: var(--primary);
+            color: var(--light);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background-color: var(--secondary);
+        }
+
+        .modal-header {
+            background-color: var(--primary);
+            color: var(--light);
+        }
+
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: relative; }
+            .content { margin-left: 0; width: 100%; }
+        }
+
+        .card.metric-primary {
+            background-color: var(--primary);
+            color: var(--light);
+        }
+
+        .card.metric-secondary {
+            background-color: var(--secondary);
+            color: var(--light);
+        }
+
+        .card.metric-tertiary {
+            background-color: var(--tertiary);
+            color: var(--dark);
+        }
+
+        .inactive {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .pagination-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .pagination-controls button {
+            margin: 0 5px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .action-buttons button {
+            min-width: 90px;
+        }
+
+        .chart-container {
+            margin-top: 20px;
+            position: relative;
+            min-height: 300px;
+            width: 100%;
+        }
+
+        .chart-container canvas {
+            max-width: 100%;
+            height: 300px !important;
+            width: 100% !important;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        @media (max-width: 576px) {
+            .modal-dialog {
+                margin: 0.5rem;
+            }
+            .modal-content {
+                font-size: 0.9rem;
+            }
+            .modal-body {
+                padding: 1rem;
+            }
+            .modal-footer {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            .modal-footer button {
+                width: 100%;
+            }
+            .pagination-controls button {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        #rechargeModal .modal-header {
+            background-color: var(--primary);
+            color: var(--light);
+            border-bottom: none;
+        }
+
+        #rechargeModal .modal-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        #rechargeModal .modal-body {
+            padding: 1.5rem;
+        }
+
+        #rechargeModal .table {
+            margin-bottom: 0;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        #rechargeModal .table thead th {
+            background-color: var(--secondary);
+            color: var(--light);
+            text-align: center;
+            padding: 0.75rem;
+            font-weight: bold;
+        }
+
+        #rechargeModal .table tbody td {
+            text-align: center;
+            padding: 0.75rem;
+            vertical-align: middle;
+        }
+
+        #rechargeModal .table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        #rechargeModal .table-striped tbody tr:hover {
+            background-color: var(--tertiary);
+        }
+
+        #rechargeModal .status-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+        }
+
+        #rechargeModal .status-badge.success {
+            background-color: #28a745;
+            color: white;
+        }
+
+        #rechargeModal .status-badge.pending {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        /* Error Handling Styles */
+        .section-error {
+            position: relative;
+            padding: 1rem;
+            margin: 1rem 0;
+            border: 1px solid #f5c2c7;
+            border-radius: 0.5rem;
+            color: #842029;
+            background-color: #f8d7da;
+            display: none;
+        }
+
+        .section-error .close-btn {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            color: #842029;
+        }
+
+        .form-error {
+            color: #dc3545;
+            font-size: 0.875em;
+            margin-top: 0.25rem;
+            display: block;
+        }
+
+        .error-icon {
+            color: #dc3545;
+            margin-left: 0.25rem;
+            cursor: help;
+        }
+
+        .invalid-input {
+            border-color: #dc3545 !important;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right calc(0.375em + 0.1875rem) center;
+            background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h4>Admin Panel</h4>
+        <a onclick="showPage('dashboard')"><i class="fas fa-tachometer-alt"></i> Dashboard Overview</a>
+        <a onclick="showPage('subscribers')"><i class="fas fa-users"></i> Subscribers List</a>
+        <a onclick="showPage('plans')"><i class="fas fa-file-invoice-dollar"></i> Plans Management</a>
+        <a onclick="showPage('categories')"><i class="fas fa-tags"></i> Category Management</a>
+        <a onclick="showPage('logout')"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Error Containers -->
+        <div class="section-error" id="dashboardError">
+            <span class="close-btn" onclick="dismissError('dashboardError')">×</span>
+            <span id="dashboardErrorMessage"></span>
+        </div>
+        <div class="section-error" id="subscribersError">
+            <span class="close-btn" onclick="dismissError('subscribersError')">×</span>
+            <span id="subscribersErrorMessage"></span>
+        </div>
+        <div class="section-error" id="plansError">
+            <span class="close-btn" onclick="dismissError('plansError')">×</span>
+            <span id="plansErrorMessage"></span>
+        </div>
+        <div class="section-error" id="categoriesError">
+            <span class="close-btn" onclick="dismissError('categoriesError')">×</span>
+            <span id="categoriesErrorMessage"></span>
+        </div>
+
+        <!-- Dashboard Overview Page -->
+        <div id="dashboard" class="page active">
+            <nav class="navbar navbar-light">
+                <span class="navbar-brand h1">Mobi-Comm Dashboard</span>
+            </nav>
+            <div class="container-fluid mt-3">
+                <div class="card">
+                    <div class="card-header" style="background-color: var(--secondary); color: var(--light);">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">Subscriber Plans Expiring</h5>
+                            <div class="d-flex align-items-center">
+                                <label for="expiryDaysInput" class="me-2">Enter days:</label>
+                                <input type="number" id="expiryDaysInput" class="form-control d-inline-block me-2" style="width: 100px;" value="3" min="1">
+                                <button class="btn btn-custom btn-sm" onclick="loadExpiringSubscribers()">Refresh</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Phone Number</th>
+                                        <th>Plan</th>
+                                        <th>Expiry Date</th>
+                                        <th>Days Remaining</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="expiringSubscribersTable">
+                                    <!-- Loaded dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <canvas id="chartExpiringSubscribers" style="max-height: 300px;"></canvas>
+                    </div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="card metric-primary">
+                            <div class="card-body">
+                                <h5 class="card-title">Total Subscribers</h5>
+                                <p class="card-text fs-4" id="totalSubscribers">0</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="card metric-secondary">
+                            <div class="card-body">
+                                <h5 class="card-title">Total Revenue</h5>
+                                <p class="card-text fs-4" id="totalRevenue">₹0</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="card metric-tertiary">
+                            <div class="card-body">
+                                <h5 class="card-title">Active Plans</h5>
+                                <p class="card-text fs-4" id="activePlans">0</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="card metric-primary">
+                            <div class="card-body">
+                                <h5 class="card-title">Renewals</h5>
+                                <p class="card-text fs-4" id="renewals">0</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-lg-6 col-md-12 mb-4">
+                        <div class="card">
+                            <div class="card-header">Subscriber Growth</div>
+                            <div class="card-body chart-container">
+                                <canvas id="chartSubscriberGrowth"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12 mb-4">
+                        <div class="card">
+                            <div class="card-header">Revenue Trend</div>
+                            <div class="card-body chart-container">
+                                <canvas id="chartRevenueTrend"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12 mb-4">
+                        <div class="card">
+                            <div class="card-header">Expiring Subscribers (Next 7 Days)</div>
+                            <div class="card-body chart-container">
+                                <canvas id="chartExpiringSubscribers"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12 mb-4">
+                        <div class="card">
+                            <div class="card-header">Plan Popularity</div>
+                            <div class="card-body chart-container">
+                                <canvas id="chartPlanPopularity"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Subscribers Page -->
+        <div id="subscribers" class="page">
+            <nav class="navbar navbar-light">
+                <span class="navbar-brand h1">Subscribers</span>
+            </nav>
+            <div class="container-fluid mt-3">
+                <div class="card">
+                    <div class="card-header" style="background-color: var(--secondary); color: var(--light);">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">All Subscribers</h5>
+                            <div class="d-flex align-items-center">
+                                <label for="statusFilter" class="me-2">Filter by Status:</label>
+                                <select id="statusFilter" class="form-select" style="width: 150px;" onchange="filterSubscribers()">
+                                    <option value="all">All</option>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Subscriber ID</th>
+                                        <th>Name</th>
+                                        <th>Phone Number</th>
+                                        <th>Plan</th>
+                                        <th>Expiry Date</th>
+                                        <th>Days Remaining</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="subscriberListTable">
+                                    <!-- Loaded dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-lg-6 col-md-12 mb-4">
+                        <div class="card">
+                            <div class="card-header">Subscriber Status</div>
+                            <div class="card-body chart-container">
+                                <canvas id="chartSubscriberStatus"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12 mb-4">
+                        <div class="card">
+                            <div class="card-header">Plan Distribution</div>
+                            <div class="card-body chart-container">
+                                <canvas id="chartPlanDistribution"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Plans Management Page -->
+        <div id="plans" class="page">
+            <nav class="navbar navbar-light">
+                <span class="navbar-brand h1">Plans</span>
+                <button class="btn btn-custom" onclick="showAddPlanForm()">Add New Plan</button>
+            </nav>
+            <div class="container-fluid mt-3">
+                <div class="card">
+                    <div class="card-header" style="background-color: var(--secondary); color: var(--light);">
+                        <h5 class="mb-0">All Plans</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="categoryFilter" class="form-label">Filter by Category</label>
+                            <select id="categoryFilter" class="form-select" onchange="filterPlansByCategory()">
+                                <option value="">All Categories</option>
+                                <!-- Populated dynamically -->
+                            </select>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Plan Name</th>
+                                        <th>Category</th>
+                                        <th>Price (₹)</th>
+                                        <th>Validity (Days)</th>
+                                        <th>Data Limit</th>
+                                        <th>Talktime</th>
+                                        <th>SMS</th>
+                                        <th>Features</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="plansTable">
+                                    <!-- Loaded dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="paginationControls" class="pagination-controls mt-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category Management Page -->
+        <div id="categories" class="page">
+            <nav class="navbar navbar-light">
+                <span class="navbar-brand h1">Category Management</span>
+            </nav>
+            <div class="table-container">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3>Categories</h3>
+                    <button class="btn btn-custom" onclick="openAddCategoryModal()">Add New Category</button>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Category Name</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="categoriesTable">
+                        <!-- Loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Logout Page -->
+        <div id="logout" class="page">
+            <nav class="navbar navbar-light">
+                <span class="navbar-brand h1">Logging Out</span>
+            </nav>
+            <div class="container mt-5">
+                <div class="alert alert-info text-center" role="alert">
+                    Thank you for using the Admin Panel. You are now leaving the admin section and will be redirected to our user page.
+                </div>
+            </div>
+        </div>
+
+        <!-- Recharge History Modal -->
+        <div class="modal fade" id="rechargeModal" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="subscriberName"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Plan Name</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Payment Method</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rechargeDetails">
+                                <!-- Filled dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification Modal -->
+        <div class="modal fade" id="notificationModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Send Expiry Notification</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Subscriber:</strong> <span id="notificationSubscriberName"></span></p>
+                        <p><strong>Mobile Number:</strong> <span id="notificationMobileNumber"></span></p>
+                        <p><strong>Plan:</strong> <span id="notificationPlanName"></span></p>
+                        <p><strong>Expiry Date:</strong> <span id="notificationExpiryDate"></span></p>
+                        <p><strong>Message Preview:</strong></p>
+                        <p id="notificationMessage" class="border p-2 bg-light"></p>
+                        <input type="hidden" id="notificationSubscriberId" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-custom" onclick="sendNotification()">Send Notification</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Plan Modal -->
+        <div class="modal fade" id="editPlanModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Plan</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editPlanForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="planName" class="form-label">Plan Name</label>
+                                    <input type="text" class="form-control" id="planName" required />
+                                    <span class="form-error" id="planNameError"></span>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="planCategory" class="form-label">Category</label>
+                                    <select class="form-control" id="planCategory">
+                                        <option value="">Select Category</option>
+                                        <!-- Populated dynamically -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="planPrice" class="form-label">Price (₹)</label>
+                                    <input type="number" step="0.01" class="form-control" id="planPrice" required min="0.01" />
+                                    <span class="form-error" id="planPriceError"></span>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="planValidity" class="form-label">Validity (days)</label>
+                                    <input type="number" class="form-control" id="planValidity" required min="1" />
+                                    <span class="form-error" id="planValidityError"></span>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="planData" class="form-label">Data (GB)</label>
+                                    <input type="text" class="form-control" id="planData" placeholder="e.g. 1" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="planCalls" class="form-label">Calls (minutes)</label>
+                                    <input type="text" class="form-control" id="planCalls" placeholder="e.g. 100 or Unlimited" />
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="planSms" class="form-label">SMS</label>
+                                    <input type="text" class="form-control" id="planSms" placeholder="e.g. 100 or Unlimited" />
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="planFeatures" class="form-label">Features (comma-separated)</label>
+                                <textarea class="form-control" id="planFeatures" rows="3" placeholder="Enter up to 9 features, separated by commas"></textarea>
+                            </div>
+                            <input type="hidden" id="planId" />
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-custom" onclick="savePlan()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Plan Modal -->
+        <div class="modal fade" id="addPlanModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add New Plan</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addPlanForm">
+                            <div class="mb-3">
+                                <label for="newPlanName" class="form-label">Plan Name</label>
+                                <input type="text" class="form-control" id="newPlanName" required>
+                                <span class="form-error" id="newPlanNameError"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="newPlanCategory" class="form-label">Category</label>
+                                <select class="form-select" id="newPlanCategory"></select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="newPlanPrice" class="form-label">Price (₹)</label>
+                                <input type="number" class="form-control" id="newPlanPrice" step="0.01" required>
+                                <span class="form-error" id="newPlanPriceError"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="newPlanValidity" class="form-label">Validity (Days)</label>
+                                <input type="number" class="form-control" id="newPlanValidity" required>
+                                <span class="form-error" id="newPlanValidityError"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="newPlanData" class="form-label">Data Limit</label>
+                                <input type="text" class="form-control" id="newPlanData">
+                            </div>
+                            <div class="mb-3">
+                                <label for="newPlanCalls" class="form-label">Talktime</label>
+                                <input type="text" class="form-control" id="newPlanCalls">
+                            </div>
+                            <div class="mb-3">
+                                <label for="newPlanSms" class="form-label">SMS</label>
+                                <input type="text" class="form-control" id="newPlanSms">
+                            </div>
+                            <div class="mb-3">
+                                <label for="newPlanFeatures" class="form-label">Features</label>
+                                <textarea class="form-control" id="newPlanFeatures"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-custom" onclick="addPlan()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Category Modal -->
+        <div class="modal fade" id="addCategoryModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add New Category</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addCategoryForm">
+                            <div class="mb-3">
+                                <label for="newCategoryName" class="form-label">Category Name</label>
+                                <input type="text" class="form-control" id="newCategoryName" required />
+                                <span class="form-error" id="newCategoryNameError"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="newCategoryDescription" class="form-label">Description</label>
+                                <textarea class="form-control" id="newCategoryDescription" rows="3"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-custom" onclick="addCategory()">Add Category</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Category Modal -->
+        <div class="modal fade" id="editCategoryModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Category</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editCategoryForm">
+                            <div class="mb-3">
+                                <label for="categoryName" class="form-label">Category Name</label>
+                                <input type="text" class="form-control" id="categoryName" required />
+                                <span class="form-error" id="categoryNameError"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="categoryDescription" class="form-label">Description</label>
+                                <textarea class="form-control" id="categoryDescription" rows="3"></textarea>
+                            </div>
+                            <input type="hidden" id="categoryId" />
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-custom" onclick="saveCategory()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container position-fixed top-50 end-0 p-3" style="transform: translateY(-50%);">
+        <div id="notificationToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Notification</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body" id="toastMessage">
+                <!-- Dynamic message will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts: Chart.js & Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const BASE_URL = "http://localhost:8082/api";
+        let adminToken = localStorage.getItem('adminToken');
+        let allCategories = [];
+        let allPlans = [];
+        let chartSubscriberStatus;
+        let chartPlanDistribution;
+        let chartExpiringSubscribers;
+        let currentPage = 1;
+        const plansPerPage = 6;
+        let filteredPlans = [];
+    
+        // Check if admin is logged in
+        if (!adminToken) {
+            window.location.href = '/HTML/Login.html';
+        }
+    
+        // Helper function to format category names
+        function formatCategoryName(category) {
+            if (!category) return 'Uncategorized';
+            return category.charAt(0).toUpperCase() + category.slice(1).toLowerCase();
+        }
+    
+        // Error Handling System
+        function showSectionError(section, message) {
+            const container = document.getElementById(`${section}Error`);
+            const messageSpan = document.getElementById(`${section}ErrorMessage`);
+            if (container && messageSpan) {
+                container.style.display = 'block';
+                messageSpan.textContent = message;
+            }
+        }
+    
+        function dismissError(section) {
+            const container = document.getElementById(section);
+            if (container) container.style.display = 'none';
+        }
+    
+        function showFormErrors(formId, errors) {
+            clearFormErrors(formId);
+            Object.entries(errors).forEach(([fieldId, message]) => {
+                const errorElement = document.getElementById(`${fieldId}Error`);
+                const inputElement = document.getElementById(fieldId);
+                if (errorElement && inputElement) {
+                    errorElement.textContent = message;
+                    inputElement.classList.add('invalid-input');
+                }
+            });
+        }
+    
+        function clearFormErrors(formId) {
+            document.querySelectorAll(`#${formId} .form-error`).forEach(el => {
+                el.textContent = '';
+            });
+            document.querySelectorAll(`#${formId} input, #${formId} textarea`).forEach(input => {
+                input.classList.remove('invalid-input');
+            });
+        }
+    
+        function handleApiError(error, context) {
+    console.error(`Error in ${context}:`, error);
+    const message = getAdminFriendlyError(error, context);
+    if (context === 'sending notification') {
+        showToast(message, 'error');
+    } else {
+        const sectionMap = {
+            'dashboard': 'dashboardError',
+            'subscribers': 'subscribersError',
+            'plans': 'plansError',
+            'categories': 'categoriesError'
+        };
+        const section = Object.keys(sectionMap).find(key => context.toLowerCase().includes(key)) || 'dashboard';
+        showSectionError(sectionMap[section], message);
+    }
+}
+function getAdminFriendlyError(error, context) {
+    const status = error.status || (error.response && error.response.status);
+    const message = error.message || 'An unexpected error occurred.';
+    
+    // Handle notification service unavailability
+    if (context === 'sending notification') {
+        return 'Notification service is currently unavailable. We’re working on it—please try again later!';
+    } else if (status === 403) {
+        localStorage.removeItem('adminToken');
+        window.location.href = '/HTML/Login.html';
+        return '';
+    } else if (status === 404) {
+        return `${context} not found. Please refresh and try again.`;
+    } else if (status === 500) {
+        return 'Server error. Please try again later or contact support.';
+    } else if (message.includes('NetworkError') || message.includes('Failed to fetch')) {
+        return 'Unable to connect to the server. Check your internet connection.';
+    }
+    return `Error: ${message}. Please try again or contact support if the issue persists.`;
+}
+    
+        // Show Toast Notification
+        function showToast(message, type = 'success') {
+            const toastEl = document.getElementById('notificationToast');
+            const toastBody = document.getElementById('toastMessage');
+            toastBody.textContent = message;
+            toastEl.classList.remove('success', 'error');
+            toastEl.classList.add(type);
+            const toast = new bootstrap.Toast(toastEl);
+            toast.show();
+        }
+    
+        // Page Navigation
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            if (pageId === 'dashboard') {
+                loadAnalytics();
+                loadExpiringSubscribers();
+                initializeCharts();
+            } else if (pageId === 'subscribers') {
+                loadSubscribersList();
+                initializeSubscriberCharts();
+            } else if (pageId === 'plans') {
+                loadPlans();
+            } else if (pageId === 'categories') {
+                loadCategories();
+            } else if (pageId === 'logout') {
+                localStorage.removeItem('adminToken');
+                setTimeout(() => window.location.href = "/HTML/Login.html", 3000);
+            }
+        }
+    
+        // Load Expiring Subscribers
+        async function loadExpiringSubscribers() {
+            const daysInput = document.getElementById('expiryDaysInput').value;
+            const days = parseInt(daysInput);
+            if (isNaN(days) || days < 1) {
+                showToast('Please enter a valid number of days (greater than 0).', 'error');
+                document.getElementById('expiryDaysInput').value = 3;
+                return;
+            }
+            try {
+                const response = await fetch(`${BASE_URL}/admin/expiring-subscribers?days=${days}`, {
+                    headers: { "Authorization": `Bearer ${adminToken}` }
+                });
+                if (!response.ok) throw new Error('Failed to fetch expiring subscribers.');
+                const subscribers = await response.json();
+                const tableBody = document.getElementById('expiringSubscribersTable');
+                tableBody.innerHTML = '';
+                const now = new Date();
+    
+                const dayCounts = {};
+                subscribers.forEach(sub => {
+                    const expiryDate = new Date(sub.planExpiryDate);
+                    const diffDays = Math.ceil((expiryDate - now) / (1000 * 3600 * 24));
+                    if (diffDays > 0 && diffDays <= days) {
+                        dayCounts[diffDays] = (dayCounts[diffDays] || 0) + 1;
+                    }
+                });
+    
+                const labels = Object.keys(dayCounts).sort((a, b) => a - b);
+                chartExpiringSubscribers.data.labels = labels;
+                chartExpiringSubscribers.data.datasets[0].data = labels.map(day => dayCounts[day] || 0);
+                chartExpiringSubscribers.update();
+    
+                subscribers.forEach(sub => {
+                    const expiryDate = new Date(sub.planExpiryDate);
+                    const diffDays = Math.ceil((expiryDate - now) / (1000 * 3600 * 24));
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${sub.username || 'N/A'}</td>
+                        <td>${sub.mobileNumber || 'N/A'}</td>
+                        <td>${sub.currentPlanName || 'N/A'}</td>
+                        <td>${sub.planExpiryDate || 'N/A'}</td>
+                        <td class="text-danger fw-bold">${diffDays}</td>
+                        <td>
+                            <button class="btn btn-custom btn-sm me-2" onclick="showRechargeHistory('${sub.mobileNumber}', '${sub.username}')">View History</button>
+                            <button class="btn btn-warning btn-sm" onclick="showNotificationModal(${sub.subscriberId}, '${sub.username}', '${sub.mobileNumber}', '${sub.currentPlanName}', '${sub.planExpiryDate}')">Notify</button>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            } catch (err) {
+                handleApiError(err, 'loading expiring subscribers');
+            }
+        }
+    
+        // Show Notification Modal
+        function showNotificationModal(subscriberId, username, mobileNumber, planName, expiryDate) {
+            document.getElementById('notificationSubscriberId').value = subscriberId;
+            document.getElementById('notificationSubscriberName').innerText = username || 'N/A';
+            document.getElementById('notificationMobileNumber').innerText = mobileNumber || 'N/A';
+            document.getElementById('notificationPlanName').innerText = planName || 'N/A';
+            document.getElementById('notificationExpiryDate').innerText = expiryDate || 'N/A';
+            const message = `Dear ${username || 'Subscriber'}, your ${planName} plan is expiring on ${expiryDate}. Please recharge to continue enjoying our services!`;
+            document.getElementById('notificationMessage').innerText = message;
+            const notificationModal = new bootstrap.Modal(document.getElementById('notificationModal'));
+            notificationModal.show();
+        }
+    
+        // Send Notification
+        async function sendNotification() {
+            const subscriberId = document.getElementById('notificationSubscriberId').value;
+            try {
+                const response = await fetch(`${BASE_URL}/admin/subscribers/${subscriberId}/notify`, {
+                    method: 'POST',
+                    headers: {
+                        "Authorization": `Bearer ${adminToken}`
+                    }
+                });
+                if (!response.ok) {
+                    const errData = await response.json();
+                    throw new Error(errData.message || 'Failed to send notification.');
+                }
+                const data = await response.json();
+                showToast(data.message || 'Notification sent successfully!', 'success');
+                const notificationModalEl = document.getElementById('notificationModal');
+                const modalInstance = bootstrap.Modal.getInstance(notificationModalEl);
+                modalInstance.hide();
+            } catch (err) {
+                handleApiError(err, 'sending notification');
+            }
+        }
+    
+        // Load Subscribers List
+        async function loadSubscribersList() {
+            try {
+                const response = await fetch(`${BASE_URL}/admin/subscribers`, {
+                    headers: { "Authorization": `Bearer ${adminToken}` }
+                });
+                if (!response.ok) throw new Error('Failed to fetch subscribers list.');
+                const subscribers = await response.json();
+                const tableBody = document.getElementById('subscriberListTable');
+                tableBody.innerHTML = '';
+                const now = new Date();
+                subscribers.forEach(sub => {
+                    const expiryDate = sub.planExpiryDate ? new Date(sub.planExpiryDate) : null;
+                    const diffDays = expiryDate ? Math.ceil((expiryDate - now) / (1000 * 3600 * 24)) : '-';
+                    tableBody.innerHTML += `
+                        <tr>
+                            <td>${sub.subscriberId || 'N/A'}</td>
+                            <td>${sub.username || 'N/A'}</td>
+                            <td>${sub.mobileNumber || 'N/A'}</td>
+                            <td>${sub.currentPlanName || 'No Plan'}</td>
+                            <td>${sub.planExpiryDate || '-'}</td>
+                            <td class="text-danger fw-bold">${diffDays}</td>
+                            <td>
+                                <span class="badge ${sub.isActive ? 'bg-success' : 'bg-danger'}">
+                                    ${sub.isActive ? 'Active' : 'Deactivated'}
+                                </span>
+                            </td>
+                            <td>
+                                <button class="btn btn-custom btn-sm" onclick="showRechargeHistory('${sub.mobileNumber}', '${sub.username}')">View History</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                updateSubscriberCharts(subscribers);
+            } catch (err) {
+                handleApiError(err, 'loading subscribers list');
+            }
+        }
+    
+        // Filter Subscribers
+        async function filterSubscribers() {
+            const statusFilter = document.getElementById('statusFilter').value;
+            try {
+                const response = await fetch(`${BASE_URL}/admin/subscribers`, {
+                    headers: { "Authorization": `Bearer ${adminToken}` }
+                });
+                if (!response.ok) throw new Error('Failed to fetch subscribers for filtering.');
+                const subscribers = await response.json();
+                let filteredSubscribers = subscribers;
+                if (statusFilter !== 'all') {
+                    const isActive = statusFilter === 'active';
+                    filteredSubscribers = subscribers.filter(sub => sub.isActive === isActive);
+                }
+                const tableBody = document.getElementById('subscriberListTable');
+                tableBody.innerHTML = '';
+                const now = new Date();
+                filteredSubscribers.forEach(sub => {
+                    const expiryDate = sub.planExpiryDate ? new Date(sub.planExpiryDate) : null;
+                    const diffDays = expiryDate ? Math.ceil((expiryDate - now) / (1000 * 3600 * 24)) : '-';
+                    tableBody.innerHTML += `
+                        <tr>
+                            <td>${sub.subscriberId || 'N/A'}</td>
+                            <td>${sub.username || 'N/A'}</td>
+                            <td>${sub.mobileNumber || 'N/A'}</td>
+                            <td>${sub.currentPlanName || 'No Plan'}</td>
+                            <td>${sub.planExpiryDate || '-'}</td>
+                            <td class="text-danger fw-bold">${diffDays}</td>
+                            <td>
+                                <span class="badge ${sub.isActive ? 'bg-success' : 'bg-danger'}">
+                                    ${sub.isActive ? 'Active' : 'Deactivated'}
+                                </span>
+                            </td>
+                            <td>
+                                <button class="btn btn-custom btn-sm" onclick="showRechargeHistory('${sub.mobileNumber}', '${sub.username}')">View History</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                updateSubscriberCharts(filteredSubscribers);
+            } catch (err) {
+                handleApiError(err, 'filtering subscribers');
+            }
+        }
+    
+        // Show Recharge History
+        async function showRechargeHistory(mobileNumber, subscriberName) {
+            try {
+                const response = await fetch(`${BASE_URL}/admin/subscribers/mobile/${mobileNumber}/transactions`, {
+                    headers: { "Authorization": `Bearer ${adminToken}` }
+                });
+                if (!response.ok) {
+                    const errData = await response.json();
+                    throw new Error(errData.message || 'Failed to fetch transaction history.');
+                }
+                const transactions = await response.json();
+                const rechargeDetails = document.getElementById("rechargeDetails");
+                rechargeDetails.innerHTML = transactions.length > 0
+                    ? transactions.map(tx => {
+                        const date = new Date(tx.transactionDate);
+                        const formattedDate = date.toLocaleString('en-GB', {
+                            day: '2-digit',
+                            month: 'short',
+                            year: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        });
+                        const paymentMethod = tx.paymentMethod
+                            ? tx.paymentMethod.toLowerCase().replace('_', ' ').replace(/\b\w/g, char => char.toUpperCase())
+                            : 'N/A';
+                        const statusClass = tx.status === 'SUCCESSFUL' ? 'success' : 'pending';
+                        const status = `<span class="status-badge ${statusClass}">${tx.status}</span>`;
+                        return `
+                            <tr>
+                                <td>${tx.rechargePlan?.planName || 'N/A'}</td>
+                                <td>${formattedDate}</td>
+                                <td>₹${tx.amount || 'N/A'}</td>
+                                <td>${paymentMethod}</td>
+                                <td>${status}</td>
+                            </tr>
+                        `;
+                    }).join("")
+                    : `<tr><td colspan="5">No transactions found.</td></tr>`;
+                
+                document.getElementById("subscriberName").innerText = `Recharge History for ${subscriberName || mobileNumber}`;
+                const rechargeModal = new bootstrap.Modal(document.getElementById("rechargeModal"));
+                rechargeModal.show();
+            } catch (err) {
+                handleApiError(err, 'fetching recharge history');
+            }
+        }
+    
+        // Load Categories for Dropdown
+        async function loadCategoriesForDropdown() {
+            try {
+                const response = await fetch(`${BASE_URL}/admin/categories`, {
+                    headers: { "Authorization": `Bearer ${adminToken}` }
+                });
+                if (!response.ok) throw new Error('Failed to fetch categories for dropdown.');
+                const categories = await response.json();
+                allCategories = categories;
+                const categoryFilter = document.getElementById('categoryFilter');
+                const planCategory = document.getElementById('planCategory');
+                const newPlanCategory = document.getElementById('newPlanCategory');
+    
+                if (categoryFilter) {
+                    categoryFilter.innerHTML = '<option value="">All Categories</option>';
+                    categories.forEach(cat => {
+                        const formattedName = formatCategoryName(cat.categoryName) + (cat.isActive ? '' : ' (Inactive)');
+                        categoryFilter.innerHTML += `<option value="${cat.categoryName}" ${!cat.isActive ? 'disabled' : ''}>${formattedName}</option>`;
+                    });
+                }
+                if (planCategory) {
+                    planCategory.innerHTML = `<option value="">Select Category</option>`;
+                    categories.forEach(cat => {
+                        const formattedName = formatCategoryName(cat.categoryName) + (cat.isActive ? '' : ' (Inactive)');
+                        planCategory.innerHTML += `<option value="${cat.categoryName}" ${!cat.isActive ? 'disabled' : ''}>${formattedName}</option>`;
+                    });
+                }
+                if (newPlanCategory) {
+                    newPlanCategory.innerHTML = `<option value="">Select Category</option>`;
+                    categories.forEach(cat => {
+                        const formattedName = formatCategoryName(cat.categoryName) + (cat.isActive ? '' : ' (Inactive)');
+                        newPlanCategory.innerHTML += `<option value="${cat.categoryName}" ${!cat.isActive ? 'disabled' : ''}>${formattedName}</option>`;
+                    });
+                }
+            } catch (err) {
+                handleApiError(err, 'loading categories for dropdown');
+            }
+        }
+    
+        // Load Plans
+        async function loadPlans() {
+            try {
+                const response = await fetch(`${BASE_URL}/admin/plans`, {
+                    headers: { "Authorization": `Bearer ${adminToken}` }
+                });
+                if (!response.ok) throw new Error('Failed to fetch plans.');
+                allPlans = await response.json();
+                filteredPlans = [...allPlans];
+                await loadCategoriesForDropdown();
+                renderPlansTable();
+                renderPaginationControls();
+            } catch (err) {
+                handleApiError(err, 'loading plans');
+            }
+        }
+    
+        // Render Plans Table with Pagination
+        function renderPlansTable() {
+            const tableBody = document.getElementById('plansTable');
+            tableBody.innerHTML = '';
+            const startIndex = (currentPage - 1) * plansPerPage;
+            const endIndex = startIndex + plansPerPage;
+            const paginatedPlans = filteredPlans.slice(startIndex, endIndex);
+    
+            paginatedPlans.forEach(plan => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${plan.planName || 'N/A'}</td>
+                    <td>${plan.category || 'N/A'}</td>
+                    <td>${plan.price || 'N/A'}</td>
+                    <td>${plan.validityDays || 'N/A'}</td>
+                    <td>${plan.dataLimit || 'N/A'}</td>
+                    <td>${plan.talktime || 'N/A'}</td>
+                    <td>${plan.sms || 'N/A'}</td>
+                    <td>${plan.features || 'N/A'}</td>
+                    <td>
+                        <span class="badge ${plan.isActive ? 'bg-success' : 'bg-danger'}">
+                            ${plan.isActive ? 'Active' : 'Deactivated'}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn btn-custom btn-sm" onclick="showEditPlanForm(${plan.planId})">Edit</button>
+                            <button class="btn ${plan.isActive ? 'btn-warning' : 'btn-success'} btn-sm" onclick="togglePlan(${plan.planId}, ${!plan.isActive})">
+                                ${plan.isActive ? 'Deactivate' : 'Activate'}
+                            </button>
+                            <button class="btn btn-danger btn-sm" onclick="deletePlan(${plan.planId})">Delete</button>
+                        </div>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+    
+        // Render Pagination Controls
+        function renderPaginationControls() {
+            const totalPlans = filteredPlans.length;
+            const totalPages = Math.ceil(totalPlans / plansPerPage);
+            const paginationDiv = document.getElementById('paginationControls');
+            paginationDiv.innerHTML = '';
+            if (totalPages <= 1) return;
+    
+            const prevDisabled = currentPage === 1 ? 'disabled' : '';
+            paginationDiv.innerHTML += `<button class="btn btn-custom btn-sm me-2" onclick="changePage(${currentPage - 1})" ${prevDisabled}>Previous</button>`;
+    
+            for (let i = 1; i <= totalPages; i++) {
+                const activeClass = currentPage === i ? 'active' : '';
+                paginationDiv.innerHTML += `<button class="btn btn-custom btn-sm me-2 ${activeClass}" onclick="changePage(${i})">${i}</button>`;
+            }
+    
+            const nextDisabled = currentPage === totalPages ? 'disabled' : '';
+            paginationDiv.innerHTML += `<button class="btn btn-custom btn-sm" onclick="changePage(${currentPage + 1})" ${nextDisabled}>Next</button>`;
+        }
+    
+        // Change Page
+        function changePage(page) {
+            const totalPlans = filteredPlans.length;
+            const totalPages = Math.ceil(totalPlans / plansPerPage);
+            if (page < 1 || page > totalPages) return;
+            currentPage = page;
+            renderPlansTable();
+            renderPaginationControls();
+        }
+    
+        // Filter Plans by Category
+        function filterPlansByCategory() {
+            const category = document.getElementById('categoryFilter').value;
+            filteredPlans = category ? allPlans.filter(plan => plan.category === category) : [...allPlans];
+            currentPage = 1;
+            renderPlansTable();
+            renderPaginationControls();
+        }
+    
+        // Delete Plan
+        async function deletePlan(planId) {
+            if (!confirm('Are you sure you want to delete this plan?')) return;
+            try {
+                const response = await fetch(`${BASE_URL}/admin/plans/${planId}`, {
+                    method: 'DELETE',
+                    headers: { "Authorization": `Bearer ${adminToken}` }
+                });
+                if (!response.ok) throw new Error('Failed to delete plan.');
+                showToast('Plan deleted successfully!', 'success');
+                loadPlans();
+            } catch (err) {
+                handleApiError(err, 'deleting plan');
+            }
+        }
+    
+        // Show Edit Plan Form
+        async function showEditPlanForm(planId) {
+            await loadCategoriesForDropdown();
+            try {
+                const response = await fetch(`${BASE_URL}/admin/plans/${planId}`, {
+                    headers: { "Authorization": `Bearer ${adminToken}` }
+                });
+                if (!response.ok) {
+                    const errData = await response.json();
+                    throw new Error(errData.message || 'Failed to fetch plan for editing.');
+                }
+                const plan = await response.json();
+                document.getElementById('planId').value = plan.planId;
+                document.getElementById('planName').value = plan.planName || '';
+                document.getElementById('planPrice').value = plan.price || '';
+                document.getElementById('planValidity').value = plan.validityDays || '';
+                document.getElementById('planCategory').value = plan.category || '';
+                document.getElementById('planData').value = plan.dataLimit || '';
+                document.getElementById('planCalls').value = plan.talktime || '';
+                document.getElementById('planSms').value = plan.sms || '';
+                document.getElementById('planFeatures').value = plan.features || '';
+                const editModal = new bootstrap.Modal(document.getElementById('editPlanModal'));
+                editModal.show();
+            } catch (err) {
+                handleApiError(err, 'fetching plan for edit');
+            }
+        }
+    
+        // Save Plan (Edit or Add)
+        async function savePlan() {
+            const planId = document.getElementById('planId').value;
+            const name = document.getElementById('planName').value.trim();
+            const price = document.getElementById('planPrice').value.trim();
+            const validity = document.getElementById('planValidity').value.trim();
+            const category = document.getElementById('planCategory').value;
+            const data = document.getElementById('planData').value.trim();
+            const calls = document.getElementById('planCalls').value.trim();
+            const sms = document.getElementById('planSms').value.trim();
+            const features = document.getElementById('planFeatures').value.trim();
+    
+            const errors = {};
+            if (!name) errors.planName = 'Plan name is required';
+            if (!price || isNaN(price) || parseFloat(price) <= 0) errors.planPrice = 'Valid price greater than 0 required';
+            if (!validity || isNaN(validity) || parseInt(validity) <= 0) errors.planValidity = 'Valid validity greater than 0 required';
+    
+            if (Object.keys(errors).length > 0) {
+                showFormErrors('editPlanForm', errors);
+                return;
+            }
+    
+            const updatedPlan = {
+                planName: name,
+                price: parseFloat(price),
+                validityDays: parseInt(validity),
+                category: category || null,
+                dataLimit: data,
+                talktime: calls,
+                sms: sms,
+                features: features
+            };
+            const url = planId ? `${BASE_URL}/admin/plans/${planId}` : `${BASE_URL}/admin/plans`;
+            const method = planId ? 'PUT' : 'POST';
+            try {
+                const response = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "Authorization": `Bearer ${adminToken}`
+                    },
+                    body: JSON.stringify(updatedPlan)
+                });
+                if (!response.ok) {
+                    const errData = await response.json();
+                    throw new Error(errData.message || 'Failed to save plan.');
+                }
+                showToast(planId ? 'Plan updated successfully!' : 'Plan added successfully!', 'success');
+                loadPlans();
+                const editModalEl = document.getElementById('editPlanModal');
+                const modalInstance = bootstrap.Modal.getInstance(editModalEl);
+                modalInstance.hide();
+            } catch (err) {
+                handleApiError(err, 'saving plan');
+            }
+        }
+    
+        // Show Add Plan Form
+        function showAddPlanForm() {
+            document.getElementById('addPlanForm').reset();
+            clearFormErrors('addPlanForm');
+            loadCategoriesForDropdown();
+            const addModal = new bootstrap.Modal(document.getElementById('addPlanModal'));
+            addModal.show();
+        }
+    
+        // Add Plan
+        async function addPlan() {
+            clearFormErrors('addPlanForm');
+            const planName = document.getElementById('newPlanName').value.trim();
+            const planCategory = document.getElementById('newPlanCategory').value;
+            const planPrice = document.getElementById('newPlanPrice').value.trim();
+            const planValidity = document.getElementById('newPlanValidity').value.trim();
+            const planData = document.getElementById('newPlanData').value.trim();
+            const planCalls = document.getElementById('newPlanCalls').value.trim();
+            const planSms = document.getElementById('newPlanSms').value.trim();
+            const features = document.getElementById('newPlanFeatures').value.trim();
+    
+            const errors = {};
+            if (!planName) errors.newPlanName = 'Plan name is required';
+            if (!planPrice || isNaN(planPrice) || parseFloat(planPrice) <= 0) errors.newPlanPrice = 'Valid price required';
+            if (!planValidity || isNaN(planValidity) || parseInt(planValidity) <= 0) errors.newPlanValidity = 'Valid validity required';
+    
+            if (Object.keys(errors).length > 0) {
+                showFormErrors('addPlanForm', errors);
+                return;
+            }
+    
+            const newPlan = {
+                planName,
+                category: planCategory || null,
+                price: parseFloat(planPrice),
+                validityDays: parseInt(planValidity),
+                dataLimit: planData,
+                talktime: planCalls,
+                sms: planSms,
+                features
+            };
+            try {
+                const response = await fetch(`${BASE_URL}/admin/plans`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "Authorization": `Bearer ${adminToken}`
+                    },
+                    body: JSON.stringify(newPlan)
+                });
+                if (!response.ok) {
+                    const errData = await response.json();
+                    throw new Error(errData.message || 'Failed to add plan.');
+                }
+                showToast('Plan added successfully!', 'success');
+                loadPlans();
+                const modalInstance = bootstrap.Modal.getInstance(document.getElementById('addPlanModal'));
+                modalInstance.hide();
+            } catch (err) {
+                handleApiError(err, 'adding plan');
+            }
+        }
+    
+  // Toggle Plan Activation
+async function togglePlan(planId, isActive) {
+    try {
+        const response = await fetch(`${BASE_URL}/admin/plans/${planId}/toggle`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${adminToken}`
+            },
+            body: JSON.stringify({ isActive: isActive })
+        });
+        if (!response.ok) {
+            const errData = await response.json();
+            throw new Error(errData.message || 'Failed to toggle plan activation.');
+        }
+
+        // Show success toast
+        showToast(`Plan ${isActive ? 'activated' : 'deactivated'} successfully!`, 'success');
+
+        // Update the specific row in the plans table dynamically
+        const tableBody = document.getElementById('plansTable');
+        const rows = tableBody.getElementsByTagName('tr');
+        for (let row of rows) {
+            const buttonsDiv = row.querySelector('.action-buttons');
+            if (buttonsDiv && buttonsDiv.querySelector(`button[onclick*="${planId}"]`)) {
+                // Update status badge
+                const statusBadge = row.querySelector('.badge');
+                statusBadge.classList.remove('bg-success', 'bg-danger');
+                statusBadge.classList.add(isActive ? 'bg-success' : 'bg-danger');
+                statusBadge.textContent = isActive ? 'Active' : 'Deactivated';
+
+                // Update toggle button
+                const toggleButton = buttonsDiv.querySelector(`button[onclick*="togglePlan(${planId}"]`);
+                toggleButton.classList.remove('btn-warning', 'btn-success');
+                toggleButton.classList.add(isActive ? 'btn-warning' : 'btn-success');
+                toggleButton.textContent = isActive ? 'Deactivate' : 'Activate';
+                toggleButton.setAttribute('onclick', `togglePlan(${planId}, ${!isActive})`);
+
+                break; // Exit loop once the row is updated
+            }
+        }
+
+        // Update the in-memory allPlans array to keep data consistent
+        const planIndex = allPlans.findIndex(plan => plan.planId === planId);
+        if (planIndex !== -1) {
+            allPlans[planIndex].isActive = isActive;
+            filteredPlans = [...allPlans]; // Update filteredPlans to reflect the change
+            filterPlansByCategory(); // Reapply filter if active
+            renderPlansTable(); // Re-render with updated filteredPlans
+            renderPaginationControls(); // Update pagination
+        }
+    } catch (err) {
+        console.error('Error toggling plan activation:', err);
+        showToast('Failed to toggle plan activation: ' + err.message, 'error');
+    }
+}   
+        // Load Categories
+        async function loadCategories() {
+            try {
+                const response = await fetch(`${BASE_URL}/admin/categories`, {
+                    headers: { "Authorization": `Bearer ${adminToken}` }
+                });
+                if (!response.ok) throw new Error('Failed to fetch categories.');
+                allCategories = await response.json();
+                const tableBody = document.getElementById('categoriesTable');
+                tableBody.innerHTML = '';
+                allCategories.forEach(cat => {
+                    const isActive = cat.isActive !== undefined ? cat.isActive : true;
+                    tableBody.innerHTML += `
+                        <tr data-category-id="${cat.categoryId}" class="${!isActive ? 'inactive' : ''}">
+                            <td>${formatCategoryName(cat.categoryName)}</td>
+                            <td>${cat.description || ''}</td>
+                            <td>${isActive ? 'Active' : 'Inactive'}</td>
+                            <td>
+                                <button class="btn btn-custom btn-sm" onclick="openEditCategoryModal(this)">Edit</button>
+                                <button class="btn ${isActive ? 'btn-warning' : 'btn-success'} btn-sm" onclick="toggleCategoryActivation(${cat.categoryId}, ${!isActive})">${isActive ? 'Deactivate' : 'Activate'}</button>
+                                <button class="btn btn-danger btn-sm" onclick="deleteCategory(${cat.categoryId})">Delete</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            } catch (err) {
+                handleApiError(err, 'loading categories');
+            }
+        }
+    
+        // Open Add Category Modal
+        function openAddCategoryModal() {
+            document.getElementById('addCategoryForm').reset();
+            clearFormErrors('addCategoryForm');
+            const addModal = new bootstrap.Modal(document.getElementById('addCategoryModal'));
+            addModal.show();
+        }
+    
+        // Add Category
+        async function addCategory() {
+            clearFormErrors('addCategoryForm');
+            const categoryName = document.getElementById('newCategoryName').value.trim();
+            const description = document.getElementById('newCategoryDescription').value.trim();
+    
+            const errors = {};
+            if (!categoryName) errors.newCategoryName = 'Category name is required';
+    
+            if (Object.keys(errors).length > 0) {
+                showFormErrors('addCategoryForm', errors);
+                return;
+            }
+    
+            const newCategory = { categoryName, description };
+            try {
+                const response = await fetch(`${BASE_URL}/admin/categories`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "Authorization": `Bearer ${adminToken}`
+                    },
+                    body: JSON.stringify(newCategory)
+                });
+                if (!response.ok) {
+                    const errData = await response.json();
+                    throw new Error(errData.message || 'Failed to add category.');
+                }
+                showToast('Category added successfully!', 'success');
+                loadCategories();
+                loadCategoriesForDropdown();
+                loadPlans();
+                const modalInstance = bootstrap.Modal.getInstance(document.getElementById('addCategoryModal'));
+                modalInstance.hide();
+            } catch (err) {
+                handleApiError(err, 'adding category');
+            }
+        }
+    
+        // Open Edit Category Modal
+        function openEditCategoryModal(button) {
+            const row = button.parentElement.parentElement;
+            const categoryId = row.dataset.categoryId;
+            const cells = row.getElementsByTagName('td');
+            document.getElementById('categoryId').value = categoryId;
+            document.getElementById('categoryName').value = cells[0].innerText;
+            document.getElementById('categoryDescription').value = cells[1].innerText;
+            clearFormErrors('editCategoryForm');
+            const editModal = new bootstrap.Modal(document.getElementById('editCategoryModal'));
+            editModal.show();
+        }
+    
+        // Save Category
+        async function saveCategory() {
+            const categoryId = document.getElementById('categoryId').value;
+            const name = document.getElementById('categoryName').value.trim();
+            const description = document.getElementById('categoryDescription').value.trim();
+    
+            const errors = {};
+            if (!name) errors.categoryName = 'Category name is required';
+    
+            if (Object.keys(errors).length > 0) {
+                showFormErrors('editCategoryForm', errors);
+                return;
+            }
+    
+            const updatedCategory = { categoryId, categoryName: name, description };
+            try {
+                const response = await fetch(`${BASE_URL}/admin/categories/${categoryId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "Authorization": `Bearer ${adminToken}`
+                    },
+                    body: JSON.stringify(updatedCategory)
+                });
+                if (!response.ok) {
+                    const errData = await response.json();
+                    throw new Error(errData.message || 'Failed to update category.');
+                }
+                showToast('Category updated successfully!', 'success');
+                loadCategories();
+                loadCategoriesForDropdown();
+                loadPlans();
+                const editModalEl = document.getElementById('editCategoryModal');
+                const modalInstance = bootstrap.Modal.getInstance(editModalEl);
+                modalInstance.hide();
+            } catch (err) {
+                handleApiError(err, 'updating category');
+            }
+        }
+    
+ // Toggle Category Activation
+async function toggleCategoryActivation(categoryId, isActive) {
+    try {
+        const response = await fetch(`${BASE_URL}/admin/categories/${categoryId}/toggle`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${adminToken}`
+            },
+            body: JSON.stringify({ isActive })
+        });
+        if (!response.ok) {
+            const errData = await response.json();
+            throw new Error(errData.message || 'Failed to toggle category activation.');
+        }
+
+        // Show success toast
+        showToast(`Category ${isActive ? 'activated' : 'deactivated'} successfully!`, 'success');
+
+        // Update the specific row in the categories table dynamically
+        const tableBody = document.getElementById('categoriesTable');
+        const rows = tableBody.getElementsByTagName('tr');
+        for (let row of rows) {
+            if (row.dataset.categoryId === String(categoryId)) {
+                // Update row class
+                row.classList.toggle('inactive', !isActive);
+
+                // Update status text
+                const statusCell = row.cells[2];
+                statusCell.textContent = isActive ? 'Active' : 'Inactive';
+
+                // Update toggle button
+                const toggleButton = row.querySelector(`button[onclick*="toggleCategoryActivation(${categoryId}"]`);
+                toggleButton.classList.remove('btn-warning', 'btn-success');
+                toggleButton.classList.add(isActive ? 'btn-warning' : 'btn-success');
+                toggleButton.textContent = isActive ? 'Deactivate' : 'Activate';
+                toggleButton.setAttribute('onclick', `toggleCategoryActivation(${categoryId}, ${!isActive})`);
+
+                break; // Exit loop once the row is updated
+            }
+        }
+
+        // Update the in-memory allCategories array to keep data consistent
+        const categoryIndex = allCategories.findIndex(cat => cat.categoryId === categoryId);
+        if (categoryIndex !== -1) {
+            allCategories[categoryIndex].isActive = isActive;
+        }
+
+        // Update category dropdowns immediately
+        loadCategoriesForDropdown();
+    } catch (err) {
+        console.error('Error toggling category activation:', err);
+        showToast('Failed to toggle category activation: ' + err.message, 'error');
+    }
+}
+    
+        // Load Analytics
+        async function loadAnalytics() {
+            try {
+                const response = await fetch(`${BASE_URL}/admin/analytics`, {
+                    headers: { "Authorization": `Bearer ${adminToken}` }
+                });
+                if (!response.ok) throw new Error('Failed to fetch analytics data.');
+                const data = await response.json();
+                document.getElementById('totalSubscribers').innerText = data.totalSubscribers || 0;
+                document.getElementById('totalRevenue').innerText = "₹" + (data.totalRevenue || 0).toLocaleString();
+                document.getElementById('activePlans').innerText = data.activePlans || 0;
+                document.getElementById('renewals').innerText = data.renewals || 0;
+            } catch (err) {
+                handleApiError(err, 'loading analytics');
+            }
+        }
+    
+        // Update Subscriber Charts
+        function updateSubscriberCharts(subscribers) {
+            const activeCount = subscribers.filter(sub => sub.isActive).length;
+            const inactiveCount = subscribers.length - activeCount;
+            chartSubscriberStatus.data.datasets[0].data = [activeCount, inactiveCount];
+            chartSubscriberStatus.update();
+    
+            const planCounts = {};
+            subscribers.forEach(sub => {
+                const planName = sub.currentPlanName || 'No Plan';
+                planCounts[planName] = (planCounts[planName] || 0) + 1;
+            });
+            chartPlanDistribution.data.labels = Object.keys(planCounts);
+            chartPlanDistribution.data.datasets[0].data = Object.values(planCounts);
+            chartPlanDistribution.update();
+        }
+    
+        // Initialize Subscriber Charts
+        function initializeSubscriberCharts() {
+            const ctxStatus = document.getElementById('chartSubscriberStatus').getContext('2d');
+            chartSubscriberStatus = new Chart(ctxStatus, {
+                type: 'bar',
+                data: {
+                    labels: ['Active', 'Inactive'],
+                    datasets: [{
+                        label: 'Subscriber Status',
+                        data: [0, 0],
+                        backgroundColor: ['rgba(40, 167, 69, 0.6)', 'rgba(220, 53, 69, 0.6)'],
+                        borderColor: ['rgba(40, 167, 69, 1)', 'rgba(220, 53, 69, 1)'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, title: { display: true, text: 'Number of Subscribers' } }
+                    }
+                }
+            });
+    
+            const ctxPlan = document.getElementById('chartPlanDistribution').getContext('2d');
+            chartPlanDistribution = new Chart(ctxPlan, {
+                type: 'pie',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        data: [],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(255, 206, 86, 0.6)',
+                            'rgba(75, 192, 192, 0.6)',
+                            'rgba(153, 102, 255, 0.6)',
+                            'rgba(255, 159, 64, 0.6)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'top' }
+                    }
+                }
+            });
+        }
+    
+        // Initialize Charts
+        function initializeCharts() {
+            const ctxGrowth = document.getElementById('chartSubscriberGrowth').getContext('2d');
+            new Chart(ctxGrowth, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [{
+                        label: 'Subscriber Growth',
+                        data: [120, 150, 180, 200, 230, 260, 300, 320, 340, 370, 400, 450],
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+    
+            const ctxRevenue = document.getElementById('chartRevenueTrend').getContext('2d');
+            new Chart(ctxRevenue, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [{
+                        label: 'Revenue Trend (₹)',
+                        data: [5000, 7000, 8000, 9000, 9500, 10000, 11000, 12000, 13000, 14000, 15000, 16000],
+                        borderColor: 'rgba(255, 159, 64, 1)',
+                        backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+    
+            const ctxExpiring = document.getElementById('chartExpiringSubscribers').getContext('2d');
+            chartExpiringSubscribers = new Chart(ctxExpiring, {
+                type: 'bar',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Expiring Subscribers',
+                        data: [],
+                        backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+    
+            const ctxPopularity = document.getElementById('chartPlanPopularity').getContext('2d');
+            new Chart(ctxPopularity, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Basic', 'Standard', 'Premium'],
+                    datasets: [{
+                        label: 'Plan Popularity',
+                        data: [40, 35, 25],
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(255, 206, 86, 0.6)',
+                            'rgba(75, 192, 192, 0.6)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        }
+    
+        // Initial Load
+        document.addEventListener('DOMContentLoaded', () => {
+            showPage('dashboard');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home | Mobicomm Services</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+  <!-- AOS Animation CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <!-- Google Fonts - Montserrat -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <style>
+    :root {
+      --primary: #c44e44;
+      --secondary: #e07a5f;
+      --tertiary: #f6d6ad;
+      --bg-light: #f8f9fa;
+      --text-dark: #2d2d2d;
+      --text-light: #666;
+      --white: #ffffff;
+      --shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text-dark);
+      background: var(--white);
+      line-height: 1.7;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: var(--transition);
+    }
+
+    /* Navbar with Glassmorphism */
+    .navbar {
+      background: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+      backdrop-filter: blur(12px); /* Blur effect for glassmorphism */
+      -webkit-backdrop-filter: blur(12px); /* Safari support */
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); /* Softer shadow */
+      padding: 1rem 2rem;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      transition: background 0.3s ease;
+    }
+
+    .navbar-brand {
+      font-weight: 800;
+      font-size: 1.8rem;
+      color: var(--primary);
+      letter-spacing: 1px;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-nav .nav-link {
+      font-size: 1rem;
+      font-weight: 500;
+      margin: 0 1.2rem;
+      color: var(--text-dark);
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link.active {
+      color: var(--primary);
+    }
+
+    .navbar-nav .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    .navbar-nav .nav-link.active::after {
+      width: 100%;
+    }
+
+    .navbar-nav .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* Ensure navbar remains readable on scroll */
+    .navbar.scrolled {
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    /* Section Styling */
+    section {
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .section-heading {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-heading h2 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-heading p {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Hero Section */
+    #hero {
+      position: relative;
+      height: 80vh;
+      background: linear-gradient(135deg, var(--tertiary) 0%, var(--secondary) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--white);
+      overflow: hidden;
+    }
+
+    .bubbles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .bubble {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      animation: bubbleFloat 15s linear infinite;
+    }
+
+    @keyframes bubbleFloat {
+      0% { bottom: -20px; transform: translateX(0); opacity: 0; }
+      20% { opacity: 0.5; }
+      50% { opacity: 0.9; }
+      80% { bottom: 85%; transform: translateX(5px); opacity: 1; }
+      100% { bottom: 100%; transform: translateX(10px); opacity: 0; }
+    }
+
+    .bubble:nth-child(1) { width: 40px; height: 40px; left: 10%; animation-duration: 15s; animation-delay: 0s; }
+    .bubble:nth-child(2) { width: 60px; height: 60px; left: 30%; animation-duration: 18s; animation-delay: 2s; }
+    .bubble:nth-child(3) { width: 30px; height: 30px; left: 50%; animation-duration: 14s; animation-delay: 4s; }
+    .bubble:nth-child(4) { width: 50px; height: 50px; left: 70%; animation-duration: 16s; animation-delay: 1s; }
+    .bubble:nth-child(5) { width: 70px; height: 70px; left: 85%; animation-duration: 20s; animation-delay: 3s; }
+
+    #hero .content {
+      position: relative;
+      z-index: 2;
+      padding: 0 20px;
+    }
+
+    #hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    #hero p {
+      font-size: 1.3rem;
+      font-weight: 400;
+      margin-bottom: 2.5rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-custom {
+      background: var(--primary);
+      border: none;
+      padding: 0.9rem 2.5rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .btn-custom:hover {
+      background: var(--secondary);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+
+    .btn-custom::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.3);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .btn-custom:hover::after {
+      opacity: 1;
+      animation: ripple 0.6s ease-out;
+    }
+
+    @keyframes ripple {
+      from { transform: scale(0); opacity: 0.5; }
+      to { transform: scale(2); opacity: 0; }
+    }
+
+    /* About Section */
+    #about {
+      background: linear-gradient(135deg, var(--tertiary) 0%, var(--white) 100%);
+    }
+
+    #about .about-content {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 40px;
+    }
+
+    #about .about-text,
+    #about .about-img {
+      flex: 1;
+      min-width: 300px;
+      padding: 20px;
+    }
+
+    #about .about-img img {
+      width: 100%;
+      border-radius: 20px;
+      transition: var(--transition);
+    }
+
+    #about .about-img img:hover {
+      box-shadow: var(--shadow);
+      transform: scale(1.02);
+    }
+
+    #about .about-text p {
+      font-size: 1.2rem;
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+    }
+
+    #about .about-text ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    #about .about-text li {
+      font-size: 1.1rem;
+      margin-bottom: 0.8rem;
+      padding-left: 30px;
+      position: relative;
+      color: var(--text-dark);
+    }
+
+    #about .about-text li::before {
+      content: "✔";
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-size: 1.2rem;
+    }
+
+/* Recharge Section */
+#recharge {
+      background: linear-gradient(to bottom, var(--bg-light) 0%, var(--white) 100%);
+    }
+
+    .recharge-form {
+      max-width: 500px;
+      margin: auto;
+      background: var(--white);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      position: relative;
+      z-index: 10;
+      transition: var(--transition);
+    }
+
+    .recharge-form:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+    }
+
+    .recharge-form input {
+      border-radius: 50px;
+      height: 50px;
+      padding: 0 20px;
+      font-size: 1rem;
+      border: 1px solid #ddd;
+      transition: var(--transition);
+    }
+
+    .recharge-form input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 8px rgba(196, 78, 68, 0.2);
+      outline: none;
+    }
+
+    .recharge-form button {
+      border-radius: 50px;
+      height: 50px;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    /* Error Message Styling */
+
+
+    @media (max-width: 576px) {
+      #error-message {
+        font-size: 0.9rem;
+        padding: 8px;
+      }
+    }
+
+    /* How It Works Section */
+    #how-it-works {
+      background: linear-gradient(90deg, var(--white), var(--bg-light));
+    }
+
+    #how-it-works .step {
+      text-align: center;
+      padding: 30px 20px;
+      transition: var(--transition);
+    }
+
+    #how-it-works .step:hover {
+      transform: translateY(-5px);
+    }
+
+    #how-it-works .step i {
+      font-size: 3.5rem;
+      color: var(--primary);
+      margin-bottom: 20px;
+      transition: var(--transition);
+    }
+
+    #how-it-works .step:hover i {
+      color: var(--secondary);
+    }
+
+    #how-it-works .step h5 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: var(--text-dark);
+    }
+
+    #how-it-works .step p {
+      font-size: 1rem;
+      color: var(--text-light);
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    /* Plans Section */
+    #plans {
+      background: linear-gradient(135deg, var(--white), #f9f9f9);
+      margin-bottom: 50px;
+    }
+
+    .plan-card {
+      background: var(--white);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+      transition: var(--transition);
+      height: 100%;
+    }
+
+    .plan-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+    }
+
+    .plan-header {
+      background: var(--primary);
+      color: var(--white);
+      padding: 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    .plan-header h5 {
+      margin: 0;
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+
+    .plan-header .badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 0.8rem;
+      padding: 5px 10px;
+      border-radius: 20px;
+      transition: var(--transition);
+    }
+
+    .plan-header .badge:hover {
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    .plan-body {
+      padding: 25px;
+    }
+
+    .plan-price {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .plan-duration {
+      font-size: 1rem;
+      color: var(--text-light);
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0;
+    }
+
+    .plan-features li {
+      margin-bottom: 12px;
+      font-size: 1rem;
+      color: var(--text-dark);
+      position: relative;
+      padding-left: 25px;
+    }
+
+    .plan-features li::before {
+      content: "✔";
+      position: absolute;
+      left: 0;
+      color: var(--secondary);
+      font-size: 1.1rem;
+    }
+
+    .plan-footer {
+      text-align: center;
+    }
+
+    .plan-footer a {
+      display: inline-block;
+      margin-top: 10px;
+      color: var(--primary);
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .plan-footer a:hover {
+      color: var(--secondary);
+    }
+
+    /* Achievements Section */
+    #achievements {
+      background: var(--bg-light);
+    }
+
+    #achievements .counter {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    #achievements .counter-label {
+      font-size: 1.1rem;
+      color: var(--text-light);
+    }
+
+    /* Testimonials Section */
+    #testimonials {
+      background: linear-gradient(135deg, var(--bg-light), var(--white));
+    }
+
+    .testimonial {
+      text-align: center;
+      padding: 30px;
+      background: var(--white);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      height: 100%;
+    }
+
+    .testimonial:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+    }
+
+    .testimonial p {
+      font-style: italic;
+      margin-bottom: 20px;
+      color: var(--text-light);
+      font-size: 1.1rem;
+    }
+
+    .testimonial h6 {
+      font-weight: 600;
+      color: var(--primary);
+      font-size: 1.1rem;
+    }
+
+    /* FAQ Section */
+    #faq {
+      background: linear-gradient(135deg, var(--white), var(--bg-light));
+    }
+
+    #faq .accordion-item {
+      border: none;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    #faq .accordion-button {
+      font-weight: 600;
+      color: var(--primary);
+      background: var(--white);
+      padding: 20px;
+      border-radius: 10px;
+      transition: var(--transition);
+    }
+
+    #faq .accordion-button:not(.collapsed) {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    #faq .accordion-button:focus {
+      box-shadow: none;
+    }
+
+    #faq .accordion-body {
+      padding: 20px;
+      background: var(--white);
+      color: var(--text-light);
+      font-size: 1rem;
+    }
+
+    /* Download Section */
+    #download {
+      background: var(--tertiary);
+      color: var(--text-dark);
+    }
+
+    #download .app-buttons a {
+      margin: 10px;
+      display: inline-block;
+      padding: 12px 30px;
+      border: 2px solid var(--primary);
+      border-radius: 50px;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    #download .app-buttons a:hover {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--secondary);
+      color: var(--white);
+      padding: 60px 0 30px;
+    }
+
+    footer h5 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    footer p,
+    footer ul li {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    footer ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    footer ul li {
+      margin-bottom: 10px;
+    }
+
+    footer a:hover {
+      color: var(--tertiary);
+    }
+
+    footer .social-link i {
+      font-size: 1.5rem;
+      margin-right: 15px;
+    }
+
+    /* Back-to-Top Button */
+    #backToTop {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--primary);
+      color: var(--white);
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      z-index: 1000;
+    }
+
+    #backToTop:hover {
+      transform: scale(1.1);
+      box-shadow: var(--shadow);
+      background: var(--secondary);
+    }
+
+    /* OTP Input Styling */
+    .otp-input {
+      width: 45px;
+      height: 45px;
+      text-align: center;
+      font-size: 1.2rem;
+      margin: 0 5px;
+      border-radius: 8px;
+      border: 1px solid var(--primary);
+      transition: var(--transition);
+    }
+
+    .otp-input:focus {
+      outline: none;
+      border-color: var(--secondary);
+      box-shadow: 0 0 8px rgba(224, 122, 95, 0.3);
+    }
+
+    /* OTP Timer Warning */
+    .otp-timer-warning {
+      color: #dc3545;
+      font-weight: 600;
+    }
+
+    /* Social Media Coming Soon Tooltip */
+    .social-link {
+      position: relative;
+      cursor: not-allowed;
+    }
+
+    .social-link .coming-soon-tooltip {
+      visibility: hidden;
+      width: 120px;
+      background-color: var(--primary);
+      color: var(--white);
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -60px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .social-link .coming-soon-tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: var(--primary) transparent transparent transparent;
+    }
+
+    .social-link:hover .coming-soon-tooltip {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      #hero {
+        height: 60vh;
+      }
+
+      #hero h1 {
+        font-size: 2.5rem;
+      }
+
+      #hero p {
+        font-size: 1.1rem;
+      }
+
+      .navbar-nav .nav-link {
+        margin: 0.5rem 0;
+        font-size: 1.1rem;
+      }
+
+      #about .about-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      #about .about-text,
+      #about .about-img {
+        flex: none;
+        width: 100%;
+      }
+
+      .section-heading h2 {
+        font-size: 2.2rem;
+      }
+
+      .section-heading p {
+        font-size: 1rem;
+      }
+
+      .plan-price {
+        font-size: 2rem;
+      }
+
+      .plan-header h5 {
+        font-size: 1.2rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      #hero {
+        height: 50vh;
+      }
+
+      #hero h1 {
+        font-size: 2rem;
+      }
+
+      #hero p {
+        font-size: 1rem;
+      }
+
+      .btn-custom {
+        padding: 0.7rem 2rem;
+        font-size: 1rem;
+      }
+
+      .section-heading h2 {
+        font-size: 1.8rem;
+      }
+
+      .recharge-form {
+        padding: 30px 20px;
+      }
+
+      .otp-input {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
+
+      #how-it-works .step i {
+        font-size: 2.5rem;
+      }
+
+      #how-it-works .step h5 {
+        font-size: 1.2rem;
+      }
+
+      #achievements .counter {
+        font-size: 2rem;
+      }
+
+      #achievements .counter-label {
+        font-size: 1rem;
+      }
+
+      footer h5 {
+        font-size: 1.2rem;
+      }
+
+      footer p,
+      footer ul li {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand" href="#">MobiComm</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="#hero">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#recharge">Recharge</a></li>
+          <li class="nav-item"><a class="nav-link" href="#plans">Plans</a></li>
+          <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">
+              <i class="bi bi-person-circle"></i> Login
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div style="height: 80px;"></div>
+
+  <!-- Hero Section -->
+  <section id="hero">
+    <div class="bubbles">
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+    </div>
+    <div class="content container" data-aos="fade-up">
+      <h1 class="animate__animated animate__bounceInDown">Instant Recharge, Timeless Connection</h1>
+      <p class="animate__animated animate__slideInUp animate__delay-1s">
+        Experience seamless mobile recharges with security and ease.
+      </p>
+      <a href="#recharge" class="btn btn-custom animate__animated animate__zoomIn animate__delay-2s">Recharge Now</a>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <div class="section-container" data-aos="fade-up">
+      <div class="section-heading">
+        <h2>About MobiComm</h2>
+        <p>Your trusted partner for mobile recharge solutions.</p>
+      </div>
+      <div class="about-content">
+        <div class="about-text" data-aos="fade-right">
+          <p>
+            MobiComm Services has been connecting people with reliable and fast mobile recharge solutions.
+          </p>
+          <ul>
+            <li>Fast & Secure Transactions</li>
+            <li>Exclusive Offers & Plans</li>
+            <li>24/7 Customer Support</li>
+          </ul>
+        </div>
+        <div class="about-img" data-aos="fade-left">
+          <img src="/Assets/Images/aboutus.jpg" alt="About MobiComm" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recharge Section -->
+  <section id="recharge">
+    <div class="section-container" data-aos="fade-up">
+      <div class="section-heading">
+        <h2>Quick Mobile Recharge</h2>
+        <p>Recharge your mobile in seconds with our streamlined process.</p>
+      </div>
+      <div class="recharge-form">
+        <form id="rechargeForm">
+          <div class="mb-3">
+            <input type="text" id="mobileNumber" class="form-control" placeholder="Enter 10-digit mobile number" required />
+          </div>
+          <p id="error-message" class="text-danger"></p>
+          <div class="d-grid">
+            <button type="submit" class="btn btn-custom">Recharge Now</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- New User Section -->
+  <section id="new-user" class="bg-light">
+    <div class="section-container" data-aos="fade-up">
+      <div class="section-heading">
+        <h2>New to MobiComm?</h2>
+        <p>Register your mobile number to start recharging with us!</p>
+      </div>
+      <div class="text-center">
+        <p>Not registered yet? Contact our support or sign up through our app (coming soon).</p>
+        <a href="#download" class="btn btn-custom">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section id="how-it-works" class="bg-light">
+    <div class="section-container" data-aos="fade-up">
+      <div class="section-heading">
+        <h2>How It Works</h2>
+        <p>Simple steps to get you recharged and connected.</p>
+      </div>
+      <div class="row">
+        <div class="col-md-4 step" data-aos="fade-up" data-aos-delay="100">
+          <i class="bi bi-phone"></i>
+          <h5>Enter Number</h5>
+          <p>Provide your 10-digit mobile number to start.</p>
+        </div>
+        <div class="col-md-4 step" data-aos="fade-up" data-aos-delay="200">
+          <i class="bi bi-list-check"></i>
+          <h5>Select Plan</h5>
+          <p>Choose a plan that best suits your usage.</p>
+        </div>
+        <div class="col-md-4 step" data-aos="fade-up" data-aos-delay="300">
+          <i class="bi bi-check-circle"></i>
+          <h5>Confirm & Recharge</h5>
+          <p>Review and confirm your recharge securely.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Plans Section -->
+  <section id="plans">
+    <div class="section-container" data-aos="fade-up">
+      <div class="section-heading">
+        <h2>Our Exclusive Plans</h2>
+        <p>Find the perfect plan for your mobile usage.</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="plan-card">
+            <div class="plan-header">
+              <h5>Basic Plan <span class="badge bg-secondary">Value</span></h5>
+            </div>
+            <div class="plan-body">
+              <div class="plan-price text-center">₹299</div>
+              <div class="plan-duration text-center">Valid for 30 days</div>
+              <ul class="plan-features">
+                <li>2GB Data</li>
+                <li>100 Minutes</li>
+                <li>100 SMS</li>
+              </ul>
+              <div class="plan-footer">
+                <a href="#recharge">Recharge Now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="plan-card">
+            <div class="plan-header">
+              <h5>Premium Plan <span class="badge bg-primary">Popular</span></h5>
+            </div>
+            <div class="plan-body">
+              <div class="plan-price text-center">₹499</div>
+              <div class="plan-duration text-center">Valid for 30 days</div>
+              <ul class="plan-features">
+                <li>5GB Data</li>
+                <li>300 Minutes</li>
+                <li>300 SMS</li>
+              </ul>
+              <div class="plan-footer">
+                <a href="#recharge">Recharge Now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+          <div class="plan-card">
+            <div class="plan-header">
+              <h5>Unlimited Plan <span class="badge bg-success">Best Seller</span></h5>
+            </div>
+            <div class="plan-body">
+              <div class="plan-price text-center">₹799</div>
+              <div class="plan-duration text-center">Valid for 30 days</div>
+              <ul class="plan-features">
+                <li>Unlimited Data</li>
+                <li>Unlimited Calls</li>
+                <li>500 SMS</li>
+              </ul>
+              <div class="plan-footer">
+                <a href="#recharge">Recharge Now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Achievements Section -->
+  <section id="achievements">
+    <div class="section-container" data-aos="fade-up">
+      <div class="section-heading">
+        <h2>Our Achievements</h2>
+        <p>Trusted by thousands of happy customers.</p>
+      </div>
+      <div class="row text-center">
+        <div class="col-md-4">
+          <div class="counter" data-target="5000">0</div>
+          <div class="counter-label">Recharges Done</div>
+        </div>
+        <div class="col-md-4">
+          <div class="counter" data-target="3000">0</div>
+          <div class="counter-label">Happy Customers</div>
+        </div>
+        <div class="col-md-4">
+          <div class="counter" data-target="50">0</div>
+          <div class="counter-label">Awards Won</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="bg-light">
+    <div class="section-container" data-aos="fade-up">
+      <div class="section-heading">
+        <h2>What Our Users Say</h2>
+        <p>Read testimonials from our satisfied customers.</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="testimonial">
+            <p><i class="bi bi-quote"></i> MobiComm's recharge service is fast and secure!</p>
+            <h6>- Aditi Sharma</h6>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="testimonial">
+            <p><i class="bi bi-quote"></i> Exceptional service and great value plans!</p>
+            <h6>- Rahul Gupta</h6>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+          <div class="testimonial">
+            <p><i class="bi bi-quote"></i> The best recharge experience I've had!</p>
+            <h6>- Neha Kapoor</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq">
+    <div class="section-container" data-aos="fade-up">
+      <div class="section-heading">
+        <h2>Frequently Asked Questions</h2>
+        <p>Your questions answered.</p>
+      </div>
+      <div class="accordion" id="faqAccordion">
+        <div class="accordion-item" data-aos="fade-up" data-aos-delay="100">
+          <h2 class="accordion-header" id="faqHeadingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqOne" aria-expanded="true" aria-controls="faqOne">
+              How secure is my payment information?
+            </button>
+          </h2>
+          <div id="faqOne" class="accordion-collapse collapse show" aria-labelledby="faqHeadingOne" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Your payment information is encrypted and processed securely.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item" data-aos="fade-up" data-aos-delay="200">
+          <h2 class="accordion-header" id="faqHeadingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqTwo" aria-expanded="false" aria-controls="faqTwo">
+              What payment methods do you accept?
+            </button>
+          </h2>
+          <div id="faqTwo" class="accordion-collapse collapse" aria-labelledby="faqHeadingTwo" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              We accept all major credit/debit cards, net banking, and digital wallets.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item" data-aos="fade-up" data-aos-delay="300">
+          <h2 class="accordion-header" id="faqHeadingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqThree" aria-expanded="false" aria-controls="faqThree">
+              Are there any hidden charges?
+            </button>
+          </h2>
+          <div id="faqThree" class="accordion-collapse collapse" aria-labelledby="faqHeadingThree" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              No, the price displayed is what you pay. No hidden fees.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Download App Section -->
+  <section id="download">
+    <div class="section-container" data-aos="fade-up">
+      <div class="section-heading">
+        <h2>Download Our App</h2>
+        <p>Our mobile app is coming soon! Stay tuned for a seamless recharge experience.</p>
+      </div>
+      <div class="text-center app-buttons">
+        <a href="#" class="btn" style="pointer-events: none; opacity: 0.7;">App Store (Coming Soon)</a>
+        <a href="#" class="btn" style="pointer-events: none; opacity: 0.7;">Google Play (Coming Soon)</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="section-container">
+      <div class="row">
+        <div class="col-md-4" data-aos="fade-up">
+          <h5>About MobiComm</h5>
+          <p>
+            MobiComm Services offers secure, reliable, and affordable mobile prepaid recharge solutions.
+          </p>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+          <h5>Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#recharge">Recharge</a></li>
+            <li><a href="#plans">Plans</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+          <h5>Follow Us</h5>
+          <div class="d-flex">
+            <a href="#" class="social-link" onclick="event.preventDefault(); alert('Coming Soon');">
+              <i class="bi bi-facebook"></i>
+              <span class="coming-soon-tooltip">Coming Soon</span>
+            </a>
+            <a href="#" class="social-link" onclick="event.preventDefault(); alert('Coming Soon');">
+              <i class="bi bi-twitter"></i>
+              <span class="coming-soon-tooltip">Coming Soon</span>
+            </a>
+            <a href="#" class="social-link" onclick="event.preventDefault(); alert('Coming Soon');">
+              <i class="bi bi-instagram"></i>
+              <span class="coming-soon-tooltip">Coming Soon</span>
+            </a>
+            <a href="#" class="social-link" onclick="event.preventDefault(); alert('Coming Soon');">
+              <i class="bi bi-linkedin"></i>
+              <span class="coming-soon-tooltip">Coming Soon</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <p>© 2025 MobiComm Services. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back-to-Top Button -->
+  <button id="backToTop"><i class="bi bi-arrow-up"></i></button>
+
+  <!-- Login Modal with 6-Digit OTP -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginModalLabel">Login to MobiComm</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="loginForm">
+            <div class="mb-3">
+              <label for="loginPhone" class="form-label">Phone Number</label>
+              <input type="text" class="form-control" id="loginPhone" placeholder="Enter phone number" required />
+            </div>
+            <div id="login-error" class="text-danger mb-3"></div>
+            <button type="submit" class="btn btn-custom w-100">Send OTP</button>
+          </form>
+          <div id="otpSection" style="display: none;" class="mt-3">
+            <div class="mb-3">
+              <label class="form-label">Enter OTP</label>
+              <div class="d-flex justify-content-center gap-2">
+                <input type="text" id="otp1" class="otp-input" maxlength="1" required>
+                <input type="text" id="otp2" class="otp-input" maxlength="1" required>
+                <input type="text" id="otp3" class="otp-input" maxlength="1" required>
+                <input type="text" id="otp4" class="otp-input" maxlength="1" required>
+                <input type="text" id="otp5" class="otp-input" maxlength="1" required>
+                <input type="text" id="otp6" class="otp-input" maxlength="1" required>
+              </div>
+            </div>
+            <div id="otp-error" class="text-danger text-center mb-2"></div>
+            <button type="button" id="verifyOtpBtn" class="btn btn-success w-100">Verify OTP</button>
+            <div id="otpTimer" class="text-center mt-2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"> </script>
+
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+  <script>
+  AOS.init({ duration: 1000, once: true });
+
+  // Check for showLogin query parameter to trigger OTP login modal
+  document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const showLogin = urlParams.get('showLogin');
+
+    if (showLogin === 'true') {
+      const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+      loginModal.show();
+    }
+
+    // Auto-fill mobile number for logged-in users
+    const token = localStorage.getItem('token');
+    const mobileNumber = localStorage.getItem('mobileNumber');
+    if (token && mobileNumber) {
+      document.getElementById('mobileNumber').value = mobileNumber;
+    }
+  });
+
+  // Navbar glassmorphism effect on scroll
+  const navbar = document.querySelector('.navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+
+  // Back-to-top button
+  const backToTop = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    backToTop.style.display = window.scrollY > 300 ? 'flex' : 'none';
+  });
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // Highlight navbar link based on scroll position (Fixed)
+  const sections = document.querySelectorAll('section');
+  const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+
+  window.addEventListener('scroll', () => {
+    let currentSection = '';
+
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 100; // Offset for navbar height
+      const sectionBottom = sectionTop + section.clientHeight;
+
+      if (window.scrollY >= sectionTop && window.scrollY < sectionBottom) {
+        currentSection = section.getAttribute('id');
+      }
+    });
+
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      const href = link.getAttribute('href');
+      if (href === `#${currentSection}`) {
+        link.classList.add('active');
+      }
+    });
+  });
+
+  // Recharge Form
+  $('#rechargeForm').submit(function(event) {
+    event.preventDefault();
+    const mobileNumber = $('#mobileNumber').val().trim();
+    const errorMessage = $('#error-message');
+    const submitButton = $(this).find('button[type="submit"]');
+    errorMessage.text("");
+    submitButton.prop('disabled', true).text('Checking...');
+
+    if (!/^\d{10}$/.test(mobileNumber)) {
+      errorMessage.text("Please enter a valid 10-digit phone number.");
+      submitButton.prop('disabled', false).text('Recharge Now');
+      return;
+    }
+
+    $.ajax({
+      url: 'http://localhost:8082/api/guest/check',
+      type: 'GET',
+      data: { mobileNumber: mobileNumber },
+      dataType: 'json',
+      success: function(response) {
+        localStorage.setItem('mobileNumber', mobileNumber);
+        window.location.href = '/HTML/PlanRecharge.html';
+      },
+      error: function(xhr) {
+        let errorText = "An error occurred. Please try again.";
+        if (xhr.status === 0) {
+          errorText = "Network error. Please check your connection and try again.";
+        } else if (xhr.responseJSON && xhr.responseJSON.error) {
+          errorText = xhr.responseJSON.error;
+        } else if (xhr.responseText) {
+          try {
+            const parsed = JSON.parse(xhr.responseText);
+            errorText = parsed.error || errorText;
+          } catch (e) {
+            errorText = xhr.responseText;
+          }
+        }
+        errorMessage.text(errorText);
+        if (xhr.status === 404) {
+          errorMessage.html(
+            ` The Number you have entered is not a Mobicomm Number`
+          );
+        }
+      },
+      complete: function() {
+        submitButton.prop('disabled', false).text('Recharge Now');
+      }
+    });
+  });
+
+  // Login Modal with OTP
+  let otpTimerInterval;
+
+  document.getElementById('loginForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    const loginError = document.getElementById('login-error');
+    loginError.textContent = "";
+    const phone = document.getElementById('loginPhone').value.trim();
+
+    if (!/^\d{10}$/.test(phone)) {
+      loginError.textContent = "Please enter a valid 10-digit phone number.";
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:8082/api/auth/request-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mobileNumber: phone })
+      });
+      if (!response.ok) throw new Error(await response.text());
+      localStorage.setItem('mobileNumber', phone);
+      document.getElementById('loginForm').style.display = 'none';
+      document.getElementById('otpSection').style.display = 'block';
+      startOTPTimer();
+
+      const otpInputs = document.querySelectorAll('.otp-input');
+      otpInputs[0].focus();
+      otpInputs.forEach((input, index) => {
+        input.addEventListener('input', function() {
+          if (this.value.length === 1 && index < otpInputs.length - 1) {
+            otpInputs[index + 1].focus();
+          }
+        });
+        input.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' && index === otpInputs.length - 1) {
+            document.getElementById('verifyOtpBtn').click();
+          }
+        });
+      });
+    } catch (error) {
+      loginError.textContent = error.message || "Error requesting OTP. Please try again.";
+    }
+  });
+
+  function startOTPTimer() {
+    let timeLeft = 300; // 5 minutes
+    const otpTimer = document.getElementById('otpTimer');
+    otpTimerInterval = setInterval(() => {
+      if (timeLeft <= 0) {
+        clearInterval(otpTimerInterval);
+        document.getElementById('otp-error').textContent = "OTP expired. Request a new one.";
+        otpTimer.innerText = "";
+      } else {
+        otpTimer.innerText = `Time Remaining: ${Math.floor(timeLeft / 60)}:${(timeLeft % 60).toString().padStart(2, '0')}`;
+        if (timeLeft <= 30) {
+          otpTimer.classList.add('otp-timer-warning');
+        }
+        timeLeft--;
+      }
+    }, 1000);
+  }
+
+  document.getElementById('verifyOtpBtn').addEventListener('click', function() {
+    const otpInputs = document.querySelectorAll('.otp-input');
+    const userOTP = Array.from(otpInputs).map(input => input.value).join('');
+    const otpError = document.getElementById('otp-error');
+    otpError.textContent = "";
+
+    if (userOTP.length !== 6) {
+      otpError.textContent = "Please enter a 6-digit OTP.";
+      return;
+    }
+
+    fetch('http://localhost:8082/api/auth/verify-otp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        mobileNumber: localStorage.getItem('mobileNumber'), 
+        otp: userOTP 
+      })
+    })
+    .then(response => {
+      if (!response.ok) throw new Error('Invalid OTP');
+      return response.json();
+    })
+    .then(data => {
+      clearInterval(otpTimerInterval);
+      localStorage.setItem('token', data.token);
+      window.location.href = '/HTML/PlanLogin.html';
+    })
+    .catch(error => {
+      otpError.textContent = error.message || "Invalid or expired OTP. Please try again.";
+    });
+  });
+
+  // Counters
+  const counters = document.querySelectorAll('.counter');
+  const animateCounters = () => {
+    counters.forEach(counter => {
+      const updateCount = () => {
+        const target = +counter.getAttribute('data-target');
+        const count = +counter.innerText;
+        const increment = target / 200;
+        if (count < target) {
+          counter.innerText = Math.ceil(count + increment);
+          setTimeout(updateCount, 10);
+        } else {
+          counter.innerText = target;
+        }
+      };
+      updateCount();
+    });
+  };
+  const achievementsSection = document.getElementById('achievements');
+  const observer = new IntersectionObserver((entries) => {
+    if(entries[0].isIntersecting) {
+      animateCounters();
+      observer.unobserve(achievementsSection);
+    }
+  }, { threshold: 0.5 });
+  if(achievementsSection) observer.observe(achievementsSection);
+</script>
+        </body>
+        </html>

@@ -1,0 +1,588 @@
+@import "./node_modules/bootstrap/scss/bootstrap";
+
+// Spacing & Defaults
+$spacing-xs: 4px;
+$spacing-sm: 16px;
+$spacing-md: 32px;
+$spacing-lg: 48px;
+$spacing-xl: 80px;
+
+$border-radius-base: 10px;
+$box-shadow-base: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+// New Palette
+$color-stiletto: #a13f36;   // Deep main color
+$color-brass: #cb9378;      // Secondary accent color
+$color-apricot: #fcd9b1;    // Light accent color
+
+.section-spacing {
+  margin-bottom: $spacing-xl;
+}
+
+/* Keyframes & Animations (unchanged) */
+@keyframes slideInLeft { /* ... */ }
+@keyframes slideInRight { /* ... */ }
+@keyframes slideDown { /* ... */ }
+@keyframes zoomIn { /* ... */ }
+@keyframes fadeInUp { /* ... */ }
+@keyframes gleam { /* ... */ }
+
+/***********************************
+ * HTML & Body
+ **********************************/
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+body {
+  font-family: 'Roboto', sans-serif;
+  color: $color-stiletto; /* Default text color if you like, or #333 for normal body text */
+}
+
+/***********************************
+ * Header (Navbar)
+ **********************************/
+.mobile-recharge-page {
+  .custom-header {
+    animation: slideDown 0.5s ease-out;
+
+    /* Gradient from Stiletto to Antique Brass */
+    background: linear-gradient(160deg, $color-stiletto 0%, $color-brass 100%);
+    color: $color-apricot !important;
+
+    .navbar-brand,
+    .nav-link {
+      
+      color: $color-apricot !important;
+      transition: color 0.3s ease;
+      &:hover {
+        color: lighten($color-apricot, 40%) !important;
+        transition: color 0.3s ease, transform 0.3s ease;
+      }
+    }
+  }
+}
+
+/***********************************
+ * HERO BANNER
+ **********************************/
+#hero-banner {
+  position: relative;
+  text-align: center;
+  /* Deep gradient background using Stiletto & Brass */
+  background: linear-gradient(160deg, $color-stiletto 0%, $color-brass 100%);
+  color: $color-apricot; 
+  padding: 150px 0;
+
+  .hero-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: $spacing-sm;
+    color: $color-apricot; // Ensure hero text is Light Apricot
+  }
+
+  .hero-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: $spacing-sm;
+    max-width: 700px;
+    margin: 0 auto;
+    color: $color-apricot;
+  }
+
+  .btn {
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    color: $color-apricot !important;
+    background-color: transparent;
+    border: 2px solid $color-apricot;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    &:hover {
+      background-color: $color-apricot;
+      color: $color-stiletto !important;
+      transform: translateY(-2px);
+    }
+  }
+  .custom-wave-divider {
+    position: absolute;
+    bottom: 0;       // Pins it to the bottom of the parent section
+    left: 0;
+    width: 100%;
+    line-height: 0;
+    z-index: 1;
+  
+    svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
+  
+}
+
+/***********************************
+ * PRIMARY BUTTON
+ **********************************/
+.btn-primary {
+  background-color: $color-stiletto !important;
+  border: none !important;
+  color: $color-apricot !important;
+  font-weight: 600;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: $color-apricot !important;
+    color: $color-stiletto !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  }
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  &:focus {
+    outline: 2px dashed $color-apricot;
+    outline-offset: 2px;
+  }
+}
+
+/***********************************
+ * QUICK RECHARGE SECTION
+ **********************************/
+.quick-recharge-section {
+  position: relative;
+  z-index: 2;
+  background: #fff; 
+  color: #333; 
+  margin-top: -60px;
+  padding-top: 60px;
+  padding-bottom: 60px;
+
+  .section-title {
+    font-weight: 700;
+    margin-bottom: $spacing-sm;
+    color: #333;
+  }
+  .lead {
+    font-size: 1rem;
+    margin-bottom: $spacing-sm;
+    color: #555;
+  }
+  .card.recharge-card {
+    border: none;
+    border-radius: 8px;
+    overflow: hidden;
+    max-width: 400px;
+    margin: 0 auto;
+
+    .card-body {
+      background: #fff;
+      border-radius: 8px;
+      padding: 2rem;
+    }
+  }
+  .recharge-btn {
+    border-radius: 50px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    background-color: $color-stiletto;
+    color: $color-apricot !important;
+    position: relative;
+    overflow: hidden;
+
+    &:hover {
+      background-color: $color-apricot !important;
+      color: $color-stiletto !important;
+      transform: translateY(-2px);
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(
+        115deg,
+        rgba(255, 255, 255, 0.15) 0%,
+        rgba(255, 255, 255, 0.6) 50%,
+        rgba(255, 255, 255, 0.15) 100%
+      );
+      transform: skewX(-20deg);
+    }
+
+    &:hover::before {
+      animation: gleam 1s ease-in-out;
+    }
+  }
+
+  @media (max-width: 576px) {
+    margin-top: -40px;
+    .card.recharge-card {
+      max-width: 100%;
+    }
+  }
+}
+
+/***********************************
+ * GLEAM BUTTON (SPECIAL OFFER)
+ **********************************/
+.btn-gleam {
+  position: relative;
+  overflow: hidden; 
+  background: linear-gradient(90deg, $color-stiletto 0%, $color-brass 100%);
+  color: $color-apricot;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      115deg,
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(255, 255, 255, 0.6) 50%,
+      rgba(255, 255, 255, 0.15) 100%
+    );
+    transform: skewX(-20deg);
+  }
+  &:hover::before {
+    animation: gleam 1s ease-in-out forwards;
+  }
+}
+
+/***********************************
+ * SPECIAL OFFER SECTION
+ **********************************/
+.special-offer-section {
+  /* Use Light Apricot or Antique Brass as background if you like */
+  background-color: $color-apricot;
+  color: $color-stiletto;
+  text-align: center;
+  padding: $spacing-lg 0;
+
+  .special-offer-btn {
+    font-weight: 700;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    background-color: $color-stiletto;
+    color: $color-apricot !important;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+
+    &:hover {
+      background-color: $color-brass; 
+      transform: translateY(-2px);
+    }
+  }
+}
+
+/***********************************
+ * HOW IT WORKS SECTION
+ **********************************/
+.how-it-works-section {
+  /* Subtle difference: a slight gradient or color shift */
+  background: linear-gradient(180deg, #fff, #f8f9fa);
+  padding: $spacing-lg 0;
+
+  .section-title {
+    font-weight: 700;
+    margin-bottom: $spacing-md;
+    color: $color-stiletto;
+  }
+  .col-md-4 {
+    text-align: center;
+    h5 {
+      font-weight: 700;
+      color: $color-stiletto;
+    }
+    p {
+      color: #333;
+    }
+  }
+  i {
+    color: $color-stiletto !important;
+  }
+}
+
+/***********************************
+ * PLANS SECTION
+ **********************************/
+.plans-section {
+  background-color: #eef2f3; 
+  padding: $spacing-lg 0;
+  
+  .section-title {
+    font-weight: 700;
+    margin-bottom: $spacing-md;
+    color: $color-stiletto;
+  }
+  .plan-card {
+    border: none;
+    border-radius: $border-radius-base;
+    overflow: hidden;
+    box-shadow: $box-shadow-base;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: #fff;
+
+    &:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+    .card-body {
+      padding: 30px;
+    }
+    .card-footer {
+      background-color: #f8f9fa;
+      padding: $spacing-md;
+    }
+  }
+  /* Badge colors remain if you want them distinct */
+  .plan-basic .card-title span.badge {
+    background-color: #6c757d;
+  }
+  .plan-premium .card-title span.badge {
+    background-color: $color-apricot;
+    color: $color-stiletto;
+  }
+  .plan-unlimited .card-title span.badge {
+    background-color: #28a745;
+  }
+}
+
+/***********************************
+ * WHY CHOOSE US SECTION
+ **********************************/
+.why-choose-us-section {
+  background: #fff; 
+  padding: $spacing-lg 0;
+  border-top: 4px solid $color-stiletto;
+
+  .section-title {
+    font-weight: 700;
+    margin-bottom: $spacing-md;
+    color: $color-stiletto;
+  }
+  i {
+    color: $color-stiletto !important; 
+    transition: transform 0.3s ease, color 0.3s ease;
+    &:hover {
+      transform: scale(1.1);
+      color: $color-brass !important;
+    }
+  }
+}
+
+/***********************************
+ * TESTIMONIALS SECTION
+ **********************************/
+.testimonials-section {
+  background: linear-gradient(180deg, #fff, #f9f9f9);
+  padding: $spacing-lg 0;
+
+  .section-title {
+    font-weight: 700;
+    margin-bottom: $spacing-md;
+    color: $color-stiletto;
+  }
+  .testimonial-card {
+    border: none;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+    &:hover {
+      transform: translateY(-5px);
+    }
+    .card-text {
+      font-style: italic;
+      color: #555;
+    }
+    .bi-quote {
+      color: $color-brass; 
+      margin-right: 0.5rem;
+    }
+  }
+}
+
+/***********************************
+ * FOOTER
+ **********************************/
+.site-footer {
+  background: #222;
+  color: #ccc;
+  padding: 60px 0;
+  font-size: 0.9rem;
+
+  h5 {
+    color: #fff;
+    margin-bottom: 20px;
+    font-weight: 700;
+  }
+
+  p,
+  a {
+    color: #bbb;
+    line-height: 1.8;
+  }
+
+  a {
+    text-decoration: none;
+    transition: color 0.3s ease;
+    &:hover {
+      color: #fff;
+    }
+  }
+  .footer-link {
+    color: #bbb;
+    &:hover {
+      color: #fff;
+    }
+  }
+  .list-inline-item a {
+    font-size: 1.2rem;
+    margin-right: $spacing-sm;
+    color: #bbb;
+    transition: transform 0.3s ease;
+    &:hover {
+      color: #fff;
+      transform: scale(1.1);
+    }
+  }
+  .copyright {
+    margin-top: 40px;
+    border-top: 1px solid #444;
+    padding-top: 20px;
+    color: #777;
+  }
+}
+
+
+
+
+
+
+/***********************************
+ * Plan Page Styles
+ ***********************************/
+ .plans-page {
+  padding: $spacing-md;
+
+  .customs-header {
+    animation: slideDown 0.5s ease-out;
+
+    /* Gradient from Stiletto to Antique Brass */
+    background: linear-gradient(160deg, $color-stiletto 0%, $color-brass 100%);
+    color: $color-apricot !important;
+
+    .navbar-brand,
+    .nav-link {
+      color: $color-apricot !important;
+      transition: color 0.3s ease;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  // Main container for the filters and plans content
+  .plan-content {
+    @include media-breakpoint-up(md) {
+      display: flex;
+      gap: $spacing-lg;
+    }
+  }
+
+  // Left Sidebar (Filters)
+  .filter-sidebar {
+    h4 {
+      font-size: 1.5rem;
+      margin-bottom: $spacing-sm;
+      font-weight: bold;
+    }
+    label {
+      font-weight: 600;
+    }
+    .form-range {
+      margin-bottom: $spacing-xs;
+    }
+    select.form-select {
+      margin-bottom: $spacing-sm;
+    }
+    hr {
+      margin: $spacing-xs 0;
+    }
+  }
+
+  // Right Section: Category Tabs, Search, and Plans Grid
+  .plans-content {
+    width: 100%;
+    
+    // Category Tabs
+    #categoryTabs {
+      .nav-link {
+        font-weight: bold;
+        color: #1b1b1b;
+        transition: all 0.3s ease-in-out;
+      }
+      .nav-link.active {
+        background-color: #477ABD;
+        color: white;
+        border-color: #477ABD;
+      }
+      margin-bottom: $spacing-md;
+    }
+    
+    // Search Input
+    #planSearch {
+      margin-bottom: $spacing-md;
+    }
+    
+    // Selected Category Header
+    #selected-category {
+      text-align: center;
+      margin-bottom: $spacing-md;
+      font-weight: 700;
+      color: #0B3D91;
+    }
+    
+    // Plans Grid
+    #plan-container {
+      .card {
+        border: 2px solid #ffcccb;
+        border-radius: 12px;
+        box-shadow: $box-shadow-base;
+        transition: all 0.3s ease-in-out;
+        margin-bottom: $spacing-md;
+        padding: $spacing-md;
+        animation: fadeIn 0.5s ease-in-out;
+        
+        &:hover {
+          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+          transform: translateY(-5px);
+        }
+        
+        .price {
+          background-color: #ffcccb;
+          padding: $spacing-xs $spacing-sm;
+          border-radius: 8px;
+          font-weight: bold;
+          display: inline-block;
+        }
+      }
+    }
+  }
+}

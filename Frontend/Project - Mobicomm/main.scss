@@ -1,0 +1,358 @@
+// // Color Variables
+@import "./node_modules/bootstrap/scss/bootstrap";
+
+// $amaranth-purple: #8AD2FF;
+// $tyrian-purple: #FFADAD;
+// $oxford-blue: #224e87;
+// $best-value-badge: #28a745; // Green for Best Value badge
+// $popular-badge: #ffc107; // Yellow for Popular badge
+// $unlimited-badge: #dc3545; // Red for Unlimited badge
+// $highlight-color: #A0153E; // Define highlight color
+
+// // Font Variables
+// $font-family: 'Arial', sans-serif; // Change this to your desired font family
+// $font-size-base: 16px; // Base font size
+// $font-size-small: 0.875rem; // Small font size (14px)
+// $font-size-medium: 1rem; // Medium font size (16px)
+// $font-size-large: 1.25rem; // Large font size (20px)
+
+// // Global Styles
+// body {
+//     font-family: $font-family;
+//     font-size: $font-size-base; // Set base font size
+//     color: $oxford-blue;
+//     background-color: #f8f9fa; // Light background for contrast
+// }
+
+// h2, h3, h4, h5 {
+//     font-weight: bold;
+// }
+
+// // Navbar Styles
+
+// header {
+//     .navbar {
+//         background-color: $oxford-blue; // Use the defined color for the navbar background
+//         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); // Add a subtle shadow for depth
+
+//         .navbar-brand {
+//             display: flex; // Use flexbox for alignment
+//             align-items: center; // Center items vertically
+
+//             img {
+//                 border-radius: 50%; // Keep the logo rounded
+//             }
+
+//             span {
+//                 font-size: 1.5rem; // Font size for the brand name
+//                 color: white; // Text color for the brand name
+//                 margin-left: 10px; // Space between logo and brand name
+//             }
+//         }
+
+//         .nav-link {
+//             color: white; // Set text color to white
+//             font-size: $font-size-medium; // Set font size for nav links
+//             padding: 15px 20px; // Add padding for better spacing
+
+//             &:hover {
+//                 color: $amaranth-purple; // Change color on hover
+//                 background-color: rgba(255, 255, 255, 0.1); // Add a subtle background on hover
+//                 border-radius: 5px; // Rounded corners on hover
+//             }
+//         }
+
+//         .navbar-toggler {
+//             border-color: white; // Change the border color of the toggler
+//             &:focus {
+//                 outline: none; // Remove outline on focus
+//                 box-shadow: none; // Remove box shadow on focus
+//             }
+//         }
+
+//         .dropdown-menu {
+//             background-color: $oxford-blue; // Match dropdown background with navbar
+//             .dropdown-item {
+//                 color: white; // Set dropdown item text color
+//                 &:hover {
+//                     background-color: $amaranth-purple; // Change background on hover
+//                 }
+//             }
+//         }
+//     }
+// }
+
+// // Carousel Styles
+// .carousel {
+//     height: 400px; // Set height for the carousel
+
+//     .carousel-inner {
+//         height: 100%;
+//     }
+//     .carousel-item {
+//         height: 100%;
+//         img {
+//             height: 100%;
+//             object-fit: cover; // Cover the entire area
+//         }
+//         .carousel-caption {
+//             background: rgba(255, 255, 255, 0.7); // Semi-transparent background
+//             border-radius: 10px; // Reduced border radius
+//             padding: 10px;
+//             color: $tyrian-purple; // Change text color to tyrian purple
+//             text-align: center;
+//             transition: background 0.5s ease; // Smooth transition for backgroun
+//             h5 {
+//                 font-size: $font-size-large; // Set font size for h5
+//             }
+//             p {
+//                 font-size: $font-size-small; // Set font size for paragraph
+//             }
+//         }
+//     }
+// }
+
+// // Recharge Section Styles
+// .recharge-card {
+//     border: 1px solid $tyrian-purple; // Border color for the card
+//     border-radius: 10px; // Rounded corners
+//     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); // Subtle shadow for depth
+//     background-color: $tyrian-purple; // Set a background color for the card
+
+//     .card-header {
+//         background-color: $amaranth-purple; // Header background color
+//         color: white; // Text color for the header
+//         font-weight: bold; // Bold text
+//         font-size: $font-size-medium; // Set font size for card header
+//         padding: 15px; // Add padding for better spacing
+//         border-top-left-radius: 10px; // Rounded corners for the top left
+//         border-top-right-radius: 10px; // Rounded corners for the top right
+//     }
+
+//     .card-body {
+//         color: white; // Text color for the card body
+//         padding: 2px; // Add padding for better spacing
+//     }
+// }
+
+// .recharge-container {
+//     h3 {
+//         font-size: 1.5rem; // Reduced font size for the section title
+//         color: $amaranth-purple; // Set color for the section title
+//         margin-bottom: 20px; // Add margin for spacing below the title
+//     }
+
+//     .lead {
+//         font-size: 0.8rem; // Reduced font size for the lead text
+//         color: white; // Set color for lead text
+//         margin-bottom: 15px; // Add margin for spacing below the lead text
+//     }
+//     .card-header h4 {
+//         font-size: 1rem; // Adjusted font size for the card header
+//         color: white; // Set color for the card header text
+//     }
+// }
+
+// // Button Styles
+// .btn-light {
+//     background-color: white; // Set button background color to white
+//     border: 1px solid $amaranth-purple; // Add a border with Amaranth Purple
+//     font-size: $font-size-medium; // Set font size for buttons
+//     color: $amaranth-purple; // Set text color to Amaranth Purple
+
+//     &:hover {
+//         background-color: $amaranth-purple; // Change background color to Amaranth Purple on hover
+//         color: white; // Change text color to white on hover
+//     }
+// }
+
+// // About Us Section Styles
+// .bg-light {
+//     background-color: #f8f9fa !important;
+// }
+
+// // Available Plans Section Styles
+// .our-plans-section {
+//   background-color: $amaranth-purple; // Changed background color from light blue to oxford blu
+//   padding: 40px 0; // Reduced padding for a smaller section
+
+//   h2 {
+//       color: $amaranth-purple; // Heading color
+//       font-size: 2rem; // Reduced font size for heading
+//       margin-bottom: 20px; // Adjusted margin below heading
+//   }
+
+//   .plan-card {
+//       border: 1px solid $tyrian-purple; // Border color for the card
+//       border-radius: 8px; // Slightly reduced rounded corners for cards
+//       box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1); // Subtle shadow for depth
+//       transition: transform 0.2s, box-shadow 0.2s; // Transition for hover effects
+
+//       &:hover {
+//           transform: translateY(-3px); // Lift effect on hover
+//           box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); // Enhanced shadow on hover
+//       }
+
+//       .card-body {
+//           padding: 15px; // Reduced padding for better spacing
+
+//           .card-title {
+//               font-size: 1.1rem; // Slightly reduced font size for card titles
+//               color: rgb(158, 42, 96); // Changed title color to white
+//               display: flex; // Flexbox for alignment
+//               align-items: center; // Center items vertically
+
+//               .badge {
+//                   margin-left: 8px; // Space between title and badge
+//                   font-size: 0.75rem; // Reduced font size for badges
+//                   color: white; // Text color for badges
+//               }
+//           }
+
+//           .card-text {
+//               font-size: 0.85rem; // Reduced font size for card text
+//               color: #202020; // Lightened text color for readability
+//           }
+
+//           .price {
+//               font-size: 1.3rem; // Slightly reduced font size for price
+//               font-weight: bold; // Bold weight for emphasis
+//               color: $highlight-color; // Highlight color for price
+//           }
+//       }
+
+//       .card-footer {
+//           text-align: center; // Center the footer content
+
+//           .btn {
+//               background-color: $amaranth-purple; // Button background color
+//               border: none; // Remove border
+//               color: white; // Text color
+//               font-size: 0.9rem; // Reduced button font size
+//               padding: 8px 12px; // Adjusted button padding
+//               transition: background-color 0.3s, transform 0.2s; // Transition for hover effects
+
+//               &:hover {
+//                   background-color: $tyrian-purple; // Darker shade on hover
+//                   transform: scale(1.03); // Slightly enlarge button on hover
+//               }
+//           }
+//       }
+//   }
+// }
+
+// // FAQ Section Styles
+// .accordion-button {
+//   background-color: #f8f9fa;
+//   color: $oxford-blue;
+//   font-size: $font-size-medium; // Set font size for accordion buttons
+//   &:hover {
+//       background-color: lighten(#f8f9fa, 5%);
+//   }
+// }
+
+// // Contact Us Section Styles
+// .form-label {
+//   font-weight: bold;
+//   font-size: $font-size-medium; // Set font size for form labels
+// }
+
+// // Footer Styles
+// footer {
+//   background-color: $oxford-blue;
+//   color: white;
+//   padding: 20px 0;
+
+//   a {
+//       color: white;
+//       font-size: $font-size-small; // Set font size for footer links
+//       &:hover {
+//           color: $amaranth-purple;
+//       }
+//   }
+// }
+
+// // Error Message Styles
+// .text-danger {
+//   font-weight: bold;
+//   color: $tyrian-purple; // Use tyrian purple for error messages
+// }
+
+// .list-group-item {
+//   border: none; /* Remove border from list items */
+//   font-size: 1rem; /* Set font size for list items */
+// }
+
+// .btn-primary {
+//   background-color: $amaranth-purple; /* Primary button color */
+//   border: none; /* Remove border */
+// }
+
+// .btn-primary:hover {
+//   background-color: darken($amaranth-purple, 10%); /* Darken button color on hover */
+// }
+
+// /* General Section Styles */
+// // section {
+// //   background-color: #f0f4f8; /* Light background color */
+// //   // padding: 40px 0; /* Padding for the section */
+// //   // border-radius: 15px; /* Rounded corners */
+// //   position: relative; /* Positioning for z-index */
+// //   margin: 40px 0; /* Margin to separate from other sections */
+// // }
+
+// /* Card Styles */
+// // .plan-card {
+// //   border: none; /* Remove default border */
+// //   border-radius: 10px; /* Rounded corners for cards */
+// //   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+// //   transition: transform 0.2s, box-shadow 0.2s; /* Transition for hover effects */
+// // }
+
+// // .plan-card:hover {
+// //   transform: translateY(-5px); /* Lift effect on hover */
+// //   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+// // }
+
+// // /* Button Styles */
+// // .plan-button {
+// //   background-color: $amaranth-purple; /* Button background color */
+// //   border: none; /* Remove border */
+// //   color: white; /* Text color */
+// //   transition: background-color 0.3s, transform 0.2s; /* Transition for hover effects */
+// // }
+
+// // .plan-button:hover {
+// //   background-color: $tyrian-purple; /* Darker shade on hover */
+// //   transform: scale(1.05); /* Slightly enlarge button on hover */
+// // }
+
+// // /* Heading Styles */
+// // h2 {
+// //   color: $amaranth-purple; /* Heading color */
+// //   font-size: 2rem; /* Font size for heading */
+// //   margin-bottom: 20px; /* Margin below heading */
+// // }
+
+// // /* Card Title Styles */
+// // .card-title {
+// //   font-size: 1.25rem; /* Font size for card titles */
+// //   color: #333; /* Color for card titles */
+// //   display: flex; /* Flexbox for alignment */
+// //   align-items: center; /* Center items vertically */
+// // }
+
+// // /* Badge Styles */
+// // .badge {
+// //   margin-left: 10px; /* Space between title and badge */
+// //   font-size: 0.8rem; /* Font size for badges */
+// // }
+
+// // /* Card Text Styles */
+// // .card-text {
+// //   font-size: 0.9rem; /* Font size for card text */
+// //   color: #555; /* Color for card text */
+// // }
+
+
+

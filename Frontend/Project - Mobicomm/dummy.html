@@ -1,0 +1,391 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MobiComm Services - Mobile Prepaid Recharge</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <!-- Custom CSS (if any) -->
+  <link rel="stylesheet" href="/css/style.min.css" />
+</head>
+<body class="mobile-recharge-page d-flex flex-column min-vh-100">
+  <!-- Header -->
+  <header class="site-header">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top custom-header">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+          <img src="/Assets/Images/Mobicomm Logo.svg" alt="MobiComm Logo" class="brand-logo rounded-pill me-2">
+          <span class="fw-bold">MobiComm Services</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="mainNav">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="#heroSection">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#rechargeSection">Recharge</a></li>
+            <li class="nav-item"><a class="nav-link" href="#plansSection">Plans</a></li>
+            <li class="nav-item"><a class="nav-link" href="#whyChooseUs">Why Us</a></li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="loginDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person"></i> Login
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="loginDropdown">
+                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  
+  
+  <!-- Main Content -->
+   
+  <div style="height: 55px;"></div> <!-- Space to account for fixed header height -->
+
+  <main class="flex-grow-1">
+    <!-- Hero Banner Section -->
+    <section id="heroSection" class="hero-banner animate__animated animate__fadeIn" 
+             style="background: url('/Assets/Images/Banner.svg') no-repeat center center; background-size: cover; 
+                    background-position: center; color: #fff; padding: 150px 0;">
+      <div class="container text-center">
+        <h1 class="hero-title animate__animated animate__fadeInUp">
+          Empower Your Day with Instant Recharge
+        </h1>
+        <p class="hero-subtitle animate__animated animate__fadeInUp animate__delay-1s">
+          Experience seamless, fast, and secure mobile recharges designed to keep you connected—anytime, anywhere.
+        </p>
+        <a href="#rechargeSection" class="btn btn-primary btn-lg animate__animated animate__fadeInUp animate__delay-2s">
+          Recharge Now
+        </a>
+      </div>
+    </section>
+
+    <!-- Quick Recharge Section -->
+    <section id="rechargeSection" class="quick-recharge-section py-6">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 mb-4 mb-lg-0 text-center">
+            <img src="/Assets/Images/guestImagenumber.jpg" alt="Recharge Your Mobile" class="img-fluid rounded recharge-img">
+          </div>
+          <div class="col-lg-6">
+            <h3 class="section-title mb-4 text-center">Quick Mobile Recharge</h3>
+            <div class="card recharge-card">
+              <div class="card-header text-center">
+                <h4>Recharge Instantly</h4>
+              </div>
+              <div class="card-body text-center">
+                <div class="mx-auto" style="max-width: 400px;">
+                  <form onsubmit="validateNumber(event)">
+                    <div class="mb-3">
+                      <input type="text" id="mobileNumber" class="form-control" placeholder="Enter 10-digit mobile number" required>
+                    </div>
+                    <p id="error-message" class="text-danger"></p>
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-primary recharge-btn w-auto">Recharge Now</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div> <!-- .card -->
+          </div> <!-- .col-lg-6 -->
+        </div> <!-- .row -->
+      </div> <!-- .container -->
+    </section>
+    
+    <!-- Plans Section -->
+    <section id="plansSection" class="plans-section py-5 bg-light">
+      <div class="container">
+        <h2 class="section-title text-center mb-5">Our Exclusive Plans</h2>
+        <div class="row">
+          <!-- Basic Plan -->
+          <div class="col-md-4 mb-4">
+            <div class="card plan-card h-100 plan-basic">
+              <div class="card-body">
+                <h5 class="card-title text-center">Basic Plan <span class="badge">Value</span></h5>
+                <div class="plan-price text-center my-3">
+                  <span class="display-6">₹299</span>
+                  <small>30 Days</small>
+                </div>
+                <ul class="list-unstyled">
+                  <li><strong>Data:</strong> 2GB</li>
+                  <li><strong>Calls:</strong> 100 mins</li>
+                  <li><strong>SMS:</strong> 100 SMS</li>
+                </ul>
+              </div>
+              <div class="card-footer text-center">
+                <a class="btn btn-outline-primary w-100" href="#rechargeSection">View Details</a>
+              </div>
+            </div>
+          </div>
+          <!-- Premium Plan -->
+          <div class="col-md-4 mb-4">
+            <div class="card plan-card h-100 plan-premium">
+              <div class="card-body">
+                <h5 class="card-title text-center">Premium Plan <span class="badge">Popular</span></h5>
+                <div class="plan-price text-center my-3">
+                  <span class="display-6">₹499</span>
+                  <small>30 Days</small>
+                </div>
+                <ul class="list-unstyled">
+                  <li><strong>Data:</strong> 5GB</li>
+                  <li><strong>Calls:</strong> 300 mins</li>
+                  <li><strong>SMS:</strong> 300 SMS</li>
+                </ul>
+              </div>
+              <div class="card-footer text-center">
+                <a class="btn btn-outline-primary w-100" href="#rechargeSection">View Details</a>
+              </div>
+            </div>
+          </div>
+          <!-- Unlimited Plan -->
+          <div class="col-md-4 mb-4">
+            <div class="card plan-card h-100 plan-unlimited">
+              <div class="card-body">
+                <h5 class="card-title text-center">Unlimited Plan <span class="badge">Best Seller</span></h5>
+                <div class="plan-price text-center my-3">
+                  <span class="display-6">₹799</span>
+                  <small>30 Days</small>
+                </div>
+                <ul class="list-unstyled">
+                  <li><strong>Data:</strong> Unlimited</li>
+                  <li><strong>Calls:</strong> Unlimited</li>
+                  <li><strong>SMS:</strong> 500 SMS</li>
+                </ul>
+              </div>
+              <div class="card-footer text-center">
+                <a class="btn btn-outline-primary w-100" href="#rechargeSection">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div> <!-- .row -->
+      </div> <!-- .container -->
+    </section>
+    
+    <!-- Why Choose Us Section -->
+    <section id="whyChooseUs" class="why-choose-us-section py-5">
+      <div class="container">
+        <h2 class="section-title text-center mb-5">Why Choose MobiComm?</h2>
+        <div class="row">
+          <div class="col-md-4 mb-4 text-center">
+            <i class="bi bi-lightning-charge display-4 text-primary"></i>
+            <h5 class="mt-3">Fast & Secure</h5>
+            <p>Experience instant, secure recharges with cutting-edge technology.</p>
+          </div>
+          <div class="col-md-4 mb-4 text-center">
+            <i class="bi bi-check-circle display-4 text-primary"></i>
+            <h5 class="mt-3">Best Value Plans</h5>
+            <p>Our carefully crafted plans deliver maximum value for every rupee.</p>
+          </div>
+          <div class="col-md-4 mb-4 text-center">
+            <i class="bi bi-headset display-4 text-primary"></i>
+            <h5 class="mt-3">24/7 Support</h5>
+            <p>Our expert team is always available to ensure a seamless experience.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <!-- PROFESSIONAL FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <h5>About MobiComm</h5>
+          <p>MobiComm Services offers secure, reliable, and affordable mobile prepaid recharge solutions to keep you connected.</p>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="#heroSection" class="footer-link">Home</a></li>
+            <li><a href="#rechargeSection" class="footer-link">Recharge</a></li>
+            <li><a href="#plansSection" class="footer-link">Plans</a></li>
+            <li><a href="#whyChooseUs" class="footer-link">Why Us</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Follow Us</h5>
+          <ul class="list-inline">
+            <li class="list-inline-item"><a href="#" class="footer-link"><i class="bi bi-facebook"></i></a></li>
+            <li class="list-inline-item"><a href="#" class="footer-link"><i class="bi bi-twitter"></i></a></li>
+            <li class="list-inline-item"><a href="#" class="footer-link"><i class="bi bi-instagram"></i></a></li>
+            <li class="list-inline-item"><a href="#" class="footer-link"><i class="bi bi-linkedin"></i></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="text-center copyright">
+        <p class="mb-0">© 2025 MobiComm Services. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- Login Modal (OTP Flow) -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <header class="modal-header">
+          <h5 class="modal-title" id="loginModalLabel">Login via OTP</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </header>
+        <div class="modal-body">
+          <form id="loginForm">
+            <!-- Phone Number Input -->
+            <div class="mb-3">
+              <label for="phoneNumber" class="form-label">Phone Number</label>
+              <input type="text" class="form-control" id="phoneNumber" placeholder="Enter 10-digit phone number" required />
+            </div>
+
+            <!-- OTP Display (Bootstrap Alert) - hidden until OTP is generated -->
+            <div class="alert alert-info d-none" role="alert" id="otpAlert">
+              <strong>Your OTP:</strong> <span id="otpValue"></span>
+            </div>
+
+            <!-- OTP Input (hidden initially) -->
+            <div class="mb-3 d-none" id="otpGroup">
+              <label for="otpInput" class="form-label">Enter OTP</label>
+              <input type="text" class="form-control" id="otpInput" placeholder="Enter the OTP shown above" required />
+            </div>
+
+            <div id="login-error-message" class="text-danger text-center d-none"></div>
+            
+            <!-- Button toggles between "Generate OTP" and "Verify OTP" -->
+            <button type="submit" class="btn btn-primary w-100 mt-2" id="loginBtn">Generate OTP</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+
+
+  <!-- Bootstrap Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom Scripts -->
+  <script>
+    let generatedOTP = null;
+
+    // Login form submission handling
+    document.getElementById("loginForm").addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const phoneNumberInput = document.getElementById("phoneNumber");
+      const phoneNumber = phoneNumberInput.value.trim();
+      const loginBtn = document.getElementById("loginBtn");
+      const errorMessage = document.getElementById("login-error-message");
+      const otpAlert = document.getElementById("otpAlert");
+      const otpValue = document.getElementById("otpValue");
+      const otpGroup = document.getElementById("otpGroup");
+      const otpInput = document.getElementById("otpInput");
+
+      // Clear old error messages
+      errorMessage.textContent = "";
+      errorMessage.classList.add("d-none");
+
+      // Step 1: If no OTP is generated yet, we are in "Generate OTP" mode
+      if (!generatedOTP) {
+        // Validate phone number
+        if (!/^\d{10}$/.test(phoneNumber)) {
+          errorMessage.textContent = "Please enter a valid 10-digit phone number.";
+          errorMessage.classList.remove("d-none");
+          return;
+        }
+        try {
+          // Fetch the user data
+          const response = await fetch("/HTML/Users.json");
+          if (!response.ok) throw new Error("Failed to load user data");
+          const data = await response.json();
+
+          // Check if phone number exists
+          const user = data.users.find(u => u.phone === phoneNumber);
+          if (!user) {
+            errorMessage.textContent = "Phone number not registered with MobiComm.";
+            errorMessage.classList.remove("d-none");
+            return;
+          }
+
+          // Generate a random 4-digit OTP
+          generatedOTP = Math.floor(1000 + Math.random() * 9000).toString();
+
+          // Show OTP in a Bootstrap alert
+          otpValue.textContent = generatedOTP;
+          otpAlert.classList.remove("d-none");
+
+          // Reveal the OTP input field
+          otpGroup.classList.remove("d-none");
+
+          // Switch button text to "Verify OTP"
+          loginBtn.textContent = "Verify OTP";
+
+          // Disable the phone number field
+          phoneNumberInput.disabled = true;
+
+        } catch (error) {
+          console.error("Error:", error);
+          errorMessage.textContent = "Error generating OTP. Please try again later.";
+          errorMessage.classList.remove("d-none");
+        }
+      }
+      // Step 2: If we already have an OTP, we are in "Verify OTP" mode
+      else {
+        const enteredOTP = otpInput.value.trim();
+        if (enteredOTP === generatedOTP) {
+          // Success: redirect to PlanLogin.html
+          window.location.href = "/PlanLogin.html";
+        } else {
+          errorMessage.textContent = "Invalid OTP. Please try again.";
+          errorMessage.classList.remove("d-none");
+        }
+      }
+    });
+
+    // Validate mobile number for recharge
+    async function validateNumber(event) {
+      event.preventDefault();
+      const mobileNumber = document.getElementById("mobileNumber").value.trim();
+      const errorMessage = document.getElementById("error-message");
+      errorMessage.textContent = "";
+
+      if (!/^\d{10}$/.test(mobileNumber)) {
+        errorMessage.textContent = "Please enter a valid 10-digit phone number.";
+        return;
+      }
+
+      try {
+        const response = await fetch("/HTML/Users.json");
+        const data = await response.json();
+        const validNumbers = data.users.map(u => u.phone);
+
+        if (validNumbers.includes(mobileNumber)) {
+          window.location.href = "/HTML/PlanRecharge.html";
+        } else {
+          errorMessage.textContent = "The number you entered is not registered with MobiComm.";
+        }
+      } catch (error) {
+        errorMessage.textContent = "Error fetching data. Please try again later.";
+      }
+    }
+
+    // Attach click event to each plan card to scroll to the recharge section
+    document.querySelectorAll('.plan-card').forEach(card => {
+      card.addEventListener('click', (event) => {
+        if (!event.target.closest('a')) {
+          document.getElementById('rechargeSection').scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>  
