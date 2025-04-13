@@ -617,7 +617,9 @@
         })
         .then(data => {
           console.log("Payment verification response:", data);
-          paymentStatus.textContent = "Payment successful! Notifications sent.";
+          paymentStatus.textContent = data.smsSent 
+            ? "Payment successful! Notifications sent."
+            : "Payment successful! Email sent, SMS failed.";
           paymentStatus.classList.add("success");
           spinner.style.display = "none";
           payButton.disabled = true;
@@ -644,34 +646,24 @@
           }, 5000);
         })
         .catch(error => {
-  console.error("Error:", error);
-
-  // Show error message
-  showError("Payment failed. Please try again. You will be redirected to the home page in 5 seconds.");
-
-  // Hide spinner and re-enable pay button
-  spinner.style.display = "none";
-  payButton.disabled = false;
-
-  // Handle session expiration separately
-  if (error.message === "Your session has expired. Please log in again.") {
-    token = null; // Clear token
-    localStorage.removeItem("token");
-    showError("Your session has expired. Please log in to complete your payment.");
-    setTimeout(() => {
-      window.location.href = "/HTML/Guest.html?showLogin=true&message=Please log in to complete your payment.";
-    }, 2000);
-  } else {
-    // Clear transaction data from localStorage
-    localStorage.removeItem("transactionId");
-    localStorage.removeItem("mobileNumber");
-
-    // Redirect to guest.html after 5 seconds
-    setTimeout(() => {
-      window.location.href = "/HTML/Guest.html";
-    }, 5000);
-
-      }
+          console.error("Error:", error);
+          showError("Payment failed. Please try again. You will be redirected to the home page in 5 seconds.");
+          spinner.style.display = "none";
+          payButton.disabled = false;
+          if (error.message === "Your session has expired. Please log in again.") {
+            token = null;
+            localStorage.removeItem("token");
+            showError("Your session has expired. Please log in to complete your payment.");
+            setTimeout(() => {
+              window.location.href = "/HTML/Guest.html?showLogin=true&message=Please log in to complete your payment.";
+            }, 2000);
+          } else {
+            localStorage.removeItem("transactionId");
+            localStorage.removeItem("mobileNumber");
+            setTimeout(() => {
+              window.location.href = "/HTML/Guest.html";
+            }, 5000);
+          }
         });
       }
     });
