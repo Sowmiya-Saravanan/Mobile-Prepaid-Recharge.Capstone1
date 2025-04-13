@@ -102,7 +102,7 @@ public class PaymentService {
 
         updateSubscriber(transaction);
         sendConfirmationEmail(transaction);
-        sendConfirmationSms(transaction);
+        sendConfirmationSms(transaction); // SMS failure won't throw exception
     }
 
     public void cancelPayment(Long transactionId) {
@@ -188,8 +188,8 @@ public class PaymentService {
             throw new RuntimeException("Failed to create Razorpay order: " + e.getMessage(), e);
         }
     }
-    public void verifyAndCompleteRazorpayPayment(String razorpayPaymentId, String razorpayOrderId, 
-                                                 String razorpaySignature, Long transactionId) throws Exception {
+    public Map<String, Object> verifyAndCompleteRazorpayPayment(String razorpayPaymentId, String razorpayOrderId, 
+                                                               String razorpaySignature, Long transactionId) throws Exception {
         // Verify Razorpay signature
         JSONObject attributesJson = new JSONObject();
         attributesJson.put("razorpay_payment_id", razorpayPaymentId);
@@ -206,7 +206,6 @@ public class PaymentService {
         RechargeTransaction transaction = transactionRepository.findById(transactionId)
                 .orElseThrow(() -> new RuntimeException("Transaction not found: " + transactionId));
 
-        // Validate ownership (will skip for guest users)
         validateOwnership(transaction);
 
         if (transaction.getStatus() != TransactionStatus.PENDING) {
@@ -234,9 +233,13 @@ public class PaymentService {
         // Update subscriber and send notifications
         updateSubscriber(transaction);
         sendConfirmationEmail(transaction);
-        sendConfirmationSms(transaction);
-    }
+        boolean smsSent = sendConfirmationSms(transaction); // Capture SMS status
 
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", "Payment successful");
+        response.put("smsSent", smsSent);
+        return response;
+    }
     private void validateOwnership(RechargeTransaction transaction) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null && auth.isAuthenticated() && !(auth instanceof AnonymousAuthenticationToken)) {
@@ -245,7 +248,7 @@ public class PaymentService {
                     .orElseThrow(() -> new RuntimeException("Subscriber not found for mobile: " + mobileNumberFromToken));
             if (!transaction.getMobileNumber().equals(subscriber.getMobileNumber())) {
                 log.error("Unauthorized: Transaction mobile number {} does not match subscriber mobile number {}", 
-                          transaction.getMobileNumber(), subscriber.getMobileNumber());
+                        transaction.getMobileNumber(), subscriber.getMobileNumber());
                 throw new RuntimeException("Unauthorized: Transaction does not belong to this user");
             }
         } else {
@@ -266,6 +269,22 @@ public class PaymentService {
         subscriberRepository.save(subscriber);
     }
 
+    private boolean sendConfirmationSms(RechargeTransaction transaction) {
+        try {
+            Subscriber subscriber = subscriberRepository.findByMobileNumber(transaction.getMobileNumber())
+                    .orElseThrow(() -> new RuntimeException("Subscriber not found"));
+            String messageBody = String.format(
+                    "Dear %s, your recharge of ₹%.2f for the %s plan has been successfully processed. Transaction ID: %d. Thank you!",
+                    subscriber.getUser().getUsername(), transaction.getAmount().doubleValue(),
+                    transaction.getRechargePlan().getPlanName(), transaction.getTransactionId());
+            twilioService.sendSms(transaction.getMobileNumber(), messageBody);
+            return true;
+        } catch (Exception e) {
+            log.error("Failed to send SMS for transaction ID {}: {}", transaction.getTransactionId(), e.getMessage());
+            return false;
+        }
+    }
+
     private void sendConfirmationEmail(RechargeTransaction transaction) {
         Subscriber subscriber = subscriberRepository.findByMobileNumber(transaction.getMobileNumber())
                 .orElseThrow(() -> new RuntimeException("Subscriber not found for mobile number: " + transaction.getMobileNumber()));
@@ -284,17 +303,11 @@ public class PaymentService {
                 transaction.getPaymentMethod() != null ? transaction.getPaymentMethod().name() : "N/A",
                 transaction.getPaymentProvider() != null ? " (" + transaction.getPaymentProvider() + ")" : "",
                 transaction.getTransactionDate().toString()));
-        mailSender.send(message);
-    }
-
-    private void sendConfirmationSms(RechargeTransaction transaction) {
-        Subscriber subscriber = subscriberRepository.findByMobileNumber(transaction.getMobileNumber())
-                .orElseThrow(() -> new RuntimeException("Subscriber not found"));
-        String messageBody = String.format(
-                "Dear %s, your recharge of ₹%.2f for the %s plan has been successfully processed. Transaction ID: %d. Thank you!",
-                subscriber.getUser().getUsername(), transaction.getAmount().doubleValue(),
-                transaction.getRechargePlan().getPlanName(), transaction.getTransactionId());
-        twilioService.sendSms(transaction.getMobileNumber(), messageBody);
+        try {
+            mailSender.send(message);
+        } catch (Exception e) {
+            log.error("Failed to send email for transaction ID {}: {}", transaction.getTransactionId(), e.getMessage());
+        }
     }
 
     private AppUser getCurrentUser() {
